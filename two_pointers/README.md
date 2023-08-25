@@ -77,3 +77,16 @@ We can understand this to be `j` gets incremented when element at `j` is not equ
 (2) `i` and `j` are not equal. For a swap to happen, `i` must be pointing to an element that is NOT equal to `j`, and for `j`
 to be not equal to `i`, `j` must be pointing to an element that's equal to `val` (since `i` only increments without `j` if `nums[i] == val`)
 
+### 283. Move Zeroes
+**My solution:**
+
+Very similar to previous problem.
+
+`j` represents the index where next non-zero element should be placed. All elements to the left of `j` are non-zero.
+
+`i` is used to loop through the array with a `for` loop. If `nums[i] != 0`, swap with `nums[j]`.
+
+
+Different from last problem: in last problem, we only care about the first `j` elements in array, all elements from index `j` onwards
+are not important, so when we swap, we are not necessarily swapping, it's just setting element at `j` to be equal to element at `i`.
+In this problem, elements need to be actually swapped.
