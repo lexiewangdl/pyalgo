@@ -4,9 +4,6 @@
 
 
 def remove_element(nums: list, val: int) -> int:
-    if len(nums) == 0:
-        return 0
-
     j = 0  # Number of elements that is NOT equal to val, also index where next un-equal element should be placed
     for i in range(len(nums)):
         if nums[i] != val:  # Found element that's not equal to val
