@@ -4,9 +4,10 @@ def twoSum(numbers: list, target: int) -> list:
     r = len(numbers) - 1
 
     while r > l:
-        if numbers[l] + numbers[r] == target:
+        sum = numbers[l] + numbers[r]
+        if sum == target:
             break
-        if numbers[l] + numbers[r] > target:
+        if sum > target:
             r -= 1
         else:
             l += 1
