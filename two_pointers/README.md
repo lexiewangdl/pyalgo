@@ -107,3 +107,20 @@ the element pointed to by `l` is too small, must increment `l` to increase sum.
 
 Left and right pointers. Initialize `l = 0` and `r = len(s) - 1`, swap `l` and `r` at every step, increment `l` and 
 decrement `r` simultaneously, stop when `l >= r`
+
+### 5. Longest Palindromic Substring (Medium)
+
+This question can be divided into two parts:
+(1) How to find the longest palindrome given an index in string? (2) Check for indices in string.
+
+(1) How to find the longest palindrome given an index in string?
+
+Start at the middle index of the string, use two pointers `l` and `r` and gradually expand the window while the following 
+criteria are satisfied: `l >= 0`, `r <= len(nums)`, and `s[l] == s[r]`.
+
+(2) We need to check all substrings. However, we don't want to actually check all possible substrings.
+Thus, we can find the longest palindrome for every single index.
+There are two scenarios: (1) the longest palindrome has odd-numbered length, e.g. "aba", in this case,
+the starting values of `l` and `r` (for previous sub-task) are both equal to `i`. (2) the longest palindrome has even-numbered
+length, in this case, `l` and `r` should be `i` and `i+1`.
+
