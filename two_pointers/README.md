@@ -90,3 +90,16 @@ Very similar to previous problem.
 Different from last problem: in last problem, we only care about the first `j` elements in array, all elements from index `j` onwards
 are not important, so when we swap, we are not necessarily swapping, it's just setting element at `j` to be equal to element at `i`.
 In this problem, elements need to be actually swapped.
+
+### 167. Two Sum II - Input Array Is Sorted
+**My solution**:
+
+Use a *sliding window* approach.
+
+Since the input array is sorted in non-descending order, smaller elements are to the left and larger elements are to the right.
+Use two pointers `l` and `r`, `l` starts at index `0` and `r` starts at index `len-1`. Shrink the window gradually as we approach the answer.
+
+If `nums[l] + nums[r] == target`, we have found the answer, return the answer. Otherwise, if `nums[l] + nums[r] > target`,
+we know that we must shrink the window by decrementing `r` to reduce the sum. If `nums[l] + nums[r] < target`, we know that
+the element pointed to by `l` is too small, must increment `l` to increase sum.
+
