@@ -2,6 +2,8 @@
 
 
 ## Two Pointers on Arrays
+
+Date: Aug 24
 ### 26. Remove Duplicates from Sorted Array (Easy)
 **My solution**: to remove duplicates from sorted array in place, use two pointers to keep track of elements.
 All elements to the left of the L pointer are elements we have checked and processed, and the element pointed to by the R pointer
@@ -37,3 +39,20 @@ def removeDuplicates(nums: list) -> int:
             j += 1
     return j
 ```
+
+### 83. Remove Duplicates from Sorted List (Easy)
+**My solution**:
+
+Similar to previous problem, use two pointers. 
+`p1` represents the last unique element (note that this is a little different from last question,
+where `j-1` is the last unique element and `j` is the index where next unique element should be placed at).
+This is because once we found the next unique element, we would want to make `p1.next` point to the next unique element.
+`p2` is the next element to be checked. If `p2.val == p1.val`, it suggests that `p2` is a duplicate
+of `p1`, so we only move `p2` pointer to its next node, which is same as ignoring this node. If `p2.val != p1.val`,
+we have found the next unique element in linked list, at this point, we make `p1.next` point to `p2`, which is
+same as deleting all nodes in between.
+
+At the end, it's important to set `p1.next = None`, this is because there could be trailing duplicates at the end. For example, 
+if linked list is `1 -> 2 -> 3 (p1) -> 3 -> None (p2)`, since `p2` is already out of linked list, we are out of
+the while loop, but `p1.next` is still pointing to a trailing duplicate node.
+Since we know for sure that `p1` is the last unique node, we can safely delete all trailing nodes.
