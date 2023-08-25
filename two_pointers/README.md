@@ -70,3 +70,10 @@ the list is not sorted, and element at any index could be equal to `val`.
 we do nothing, which means `i` gets incremented by 1, whereas `j` remains unchanged. If `nums[i] != val`, it means that we have found
 an element that's NOT equal to `val`, and this element needs to be placed at index `j`.
 
+Note that `j` only gets incremented after a swap happens. 
+There are two scenarios in which a swap happens: (1)
+`i` and `j` are equal (pointing to same element), in this case, a swap doesn't change anything. 
+We can understand this to be `j` gets incremented when element at `j` is not equal to `val`.
+(2) `i` and `j` are not equal. For a swap to happen, `i` must be pointing to an element that is NOT equal to `j`, and for `j`
+to be not equal to `i`, `j` must be pointing to an element that's equal to `val` (since `i` only increments without `j` if `nums[i] == val`)
+
