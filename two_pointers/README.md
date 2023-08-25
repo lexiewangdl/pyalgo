@@ -56,3 +56,17 @@ At the end, it's important to set `p1.next = None`, this is because there could 
 if linked list is `1 -> 2 -> 3 (p1) -> 3 -> None (p2)`, since `p2` is already out of linked list, we are out of
 the while loop, but `p1.next` is still pointing to a trailing duplicate node.
 Since we know for sure that `p1` is the last unique node, we can safely delete all trailing nodes.
+
+### 27. Remove Element (Easy)
+**My solution**:
+
+Use two pointers `i` and `j`.
+
+`j` is the number of elements in array that is not equal to val, which is also the index
+where the next unequal element should be placed at. The initial value of `j` is `0` because 
+the list is not sorted, and element at any index could be equal to `val`.
+
+`i` is what we use to loop through the array with a `for` loop. It checks the value at index `i`, if `nums[i]` is equal to `val`, 
+we do nothing, which means `i` gets incremented by 1, whereas `j` remains unchanged. If `nums[i] != val`, it means that we have found
+an element that's NOT equal to `val`, and this element needs to be placed at index `j`.
+
