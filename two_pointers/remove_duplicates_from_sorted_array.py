@@ -16,6 +16,17 @@ Return k.
 """
 
 
+# Better solution
+def removeDuplicates(nums: list) -> int:
+    j = 1
+    for i in range(1, len(nums)):
+        if nums[i] != nums[i - 1]:
+            nums[j] = nums[i]
+            j += 1
+    return j
+
+
+# My solution
 def remove_duplicates(nums: list) -> int:
     if len(nums) == 1:
         return 1
@@ -28,8 +39,6 @@ def remove_duplicates(nums: list) -> int:
         while p2 < len(nums) and nums[p1] == nums[p2]:
             p2 += 1
         p1 += 1
-        if p2 == len(nums):
-            return p1
 
     return p1
 
