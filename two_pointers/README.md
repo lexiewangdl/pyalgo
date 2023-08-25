@@ -77,7 +77,7 @@ We can understand this to be `j` gets incremented when element at `j` is not equ
 (2) `i` and `j` are not equal. For a swap to happen, `i` must be pointing to an element that is NOT equal to `j`, and for `j`
 to be not equal to `i`, `j` must be pointing to an element that's equal to `val` (since `i` only increments without `j` if `nums[i] == val`)
 
-### 283. Move Zeroes
+### 283. Move Zeroes (Easy)
 **My solution:**
 
 Very similar to previous problem.
@@ -91,7 +91,7 @@ Different from last problem: in last problem, we only care about the first `j` e
 are not important, so when we swap, we are not necessarily swapping, it's just setting element at `j` to be equal to element at `i`.
 In this problem, elements need to be actually swapped.
 
-### 167. Two Sum II - Input Array Is Sorted
+### 167. Two Sum II - Input Array Is Sorted (Medium)
 **My solution**:
 
 Use a *sliding window* approach.
@@ -103,3 +103,7 @@ If `nums[l] + nums[r] == target`, we have found the answer, return the answer. O
 we know that we must shrink the window by decrementing `r` to reduce the sum. If `nums[l] + nums[r] < target`, we know that
 the element pointed to by `l` is too small, must increment `l` to increase sum.
 
+### 344. Reverse String (Easy)
+
+Left and right pointers. Initialize `l = 0` and `r = len(s) - 1`, swap `l` and `r` at every step, increment `l` and 
+decrement `r` simultaneously, stop when `l >= r`
