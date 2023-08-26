@@ -1,5 +1,10 @@
 # Binary Tree Problems
 
+**Table of Contents**
+- (104) Maximum Depth of Binary Tree (E)
+- (543) Diameter of Binary Tree (E)
+- (515) Find Largest Value in Each Tree Row (M)
+
 ### 104. Maximum Depth of Binary Tree (Easy)
 
 **My solution 1**: Divide and Conquer with Recursive Helper Function
@@ -61,5 +66,15 @@ Note:
 in this way, we can have access to information passed up by its children (subtrees).
 - It's important to plan ahead what should be returned by the helper function. The returned value should be a property of the subtree that helps solve the problem.
 
+
+Time complexity: O(N)
+
+### 515. Find Largest Value in Each Tree Row
+Use level-order traversal of binary tree (BFS). Use a queue to store nodes to visit. At the end of every level, 
+enqueue a `None` node to indicate that end of level has been reached. Whenever a `None` node is seen, 
+increment `level` by one, and add another `None` node to queue (this is because if we have finished processed one level, 
+all nodes of next level have been enqueued already). The initial value of `level` is 0 because we will use this as an index for `res` array.
+`res` is an array of size _h_ where _h_ is number of levels in tree, at each index `i`, the value is the largest value
+in _i_-th tree row. Exit out of the while loop when we have popped a null node and then the length of queue becomes 0.
 
 Time complexity: O(N)
