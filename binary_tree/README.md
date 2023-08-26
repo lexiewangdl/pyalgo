@@ -56,3 +56,10 @@ Use a recursive helper method that finds the max depth of a node (the subtree fo
 by comparing the depth of its left and right subtrees. Use **post-order** operation to add the max depth
 of left and right subtree and compare with global variable `res` to update `res`.
 
+Note: 
+- The operation to calculate sum of max depth of two subtrees must be done at **post-order** position, because only
+in this way, we can have access to information passed up by its children (subtrees).
+- It's important to plan ahead what should be returned by the helper function. The returned value should be a property of the subtree that helps solve the problem.
+
+
+Time complexity: O(N)
