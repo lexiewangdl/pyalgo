@@ -39,3 +39,7 @@ to know the depth of left subtree and right subtree first to find the max of the
 - Return type of `traverse()` is `None`
 - At each node, calculates depth of current node by adding 1 to depth of parent node, which is passed along as we call the helpder function `traverse()`
 - Why pre-order? As we get to a node from its parent node, the depth needs to be updated. After the update, the depth is actual depth of current node, which will be passed to its child nodes
+
+**Summary**:
+Pre-order operations only have access to information passed from **parent** nodes, however, post-order operations have access to
+information passed up by its **children** (subtrees).
