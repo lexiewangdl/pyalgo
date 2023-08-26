@@ -20,7 +20,7 @@ def dfs(node) -> int:
 ```
 
 At node 15, left and right subtrees are both `None`, with height = 0. Node 9 adds height of 1 to subtree, so max depth at node 9 is max(0+1, 0+1) = 1.
-Same applies to node 7. At node 20, max depth is max(1+1, 1+1) = 2. The rest of it is just the same thing. (Note: root node is visited last).
+Same applies to node 7. At node 20, max depth is max(1+1, 1+1) = 2. The rest of it is just the same thing. 
 ```angular2html
 Node:  9 	Max depth at node:  1
 Node:  15 	Max depth at node:  1
@@ -28,6 +28,9 @@ Node:  7 	Max depth at node:  1
 Node:  20 	Max depth at node:  2
 Node:  3 	Max depth at node:  3
 ```
+
+Note: it's easy to notice that the order is **post-order**, why? This is because to know the max depth of current subtree, you need
+to know the depth of left subtree and right subtree first to find the max of the two. This is why the root node of a subtree is always visited last.
 
 **My solution 2:** Pre-order traversal of tree
 - Use a **global variable** `res` to keep track of maximum depth we have seen so far
