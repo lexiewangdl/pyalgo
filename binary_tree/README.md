@@ -43,3 +43,16 @@ to know the depth of left subtree and right subtree first to find the max of the
 **Summary**:
 Pre-order operations only have access to information passed from **parent** nodes, however, post-order operations have access to
 information passed up by its **children** (subtrees).
+
+### 543. Diameter of Binary Tree (Easy)
+[Tree example](https://assets.leetcode.com/uploads/2021/03/06/diamtree.jpg)
+
+This problem is similar to the previous problem. The diameter of a binary tree is the length of the longest path between any two nodes in a tree.
+The longest path between any two nodes is actually the sum of max depth of left subtree and max depth of right subtree.
+
+**My solution 1**: Divide and Conquer with Recursive Helper Function
+
+Use a recursive helper method that finds the max depth of a node (the subtree for which the root is current node)
+by comparing the depth of its left and right subtrees. Use **post-order** operation to add the max depth
+of left and right subtree and compare with global variable `res` to update `res`.
+
