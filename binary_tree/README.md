@@ -2,18 +2,15 @@
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
-**Rationale**: 
+**My solution 1**: Divide and Conquer with Recursive Helper Function
 
 Whether it's possible to define a _recursive function_ that 
 calculates the answer of current problem based on the 
 solution to the subproblem (subtree)? Yes!
 
-At each node, what needs to be done? At each node, we want to know _height of node_. Different from how height is defined 
-for binary trees, in this case, the height is the number of layers
-of the current subtree (where current node is root). If node is `None`, its height is 0.
-This can also be thought of as the _max depth of left and right subtrees_.
+At each node, what needs to be done? At each node, we want to know _max depth of current subtree_, which is the maximum between depth
+of current node's left subtree and right subtree plus 1. If node is `None`, the max depth of current subtree whose root is current node is 0.
 
-**My solution**:
 The following helper function aims at finding the max depth of a node's left and right subtrees.
 ```python3
 def dfs(node) -> int:
@@ -23,7 +20,7 @@ def dfs(node) -> int:
 ```
 
 At node 15, left and right subtrees are both `None`, with height = 0. Node 9 adds height of 1 to subtree, so max depth at node 9 is max(0+1, 0+1) = 1.
-Same applies to node 7. At node 20, max depth is max(1+1, 1+1) = 2. The rest of it is just the same thing.
+Same applies to node 7. At node 20, max depth is max(1+1, 1+1) = 2. The rest of it is just the same thing. (Note: root node is visited last).
 ```angular2html
 Node:  9 	Max depth at node:  1
 Node:  15 	Max depth at node:  1
@@ -32,4 +29,10 @@ Node:  20 	Max depth at node:  2
 Node:  3 	Max depth at node:  3
 ```
 
-Note: the order in which nodes are visited is _post-order_, left subtree visited first, then right subtree, then root node.
+**My solution 2:** Pre-order traversal of tree
+- Use a **global variable** `res` to keep track of maximum depth we have seen so far
+- Update `res` if `depth` of current node is greater than `res`
+- Default value of `res` is 0, applies to situations where input tree is `None`
+- Return type of `traverse()` is `None`
+- At each node, calculates depth of current node by adding 1 to depth of parent node, which is passed along as we call the helpder function `traverse()`
+- Why pre-order? As we get to a node from its parent node, the depth needs to be updated. After the update, the depth is actual depth of current node, which will be passed to its child nodes

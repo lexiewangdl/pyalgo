@@ -2,6 +2,7 @@
 from tree_node import TreeNode
 
 
+# Solution 1: Recursive / Divide and Conquer
 def dfs(node) -> int:
     if not node:
         return 0
@@ -12,6 +13,25 @@ def dfs(node) -> int:
 
 def maxDepth(root) -> int:
     return dfs(root)
+
+
+# Solution 2: Traversal
+class Solution:
+    res = 0
+
+    def traverse(self, node, depth) -> None:
+        if not node:
+            return
+        depth += 1
+        if (depth > self.res):
+            self.res = depth
+
+        self.traverse(node.left, depth)
+        self.traverse(node.right, depth)
+
+    def maxDepth(self, root) -> int:
+        self.traverse(root, 0)
+        return self.res
 
 
 if __name__ == "__main__":
