@@ -15,9 +15,8 @@ class Solution:
             n_coins = math.inf
             for coin in coins:
                 # if i-coin is out of range, or
-                # if value for i-coin has not been calculated, or
                 # if summing to i-coin is impossible
-                if i - coin >= 0 and self.memo[i - coin] != -2 and self.memo[i - coin] != -1:
+                if i - coin >= 0 and self.memo[i - coin] != -1:
                     n_coins = min(1 + self.memo[i - coin], n_coins)
                     print(f"Coin: {coin}", " Num coins: ", n_coins)
 

@@ -12,7 +12,7 @@ to store all numbers that we calculated in previous steps.
 Time complexity: O(n), Space complexity: O(1)
 
 ### 322. Coin Change
-Rationale:
+**My solution 1: Top-down approach**
 
 This question can be solved using a dynamic programming approach because this problem can be broken down
 into sub-problems of the same type as the main problem. 
@@ -37,3 +37,19 @@ for coin in coins:
 ```
 - If we don't use `memo` to note down previously calculated values, there will be a lot of redundant calculations
 - After every calculation, update corresponding value in `memo`
+
+**My solution 2: Bottom-up approach**
+
+Instead of recursively calling `dp()`, we can also build the `memo` table bottom-up, starting by filling the value of base case, which would be
+`memo[0] = 0`
+
+For any number of amount within the range `1 <= i <= amount`, find the minimum number of coins needed to sum up to amount `i`.
+This is done by iterating over all possible coins, and finding the minimum value `1 + memo[i-coin]` for coin in coins.
+
+A couple of conditions to take care of:
+- If `i - coin < 0`, it's impossible to use this coin at this time
+- If `memo[i-coin] == -1`, it's impossible to use our coins to sum up to value `i-coin`, thus, we can't use this value for calculation
+- If the two conditions above are met, skip operations for this coin with this amount
+- At the end of the for loop, if `n_coins = math.inf`, it means that none of the coins can be used at this stage, it's impossible to find a combination of coins that sum up to this amount. Set `memo[i]` to `-1`
+
+
