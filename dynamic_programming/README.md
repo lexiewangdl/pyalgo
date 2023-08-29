@@ -1,8 +1,9 @@
 # Dynamic Programming
 **Table of Contents**
 - 509 Fibonacci Number
+- 322 Coin Change
 
-### 509. Fibonacci Number
+### 509. Fibonacci Number (Easy)
 Given two base cases `f(0) = 0` and `f(1) = 1`, we know that for all other values of `n`, `f(n) = f(n-1) + f(n-2)`.
 Thus, we know that the value of `f(n)` only depends on the values `f(n-1)` and `f(n-2)`.
 
@@ -11,7 +12,7 @@ to store all numbers that we calculated in previous steps.
 
 Time complexity: O(n), Space complexity: O(1)
 
-### 322. Coin Change
+### 322. Coin Change (Medium)
 **My solution 1: Top-down approach**
 
 This question can be solved using a dynamic programming approach because this problem can be broken down
