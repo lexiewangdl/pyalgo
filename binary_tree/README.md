@@ -78,3 +78,83 @@ all nodes of next level have been enqueued already). The initial value of `level
 in _i_-th tree row. Exit out of the while loop when we have popped a null node and then the length of queue becomes 0.
 
 Time complexity: O(N)
+
+
+Date: Aug 29, 2023
+### 226. Invert Binary Tree (Easy)
+
+**My solution 1: Traversal**
+
+Visit every node in binary tree.
+
+At each node, what needs to be done by recursive function `traverse()`?
+- Swap left and right child
+- Call `traverse()` on left and right child
+- Return nothing (since we are directly modifying tree structure)
+
+What about mapping of nodes? For example, if we have a tree:
+```bash
+     4
+    / \
+   2   7
+  / \ / \
+ 1  3 6  9
+```
+How do we make sure nodes 1 and 9 gets swapped, 3 and 6 get swapped, and not 1 and 3, 6 and 9?
+
+Note that when 1, 3, 6, 9's parent nodes are swapped, their locations
+in binary tree change as well.
+```bash
+# After swapping nodes 2 and 7
+     4
+    / \
+   7   2
+  / \ / \
+ 6  9 1  3
+ 
+# Swap nodes in level 3
+     4
+    / \
+   7   2
+  / \ / \
+ 9  6 3  1
+```
+Every swap between left and right children of a node results in lower-level subtrees being swapped as well. At this point, keep swapping
+the left and right children of a node in lower levels.
+
+**My solution 2: Divide and Conquer**
+At every node, what needs to be done?
+- Invert left and right subtrees (not swap!)
+- Swap left and right subtrees
+- Return current node
+
+```bash
+# 1. Invert left subtree (root 2)
+# 1.1 Go to subtree 1 with children None and None
+# 1.2 Go to subtree  3 with children None and None
+# 1.3 At node 2, swap left and right subtree
+# 1.4 Return inverted subtree root node 2
+      4
+    /   \
+   2     7
+  / \   / \
+ 1<->3  6  9   # (before swap)
+ 
+# 2. Invert right subtree (root 7)
+# 2.1 Invert left subtree 6 (children None and None)
+# 2.2 Invert right subtree 9 (children None and None)
+# 2.3 Swap left subtree 6 and right subtree 9
+# 2.4 Return inverted subtree root node 7
+      4
+    /   \
+   2     7
+  / \   / \
+ 3   1 6<->9  # (before swap)
+ 
+# 3. Swap left subtree 7 and right subtree 2
+      4
+    /   \
+   7     2
+  / \   / \
+ 9   6  3  1
+```
