@@ -158,3 +158,28 @@ At every node, what needs to be done?
   / \   / \
  9   6  3  1
 ```
+
+### 116. Populating Next Right Pointers in Each Node
+**My solution 1: BFS Traversal**
+
+Use queue to store next nodes to visit, traverse with BFS.
+Use `None` to indicate level change. Add `None` node to queue after done processing with each level.
+Whenever a `None` node is dequeued, it means that nodes in this level have been processed, and nodes in next level
+have been enqueued. At this point, add another `None` node, which will be level change indicator for next level.
+If two `None` nodes are dequeued in a row, reached end of tree, break out of while loop.
+
+- Initialize queue for BFS
+- Add root node and level change indicator (None) to queue
+- While there are still nodes to visit:
+  - Current node to process is the node we pop from queue
+  - Check if current node is `None` (level change indicator):
+    - (1) check if queue is empty now
+    - (2) check if next node to visit is also `None`
+    - If either one of the conditions above is met, reached end of tree, return
+    - Otherwise, add another level change indicator `None` to queue
+  - If current node is not `None`, process:
+    - (1) Make current node's `next` pointer point to next node to visit (if current node is last node in this level, the next node to visit will be `None`)
+    - (2) Enqueue left and right children of current node (only if child is not None), don't enqueue any None nodes because it will break the level change rules
+
+Note: input tree is **perfectly binary tree**, in simple terms, this means that all leaf nodes are at the maximum depth of the tree, and the tree is completely filled with no gaps.
+
