@@ -271,12 +271,14 @@ subtree, do something to flatten the subtree. For example, for the subtree with 
 This way, by processing nodes _bottom-up_, we can make sure that every subtree we are dealing with is already flattened,
 and we just need to make sure the left subtree and right subtree are correctly concatenated into one linked list.
 
+Note: Return type of `flatten()` is null, we need to use O(1) extra space, modifying the tree in-place
+
+**When to do the processing?**
+
 To adopt a _bottom-up_ approach, we must use _post-order_ processing. We need to get to leaf nodes first, and then, while
 we are travelling back from leaf nodes to root nodes, we flatten the subtrees.
 
-Note: Return type of `flatten()` is null, we need to use O(1) extra space, modifying the tree in-place
-
-**What needs to be done for each subtree?**
+**What needs to be done at each node (for each subtree)?**
 - **Base case**: check if `node` is null (if `node` is null, return)
 - Recurse on `node.left` and `node.right` (remember we are doing _post-order_ processing)
 - Check if `node.left` is null, if so, don't need to do anything
