@@ -215,3 +215,91 @@ helper function does the following for every pair of input nodes ...
 Note: it's somehow like a tertiary tree, where AB is the parent node,
  CD is left child, DE is middle child, and EF is right child
 
+### 114. Flatten Binary Tree to Linked List
+
+**My solution:**
+
+Tree Example
+```bash
+     1
+    / \
+   2   5
+  / \   \
+ 3   4   6
+```
+
+**Attempt: Traversal**
+
+Since the problem is asking for a linked list in which the nodes
+are in order of pre-order traversal, it's natural to think about
+traversing the tree in pre-order and then adding each node to correct position in linked list.
+However, this solution is not possible.
+
+For example, with pre-order DFS, when we are processing node 2, we might want to set it to 1.right. 
+However, the node 5 is already at 1.right, what should we do with this node? Also, even if we set 1.right to 2 and 2.right to 5, where
+should nodes 4 (originally 2.right) go?
+
+Anyways, this is not the correct thinking to approach this problem.
+
+```bash
+     1
+    / \
+       2
+      / \
+ 4?  3   5
+          \
+           6
+```
+
+**Solution: Divide and Conquer**
+
+With the _top-down approach_, we will have problems dealing with 
+existing nodes at places where we want to place current node.
+
+An alternative way to think about this question is, dividing the tree into _subproblems (subtrees)_. For each
+subtree, do something to flatten the subtree. For example, for the subtree with root node 2, we can do the following:
+```bash
+   2         2       2
+  / \  -->  /   -->   \
+ 3   4     3           3
+            \           \
+             4           4
+```
+This way, by processing nodes _bottom-up_, we can make sure that every subtree we are dealing with is already flattened,
+and we just need to make sure the left subtree and right subtree are correctly concatenated into one linked list.
+
+To adopt a _bottom-up_ approach, we must use _post-order_ processing. We need to get to leaf nodes first, and then, while
+we are travelling back from leaf nodes to root nodes, we flatten the subtrees.
+
+Note: Return type of `flatten()` is null, we need to use O(1) extra space, modifying the tree in-place
+
+**What needs to be done for each subtree?**
+- **Base case**: check if `node` is null (if `node` is null, return)
+- Recurse on `node.left` and `node.right` (remember we are doing _post-order_ processing)
+- Check if `node.left` is null, if so, don't need to do anything
+- If `node.left` is not null:
+  - (1) append right subtree to left subtree
+    - Here, another thing to keep in mind is we can't just do `node.left.right = node.right`, because `node.left` can be a chain of nodes
+    - Must navigate to the last node in `node.left` chain, and then set the last node's right pointer to `node.right`
+    - Use a `while` loop to navigate to last node in `node.left` chain/subtree
+  - (2) Make left subtree the right subtree: `node.right = node.left`
+  - (3) Set left subtree to be null: `node.left = None`
+
+Visualize the process:
+```bash
+# The processing for left subtree is illustrated above
+# Assume that step has been done
+     1            1            1        1
+    / \          / \          /          \
+   2   5   -->  2   5   -->  2     -->    2
+  / \   \        \   \        \            \
+ 3   4   6        3   6        3            3
+                   \            \            \
+                    4            4            4
+                                  \            \
+                                   5            5
+                                    \            \
+                                     6            6
+```
+
+
