@@ -1,9 +1,12 @@
 # Binary Tree Problems
 
 **Table of Contents**
-- (104) Maximum Depth of Binary Tree (E)
-- (543) Diameter of Binary Tree (E)
-- (515) Find Largest Value in Each Tree Row (M)
+- 104 Maximum Depth of Binary Tree (E)
+- 543 Diameter of Binary Tree (E)
+- 515 Find Largest Value in Each Tree Row (M)
+- 226 Invert Binary Tree (E)
+- 116 Populating Next Right Pointers in Each Node (M)
+- 114 Flatten Binary Tree to Linked List (M)
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -159,7 +162,7 @@ At every node, what needs to be done?
  9   6  3  1
 ```
 
-### 116. Populating Next Right Pointers in Each Node
+### 116. Populating Next Right Pointers in Each Node (Medium)
 **My solution 1: Classic BFS Traversal**
 
 Use queue to store next nodes to visit, traverse with BFS.
@@ -215,7 +218,7 @@ helper function does the following for every pair of input nodes ...
 Note: it's somehow like a tertiary tree, where AB is the parent node,
  CD is left child, DE is middle child, and EF is right child
 
-### 114. Flatten Binary Tree to Linked List
+### 114. Flatten Binary Tree to Linked List (Medium)
 
 **My solution:**
 
