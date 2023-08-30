@@ -160,7 +160,7 @@ At every node, what needs to be done?
 ```
 
 ### 116. Populating Next Right Pointers in Each Node
-**My solution 1: BFS Traversal**
+**My solution 1: Classic BFS Traversal**
 
 Use queue to store next nodes to visit, traverse with BFS.
 Use `None` to indicate level change. Add `None` node to queue after done processing with each level.
@@ -182,4 +182,36 @@ If two `None` nodes are dequeued in a row, reached end of tree, break out of whi
     - (2) Enqueue left and right children of current node (only if child is not None), don't enqueue any None nodes because it will break the level change rules
 
 Note: input tree is **perfectly binary tree**, in simple terms, this means that all leaf nodes are at the maximum depth of the tree, and the tree is completely filled with no gaps.
+
+Time complexity: O(n) where n is number of nodes in tree
+Space complexity: O(w) where w is maximum width of binary tree, in terms of **perfect binary tree**, w is number of leaf nodes
+
+**My solution 2: Traversal**
+
+Naive thinking: just connect a node's left child to its right child
+
+Problem: this only connects left and right children of the SAME node. However, we also need to connect adjacent nodes that don't have the same parent
+```bash
+# Before
+  A     B
+ / \   / \
+C  D   E  F
+
+# After
+  A    ->   B
+ / \       / \
+C ->D (?) E ->F
+```
+
+Solution: define a helper function `traverse()` that takes two adjacent nodes from the parent level as input, and the 
+helper function does the following for every pair of input nodes ...
+- (1) Check if left and right parent are null (tree is perfect binary tree, so either both nodes are not null, or both nodes are null)
+- (2) Connect left parent to right parent, `left_parent.next = right_parent`
+- (3) Process the parent nodes' children...
+  - (a) For left parent, connect left child to right child
+  - (b) Connect right child of left parent to left child of right parent
+  - (c) For right parent, connect left child to right child
+
+Note: it's somehow like a tertiary tree, where AB is the parent node,
+ CD is left child, DE is middle child, and EF is right child
 

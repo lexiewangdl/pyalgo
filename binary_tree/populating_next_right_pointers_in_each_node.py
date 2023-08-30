@@ -1,7 +1,31 @@
 # 116. Populating Next Right Pointers in Each Node
 from tree_node import TreeNode
 
-# My solution 1: BFS Traversal
+# My solution 2: Traversal
+def traverse(self, left_parent, right_parent):
+    # check for None
+    if not left_parent or not right_parent:
+        return
+    # connect left parent to right parent
+    left_parent.next = right_parent
+
+    # process left and right children of left parent
+    self.traverse(left_parent.left, left_parent.right)
+    # process right child of left parent and left child of right parent
+    self.traverse(left_parent.right, right_parent.left)
+    # process left and right children of right parent
+    self.traverse(right_parent.left, right_parent.right)
+
+def connect(self, root: TreeNode) -> TreeNode:
+    if not root:
+        return root
+
+    self.traverse(root.left, root.right)
+
+    return root
+
+
+# My solution 1: Classic BFS Traversal
 def connect(root: TreeNode) -> TreeNode:
     # Initialize queue to store nodes to be visited
     q = []
