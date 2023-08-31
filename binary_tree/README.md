@@ -489,3 +489,10 @@ Note: to handle IndexOutOfRangeError when accessing root node of left subtree (`
 return `Node` (current node) if `pre_left + 1 == pre_right`.
 
 
+
+
+## Summary
+1. **Construct binary tree problems**:
+divide and conquer
+Construct tree = construct root node + construct left subtree + construct right subtree
+
