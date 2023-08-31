@@ -10,7 +10,8 @@
 - 654 - Maximum Binary Tree (M)
 - 105 - Construct Binary Tree from Preorder and Inorder Traversal (M)
 - 106 - Construct Binary Tree from Inorder and Postorder Traversal (M)
-- 889 - Construct Binary Tree from Preorder and Postorder Traversal (M)
+- 889 - Construct Binary Tree from Preorder and Postorder Traversal (M) 🚩
+- 652 - Find Duplicate Subtrees (M) 🚩
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -489,10 +490,93 @@ Note: to handle IndexOutOfRangeError when accessing root node of left subtree (`
 return `Node` (current node) if `pre_left + 1 == pre_right`.
 
 
+### 652. Find Duplicate Subtrees (Medium)
 
+**1. Given a subtree, what needs to be done?** 
+
+Given a subtree, we want to come up with a way to **represent current subtree**. 
+
+This is because to figure out whether current subtree is a duplicate or not, we must be
+able to have a pool of representations for all subtrees. We can use a set to store unique subtrees we've seen,
+or use a map to store unique subtrees and the number of times we have seen each unique subtree.
+This representation
+needs to be _hashable_, because we want to store it in a set or map.
+
+
+**2. Where/when to do this processing?**
+
+One thing special about _post-order processing_ is that we have access to information passed
+up from child nodes/subtrees. With _post-order processing_, we travel each of the child nodes first, return a value for each,
+based on returned values, we can construct a representation for current subtree.
+
+If we use _pre-order_ or _in-order_ processing, when we are processing a node, we don't know the structure
+of the current subtree (because we haven't traveled all child nodes yet).
+
+**3. How to represent a subtree?**
+
+A very intuitive way is to use strings. Since we are doing post-order processing, the order of node values
+in string representation of subtree would be same as post-order traversal.
+
+For example, the string representation of the following tree would be "132".
+```bash
+   2
+  / \
+ 1   3
+```
+
+However, there are several problems with this naive string representation. Given the following trees:
+```bash
+    0         0
+   / \       / \
+  0  null  null 0 
+# before:
+# "00"      "00"
+# after:
+# "0 0"     " 00"
+```
+The string representation for both trees would be "00", because we don't effectively take care of null nodes.
+Thus, we can use whitespace to represent null nodes.
+(I've also seen other people use # instead of whitespace).
+
+Another problem comes with edge cases like this:
+```bash
+   2          22
+  / \        / \
+ 1   12     1   1
+# before:
+# "1122"     "1122"
+# after:
+# "1,12,2"   "1,1,22"
+```
+For subtrees with special values like this, the string representation for both trees is the same, despite the fact that
+the subtrees have different values at different positions. Thus, we need to differentiate each node from another, using "," as
+a separator.
+
+**4. Recursive construction of string representations**
+
+We have decided to make helper function `represent_subtree()` return a string that represents current subtree.
+How to use it recursively to build string representation for entire tree?
+```python
+curr_subtree = self.represent_subtree(node.left) + "," + self.represent_subtree(node.right) + "," + str(node.val) + ","
+```
+Embed recursive calls on left and right subtrees in one line. Concat returned vals properly.
+
+**5. Check if subtree is a duplicate**
+
+My initial thought was to use a set to store string representations of subtrees.
+However, the problem requires that each duplicate must only be returned once. If I use a set, I would either
+return duplicates multiple times (if there are more than 2 duplicates) or need to use another
+data structure to store seen duplicates.
+
+Thus, it's best to use a `dict` or `Counter` to store the number of times we have seen this duplicate. If we have seen 
+the same tree structure twice, add current node to `result` (list of TreeNodes).
 
 ## Summary
 1. **Construct binary tree problems**:
 divide and conquer
 Construct tree = construct root node + construct left subtree + construct right subtree
+
+
+
+
 
