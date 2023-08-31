@@ -1,15 +1,15 @@
 # Binary Tree Problems
 
 **Table of Contents**
-- 104 Maximum Depth of Binary Tree (E)
-- 543 Diameter of Binary Tree (E)
-- 515 Find Largest Value in Each Tree Row (M)
-- 226 Invert Binary Tree (E)
-- 116 Populating Next Right Pointers in Each Node (M)
-- 114 Flatten Binary Tree to Linked List (M)
-- 654 Maximum Binary Tree (M)
-- 105 Construct Binary Tree from Preorder and Inorder Traversal (M)
-- 106 Construct Binary Tree from Inorder and Postorder Traversal (M)
+- 104 - Maximum Depth of Binary Tree (E)
+- 543 - Diameter of Binary Tree (E)
+- 515 - Find Largest Value in Each Tree Row (M)
+- 226 - Invert Binary Tree (E)
+- 116 - Populating Next Right Pointers in Each Node (M)
+- 114 - Flatten Binary Tree to Linked List (M)
+- 654 - Maximum Binary Tree (M)
+- 105 - Construct Binary Tree from Preorder and Inorder Traversal (M)
+- 106 - Construct Binary Tree from Inorder and Postorder Traversal (M)
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
