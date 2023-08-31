@@ -9,6 +9,7 @@
 - 114 Flatten Binary Tree to Linked List (M)
 - 654 Maximum Binary Tree (M)
 - 105 Construct Binary Tree from Preorder and Inorder Traversal (M)
+- 106 Construct Binary Tree from Inorder and Postorder Traversal (M)
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -397,7 +398,47 @@ Thus, we can use a dictionary (or hash map in Java) to store the mapping between
 index in inorder array. Store this as a global variable: `self.inorder_map = dict()`.
 This way, the runtime is significantly reduced.
 
+### 106. [Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/description/) (Medium)
 
+Similar to previous problem, need to understand post-order and in-order arrays:
+- Post-order: [LEFT_SUBTREE, RIGHT_SUBTREE, ROOT]
+- In-order: [LEFT_SUBTREE, ROOT, RIGHT_SUBTREE]
+
+![Post-order and in-order](https://labuladong.gitee.io/algo/images/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%B3%BB%E5%88%972/6.jpeg)
+
+Different from previous problem, this time, we can't just use one integer to keep track of our position in post-order array.
+We can do this we pre-order array because our order of processing is pre-order processing.
+With post-order array, we need to use two pointers to keep track of boundary of subtree's subarray.
+
+We have four pointers in total:
+- `il`: starting point (left boundary) of inorder subarray
+- `ir`: ending point of inorder subarray (non-inclusive)
+- `pl`: starting point of preorder subarray
+- `pr`: ending point of preorder subarray (non-inclusive)
+
+The process to determine `il` and `ir` is same as in previous problem.
+
+Our helper function can be defined as followed:
+```python
+def build(inorder: list, preorder:list, 
+          il: int, ir: int,
+          pl: int, pr: int) -> TreeNode:
+    ...
+```
+
+**How to determine the left and right boundaries for post-order subarrays?**
+- For left subtree's post-order array:
+  - Starting point is `pl`, same as passed in param
+  - Ending point is `pl + LENGTH_OF_LEFT_SUBARRAY`
+  - How to find length of left subarray?
+    - The length of left subarray is `node_idx_inorder - il`
+  - So, for left subtree, the new boundary should be: `pl, pl+(node_idx_inorder-il)`
+- For right subtree:
+  - Ending point is `pr-1`, since the last element is root and we need to exclude it from subarray
+  - Starting point is the ending point of left subtree: `pl, pl+(node_idx_inorder-il)`
+
+The rest is just same as previous problem. Note: remember to build a dictionary to store mappings
+of node values to their inorder indices.
 
 
 
