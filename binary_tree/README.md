@@ -7,6 +7,7 @@
 - 226 Invert Binary Tree (E)
 - 116 Populating Next Right Pointers in Each Node (M)
 - 114 Flatten Binary Tree to Linked List (M)
+- 654 Maximum Binary Tree (M)
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -306,5 +307,64 @@ Visualize the process:
                                     \            \
                                      6            6
 ```
+
+## Construct Binary Tree Problems
+Problems related to constructing binary trees are usually solved using the divide and conquer method.
+
+To construct a binary tree, construct the root node first, then recursively construct left subtree and right subtree.
+
+### 654. Maximum Binary Tree (M)
+**My solution 1: Divide and Conquer**
+
+**Function `constructMaximumBinaryTree()`:**
+- Parameters: integer array `nums`, input array with node values from which we construct the tree
+- Return type: tree node
+
+**At each node (for each subtree), what needs to be done?**
+- Check if `nums` is empty, if yes, return null
+- Find the maximum element in `nums`, use this value to construct the root node
+- The slice to the left of the max element in `nums` is used to construct left subtree, pass to recursive call of function as parameter
+- The slice to the right of the max element in `nums` is used to construct right subtree
+
+Note: make sure that slicing is correctly done. Left sub-array should be `nums[:max_idx]` and right sub-array 
+should be `nums[max_idx+1:]`. If the already found max value is included in left or right subarray,
+will lead to `RecursionError: maximum recursion depth exceeded`.
+
+**Problem with this solution:** space complexity! A lot of wasted space as we pass in copies of left and right sub-arrays
+as params to recursive function calls. No need to store these copies of subarrays.
+
+**My solution 2: Optimize space complexity with left and right pointers**
+
+This method will require a helper method that needs to be defined as the following...
+- Parameters: integer array `nums`, int `left`, int `right` (where left and right are indices of sub-array boundaries)
+- Return type: tree node
+
+The idea is the same, at _pre-order_ position, construct root node.
+When recursively calling helper function, modify the boundaries `left` and `right`.
+
+```python
+  # Pseudocode
+  def construct(nums: list, left: int, right: int) -> TreeNode:
+    # pre-order position:
+    # find the index of max element in nums[left:right]
+    node_idx = ... 
+    # if no max value, return None
+    if node_idx == -1:
+      return None
+    # build root node based on max value
+    node = TreeNode(max_val)
+    
+    # recursive calls
+    node.left = construct(nums, left, node_idx)
+    node.right = construct(nums, node_idx + 1, right)
+
+    return node
+```
+
+
+
+
+
+
 
 
