@@ -10,6 +10,7 @@
 - 654 - Maximum Binary Tree (M)
 - 105 - Construct Binary Tree from Preorder and Inorder Traversal (M)
 - 106 - Construct Binary Tree from Inorder and Postorder Traversal (M)
+- 889 - Construct Binary Tree from Preorder and Postorder Traversal (M)
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -440,7 +441,51 @@ def build(inorder: list, preorder:list,
 The rest is just same as previous problem. Note: remember to build a dictionary to store mappings
 of node values to their inorder indices.
 
+### 889. [Construct Binary Tree from Preorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-postorder-traversal/description/) (Medium)
 
+Given preorder and postorder traversal results:
+- Preorder: ROOT, LEFT_SUBTREE, RIGHT_SUBTREE
+- Postorder: LEFT_SUBTREE, RIGHT_SUBTREE, ROOT
 
+What needs to be done at every step?
+1. Construct current node
+   2. The value of current node is the first element in preorder range, which is same as last element in postorder range
+3. Recursively build left and right subtrees
+   4. How to find the boundary indices of left and right subtrees?
+
+How to find the boundaries for left and right subtrees?
+- For left subtree...
+- (1) The root node of left subtree is right next to current node in preorder array, this is the pre_order left boundary for left subtree (`pre_left + 1`)
+- (2) Find the index of root of left subtree in post order array, using a dictionary that maps elements to their indices in postorder array.
+- (3) The length of left subtree can be found by `left_subtree_root_idx_post - post_left + 1`
+- (4) Thus, the left and right _preorder_ boundaries are:
+  - Left: `pre_left + 1`
+  - Right: `pre_left + 1 + length_left_subtree`
+- (5) The left and right _postorder_ boundaries:
+  - Left: `post_left`
+  - Right: `post_left + length_left_subtree`
+- For right subtree...
+- (1) _Preorder_ boundaries:
+  - Left: `pre_left + 1 + length_left_subtree` (same as preorder right boundary of left subtree)
+  - Right: `pre_right`
+- (2) _Postorder_ boundaries:
+  - Left: `post_left + length_left_subtree`
+  - Right: `post_right - 1` (which is index of current node)
+
+```bash
+# preorder                        # postorder
+curr node                     post_left = 0        curr node
+ |                                 |                 |
+[1, 2, 4, 5, 3, 6, 7]             [4, 5, 2, 6, 7, 3, 1]
+    ^                                    ^
+    |                                    |
+  root of left subtree, idx = 1        root of left subtree, idx = 2
+  
+  length_left_subtree = idx_root_left_subtree_post - post_left + 1 = 2 - 0 + 1 = 3
+ 
+```
+
+Note: to handle IndexOutOfRangeError when accessing root node of left subtree (`preorder[pre_left+1]`), add a conditional statement:
+return `Node` (current node) if `pre_left + 1 == pre_right`.
 
 
