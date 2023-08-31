@@ -576,6 +576,10 @@ the same tree structure twice, add current node to `result` (list of TreeNodes).
 divide and conquer
 Construct tree = construct root node + construct left subtree + construct right subtree
 
+2. **Post-order processing**:
+post-order processing enables us to have access to information passed up from subtrees/child nodes. This can be a value
+or something else (depends on return type of recursive helper function). **If the question is about subtrees, it's very
+likely that we need to do post-order processing.**
 
 
 
