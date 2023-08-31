@@ -8,6 +8,7 @@
 - 116 Populating Next Right Pointers in Each Node (M)
 - 114 Flatten Binary Tree to Linked List (M)
 - 654 Maximum Binary Tree (M)
+- 105 Construct Binary Tree from Preorder and Inorder Traversal (M)
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -361,6 +362,40 @@ When recursively calling helper function, modify the boundaries `left` and `righ
     return node
 ```
 
+## 105. Construct Binary Tree from Preorder and Inorder Traversal
+**My solution:**
+Similar to previous problem, to construct a binary tree, we need to...
+- Build root node
+- Build left subtree (recursively)
+- Build right subtree (recursively)
+
+We also need to keep in mind certain properties of pre-order and in-order traversal.
+- **Preorder:** [ROOT, LEFT_SUBTREE, RIGHT_SUBTREE]
+- **Inorder:** [LEFT_SUBTREE, ROOT, RIGHT_SUBTREE]
+
+From this, we know that, given a pre-order array, the first element is our **overall root** node.
+The same allies to preorder sub-arrays of subtrees.
+We also know that, with in-order array, all elements in left subtree are to the left of root, and all
+elements in right subtree are to the right of node.
+By accessing the first element in preorder array, we can find the root node; then, by searching for the
+index of this element in inorder array, we can find the slices for left and right subtrees.
+
+How to keep track of left and right boundaries of left and right subtrees in inorder array? 
+- Based on experience from previous problem, we don't want to pass copies of array slices as params
+- Use `left` and `right` pointers to keep track of boundaries
+
+How to keep track of the index of current node we are building in preorder array?
+- We are doing pre-order processing
+- The order by which we build the nodes is same as order of elements in preorder array
+- Use a global variable `self.preorder_idx` to keep track of index of current node in preorder array
+- Update this everytime we have finished building the node (before recursive calls)
+
+However, this approach has one problem. Everytime we build a node, we need to loop through half of the in-order array 
+(or subarray) to find the index of curr node in inorder array.
+The problem states that all nodes have different values.
+Thus, we can use a dictionary (or hash map in Java) to store the mapping between each node's value and their corresponding
+index in inorder array. Store this as a global variable: `self.inorder_map = dict()`.
+This way, the runtime is significantly reduced.
 
 
 
