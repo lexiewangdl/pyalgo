@@ -1,17 +1,18 @@
 # Binary Tree Problems
 
 **Table of Contents**
-- 104 - Maximum Depth of Binary Tree (E)
-- 543 - Diameter of Binary Tree (E)
-- 515 - Find Largest Value in Each Tree Row (M)
-- 226 - Invert Binary Tree (E)
-- 116 - Populating Next Right Pointers in Each Node (M)
-- 114 - Flatten Binary Tree to Linked List (M)
-- 654 - Maximum Binary Tree (M)
-- 105 - Construct Binary Tree from Preorder and Inorder Traversal (M)
-- 106 - Construct Binary Tree from Inorder and Postorder Traversal (M)
-- 889 - Construct Binary Tree from Preorder and Postorder Traversal (M) 🚩
-- 652 - Find Duplicate Subtrees (M) 🚩
+- 104 - Maximum Depth of Binary Tree 🍏
+- 543 - Diameter of Binary Tree 🍏
+- 515 - Find Largest Value in Each Tree Row 🍊
+- 226 - Invert Binary Tree 🍏
+- 116 - Populating Next Right Pointers in Each Node 🍊
+- 114 - Flatten Binary Tree to Linked List 🍊
+- 654 - Maximum Binary Tree 🍊
+- 105 - Construct Binary Tree from Preorder and Inorder Traversal 🍊
+- 106 - Construct Binary Tree from Inorder and Postorder Traversal 🍊
+- 889 - Construct Binary Tree from Preorder and Postorder Traversal 🍊 🚩
+- 652 - Find Duplicate Subtrees 🍊 🚩
+- 297 - Serialize and Deserialize Binary Tree 🍎
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -490,7 +491,7 @@ Note: to handle IndexOutOfRangeError when accessing root node of left subtree (`
 return `Node` (current node) if `pre_left + 1 == pre_right`.
 
 
-### 652. Find Duplicate Subtrees (Medium)
+### 652. [Find Duplicate Subtrees](https://leetcode.com/problems/find-duplicate-subtrees/description/) (Medium)
 
 **1. Given a subtree, what needs to be done?** 
 
@@ -570,6 +571,64 @@ data structure to store seen duplicates.
 
 Thus, it's best to use a `dict` or `Counter` to store the number of times we have seen this duplicate. If we have seen 
 the same tree structure twice, add current node to `result` (list of TreeNodes).
+
+### 297. [Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/description/?envType=daily-question&envId=2023-09-01) (Hard)
+Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
+
+In terms of this problem...
+- **Serialization**: come up with a string representation of binary tree
+- **Deserialization**: construct binary tree from serialized data
+
+In what ways can we serialize a tree so that its output can be deserialized to construct the exact same tree?
+- Store only _one_ traversal result (either pre, in, or post order):
+  - If we don't represent _null nodes_ with `#` (or whitespace in previous problem), then **we cannot restore the exact same binary tree given _one_ traversal result**.
+  - If we do represent _null nodes_ with `#`, **can restore the exact same binary tree with _preorder_ traversal or _postorder_ traversal results**, but not inorder traversal results. This is because we can't figure out which node is the root node if we only have in-order results.
+- Store multiple traversal results:
+  - Given a combination of _preorder + inorder_ or _inorder + postorder_, we will be able to restore the exact same binary tree (see problems 105 and 106)
+  - If we are given the combination _pre-order + post-order_, then there can be multiple solutions, and we can't restore the exact same binary tree (see problem 889).
+
+Since storing multiple traversal results requires higher space complexity, I didn't write solutions that way.
+My two solutions: (1) store preorder representation with null pointers, (2) store postorder representation with null pointers,
+and deserialize based on my representations.
+
+#### Pre-order Solution
+- Serialize results, `#` indicates null node, `,` separates nodes
+  - Note: serialized result should be `"ROOT,[LEFT_SUBTREE],[RIGHT_SUBTREE]"`, there should be no trailing `,`s, otherwise, when we split result by `,`, there will be empty strings which cause troubles
+- Before deserialization, split serialized result by `,`, store this list as global variable
+- Use a global variable `deserialize_idx` to keep track of index of current node's value
+  - Initialize to 0
+- Decrement `deserialize_idx` after constructing current node (before recursive calls)
+
+#### Post-order Solution
+Everything is the same as pre-order solution, except...
+
+With post-order serialization, the serialized result looks like `[LEFT_SUBTREE],[RIGHT_SUBTREE],ROOT`.
+We know that root node's value is the final element in list, and root node of right subtree is to the immediate left of overall root.
+However, we can't easily find out where the root of left subtree is.
+
+```bash
+# post order
+     1
+    / \
+   2   3
+      / \
+     4   5
+     
+# serialized: "#,#,2,#,#,4,#,#,5,3"
+```
+
+Thus, the key is, when constructing binary tree based on serialized result,
+construct right subtree first, and then construct left subtree.
+
+- Serialize results in _post-order_, `#` indicates null node, `,` separates nodes
+  - Note: serialized result should be `"[LEFT_SUBTREE],[RIGHT_SUBTREE],ROOT"`, there should be no trailing `,`s
+- Before deserialization, split serialized result by `,`, store this list as global variable
+- Use a global variable `deserialize_idx` to keep track of index of current node's value
+  - Initialize to length - 1
+- Decrement `deserialize_idx` after constructing current node (before recursive calls)
+- Recursively **build right subtree first**, then build left subtree
+
+
 
 ## Summary
 1. **Construct binary tree problems**:
