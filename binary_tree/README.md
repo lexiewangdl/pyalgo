@@ -628,7 +628,15 @@ construct right subtree first, and then construct left subtree.
 - Decrement `deserialize_idx` after constructing current node (before recursive calls)
 - Recursively **build right subtree first**, then build left subtree
 
+## Binary Search Tree (BST) Problems
 
+### 230. k-th Smallest Element in a BST
+In-order traversal result of a BST goes in ascending order.
+To find the k-th smallest element, just do in-order traversal and return the k-th element.
+
+**My solution:** Use two global variables, `val` to keep track of value of k-th smallest element, and `n` to keep track
+of number of nodes we have visited. Do in-order processing: check whether n is equal to k, if so, return, increment n
+at every step.
 
 ## Summary
 1. **Construct binary tree problems**:
