@@ -7,6 +7,7 @@
 - 226 - Invert Binary Tree 🍏
 - 116 - Populating Next Right Pointers in Each Node 🍊
 - 114 - Flatten Binary Tree to Linked List 🍊
+- 124 - Binary Tree Maximum Path Sum 🍎
 - 654 - Maximum Binary Tree 🍊
 - 105 - Construct Binary Tree from Preorder and Inorder Traversal 🍊
 - 106 - Construct Binary Tree from Inorder and Postorder Traversal 🍊
@@ -312,6 +313,36 @@ Visualize the process:
                                     \            \
                                      6            6
 ```
+
+### 124. [Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/) (H)
+
+**My solution: Divide and Conquer**
+
+**What needs to be done at each node?** 
+We want the helper function to return the maximum single-sided path sum that goes through the current node.
+This can be the maximum of the following:
+- `node.val + findMax(node.left)`: the maximum path is the maximum path of left subtree plus the current node
+- `node.val + findMax(node.right)`: the maximum path is the maximum path of right subtree plus current node
+- `node.val`: in case where current node's val is greater than previous two options, for example:
+  ```python
+  # node.val = 2
+      2
+     / \
+   -5  -6
+  # left subtree max path = -5
+  # right subtree max path = -6
+  ```
+Thus, at each node, this helper function returns the maximum path sum at one side of the tree (not the sum of left and right sides).
+This is because this value will be passed up (when we do post-order processing) and then used to find the total path sum (which
+will be the left_max_path_sum + right_max_path_sum + node's value).
+The returned value would be `max_single_path = max(node.val, left_sum + node.val, right_sum + node.val)`.
+
+
+Post-order processing:
+- Use a global variable `ans` to keep track of maximum total path sum we have seen
+- Update this variable if current max path sum is greater: `self.ans = path_sum if path_sum > self.ans else self.ans`
+- Max path sum at current node is `path_sum = max(max_single_path, left_sum + right_sum + node.val)`
+
 
 ## Construct Binary Tree Problems
 Problems related to constructing binary trees are usually solved using the divide and conquer method.
