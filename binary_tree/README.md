@@ -16,6 +16,7 @@
 - 297 - Serialize and Deserialize Binary Tree 🍎
 - 538 - Convert BST to Greater Tree 🍊
 - 98 - Validate Binary Search Tree 🍊
+- 700 - Search in a Binary Search Tree 🍏
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -700,7 +701,7 @@ Use a global variable `greater_sum` to keep track of sum of nodes' values that a
 (which is the same as sum of all nodes we have processed).
 Update the value of current node at in-order position, `node.val = self.greater_sum = node.val + self.greater_sum`.
 
-### 98. Validate Binary Search Tree (Medium)
+### 98. [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/description/) (Medium)
 **My solution 1: in-order traversal**
 
 Traver the tree once. Use a global variable to keep track of maximum
@@ -746,5 +747,18 @@ def search(node, target):
         search(node.right, target)
 ```
 
+### 700. Search in a Binary Search Tree (Easy)
+Function parameters:
+- `root`: current node to check
+- `val`: target value
 
+Return:
+- Return `root` if current node's value is equal to `val`
+- Return `None` if current node is null
+- Check left and right subtrees, return result of recursive call, e.g. `return self.searchBST(root.left, val)`
+  - If left subtree contains a node whose value equals `val`, then returned value will be that node
+  - Same applies to right subtree
+
+Only check left subtree if current node's value is greater than `val`, which means that a node
+with value less than current node's value can only be in the left subtree. Vice versa for right subtree.
 
