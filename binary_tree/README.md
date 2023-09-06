@@ -15,6 +15,7 @@
 - 652 - Find Duplicate Subtrees 🍊 🚩
 - 297 - Serialize and Deserialize Binary Tree 🍎
 - 538 - Convert BST to Greater Tree 🍊
+- 98 - Validate Binary Search Tree 🍊
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -699,6 +700,51 @@ Use a global variable `greater_sum` to keep track of sum of nodes' values that a
 (which is the same as sum of all nodes we have processed).
 Update the value of current node at in-order position, `node.val = self.greater_sum = node.val + self.greater_sum`.
 
+### 98. Validate Binary Search Tree (Medium)
+**My solution 1: in-order traversal**
+
+Traver the tree once. Use a global variable to keep track of maximum
+value we have seen (to the left of current node).
+If current node's value is equal to or less than maximum value we have seen,
+then tree is not a valid BST.
+See simple pseudocode below:
+```python
+seen_max = -math.inf
+ans = True
+
+def traverse(node):
+    traverse(node.left)
+    if node.val <= seen_max:
+        ans = False
+    seen_max = node.val  # update max val seen to the left of curr node
+    traverse(node.right)
+```
+
+Space complexity is O(1), simply store two variables. However, we can use less extra space.
+
+**My solution 2: min and max**
+
+Function parameters:
+- `r_min`: minimum value seen in right subtree
+- `l_max`: minimum value seen in left subtree
+
+Return type: boolean
+- Return true when current node is null
+- Or when both current node's left subtree and right subtree are BSTs, and current node is less than `r_min` and greater than `l_max`
+
+  For example: `return self.isValidBST(root.left, l_max, root.val) and self.isValidBST(root.right, root.val, r_min)`
+
+## BST: Binary Search
+Very helpful code structure to solve binary search problems.
+```python
+def search(node, target):
+    if node.val == target:
+        # do something
+    if node.val < target:
+        search(node.left, target)
+    if node.val > target:
+        search(node.right, target)
+```
 
 
 
