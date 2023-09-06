@@ -14,6 +14,7 @@
 - 889 - Construct Binary Tree from Preorder and Postorder Traversal 🍊 🚩
 - 652 - Find Duplicate Subtrees 🍊 🚩
 - 297 - Serialize and Deserialize Binary Tree 🍎
+- 538 - Convert BST to Greater Tree 🍊
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -678,6 +679,25 @@ Construct tree = construct root node + construct left subtree + construct right 
 post-order processing enables us to have access to information passed up from subtrees/child nodes. This can be a value
 or something else (depends on return type of recursive helper function). **If the question is about subtrees, it's very
 likely that we need to do post-order processing.**
+
+### 538. Convert BST to Greater Tree (Medium)
+**My solution: Traversal**
+
+By traversing through every single node in descending order (process nodes with greater
+values first), and keeping track of the sum of processed nodes' values, convert binary search tree
+to a greater tree.
+
+**In-order traversal of binary search tree** gives results in ascending order. To get descending order,
+just traverse right subtree first.
+```python
+traverse(node.right)
+# process current node
+traverse(node.left)
+```
+
+Use a global variable `greater_sum` to keep track of sum of nodes' values that are greater than current node's value
+(which is the same as sum of all nodes we have processed).
+Update the value of current node at in-order position, `node.val = self.greater_sum = node.val + self.greater_sum`.
 
 
 
