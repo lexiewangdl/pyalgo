@@ -17,6 +17,7 @@
 - 538 - Convert BST to Greater Tree 🍊
 - 98 - Validate Binary Search Tree 🍊
 - 700 - Search in a Binary Search Tree 🍏
+- 701 - Insert into a Binary Search Tree 🍊 🚩
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -761,4 +762,39 @@ Return:
 
 Only check left subtree if current node's value is greater than `val`, which means that a node
 with value less than current node's value can only be in the left subtree. Vice versa for right subtree.
+
+### 701. [Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/description/) (Medium)
+
+**Where to insert new node?**
+- According to BST invariants, the root node of a BST must be greater than all values in the left subtree
+- and also less than all values in the right subtree
+- Thus, we can find the correct position where new node needs to be inserted, by
+- travel to the right subtree if `val` is greater than current root's value
+- or go to the left subtree if `val` is less than the current root's value
+- when we find an **empty spot**, we can add new node there
+
+**Function parameters:**
+- `root`: current node to process
+- `val`: value of node to insert
+
+**Return type:**
+
+Return type is `TreeNode()`. At each step, we insert the node when two conditions are satisfied:
+- (1) the position where we want to insert new node satisfies BST invariants (i.e. if it is the left child of a root node of a subtree, `val` should be smaller than root val)
+- (2) this position is not occupied, i.e. `null`
+
+The first condition is done by if conditional statements, `if root.val < val`, call function on right child, and
+if `root.val > val`, call function on left child.
+The second condition is checked by `if not root: return TreeNode(val)`.
+This returned newly created node is then passed up to earlier function calls of root nodes.
+This is why we need to set the corresponding child to be the new node:
+```python
+if root.val < val:
+    root.right = self.insertIntoBST(root.right, val)
+if root.val > val:
+    root.left = self.insertIntoBST(root.left, val)
+```
+Otherwise, `root` will be returned. This is because if the left child or right child position is occupied, we 
+are not going to create a new node, instead, we will keep the original node. Thus, the final line is `return root`.
+
 
