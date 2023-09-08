@@ -16,8 +16,10 @@
 - 297 - Serialize and Deserialize Binary Tree 🍎
 - 538 - Convert BST to Greater Tree 🍊
 - 98 - Validate Binary Search Tree 🍊
+- 96 - Unique Binary Search Trees 🍊 🚩
 - 700 - Search in a Binary Search Tree 🍏
 - 701 - Insert into a Binary Search Tree 🍊 🚩
+- 450 - Delete Node in a Binary Search Tree 🍊 🚩
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -736,6 +738,66 @@ Return type: boolean
 
   For example: `return self.isValidBST(root.left, l_max, root.val) and self.isValidBST(root.right, root.val, r_min)`
 
+### 96. [Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/description/) (Medium)
+Given an integer `n`, how to find the number of unique binary search trees with `n` nodes from `1` to `n`?
+
+**Divide and conquer:** Given a root node, the number of unique binary search trees is equal to
+number of unique BSTs for left subtree times number of unique BSTs for right subtree.
+
+For example, given the val `n=5`, and root node is `3`:
+```bash
+   3
+  / \
+ L   R
+# num_unique_bsts = 2 * 2 = 4
+ 
+# Left subtree possibilities, num_unique_bsts_left = 2
+1         2
+ \       /
+  2     1
+
+# Right subtree possibilities, num_unique_bsts_right = 2
+4       5
+ \     /
+  5   4
+```
+
+Thus, we want our recursive helper function to return **number of unique BSTs**. Then, we can recursively
+call this function until we reach a base case.
+
+**What is the base case?**
+- If there are no nodes in left subtree, we get a `null` tree, which is 1 unique case
+- If there is only 1 node, we get a one-node tree, which is 1 unique case
+
+**How to reach the base case?**
+- Define two integers `left` and `right`, which corresponds to the smallest node val and largest node val, and we use all integers within this range (inclusive) to build the tree
+- Each node can be the root node, so we **use a for loop within this range**, and recursively call this function by modifying `left` and `right` values
+
+**Code skeleton**
+```python
+def helper(left, right):
+    if left >= right:
+        return 1
+    
+    num_bsts = 0
+    
+    for i in range (left, right + 1):  # inclusive
+        num_bsts_left = helper(left, i-1)
+        num_bsts_right = helper(i+1, right)
+
+        num_bsts = num_bsts_left * num_bsts_right
+
+    return num_bsts
+```
+
+However, this method is quite **inefficient** because we need to repeatedly calculate the same subproblem many times, sort of like Fibonacci number.
+This is where we can use **dynamic programming**, using a **memo** to store results of subproblems.
+
+This memo is a 2D-array of size _n*n_.
+Note that when initializing the array, we must do `[[0 for col in range(n)] for row in range(n)]` instead of `[[0] * n] * n]`,
+because the latter will create `n` copies of the same array! In this case, every time we modify one element in one row,
+all other rows mirror the same changes.
+
 ## BST: Binary Search
 Very helpful code structure to solve binary search problems.
 ```python
@@ -764,6 +826,11 @@ Only check left subtree if current node's value is greater than `val`, which mea
 with value less than current node's value can only be in the left subtree. Vice versa for right subtree.
 
 ### 701. [Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/description/) (Medium)
+
+Find where to insert new node first, then do insertion.
+
+Problems that involve **modifying the structure of BST** usually require the function to **return a tree node**,
+and we need to utilize the returned node.
 
 **Where to insert new node?**
 - According to BST invariants, the root node of a BST must be greater than all values in the left subtree
@@ -797,4 +864,34 @@ if root.val > val:
 Otherwise, `root` will be returned. This is because if the left child or right child position is occupied, we 
 are not going to create a new node, instead, we will keep the original node. Thus, the final line is `return root`.
 
+
+### 450. [Delete Node in a Binary Search Tree](https://leetcode.com/problems/delete-node-in-a-bst/description/) (Medium)
+ 
+This is also a problem that requires modifying the structure of the tree, the return type of the function should be `TreeNode`.
+
+- Find the node to delete
+- Delete the node
+
+**How to delete a node?**
+- If both the node's left child and right child are null, delete directly (return `None`)
+- If either there is only one child, set the non-null child as current node (`if not root.left: return root.right`, vice versa)
+- If the node has two children:
+  - There are two solutions: (1) find the largest node in left subtree and make it this node, or (2) find the smallest node in right subtree and make it this node
+
+**How to find the largest child in left subtree?**
+
+We know that the left subtree is also a BST, thus, the root node of left subtree is greater than
+all nodes to its left. We only need to find the right-most bottom-most node of this
+subtree, which can be easily done by the following:
+```python
+while node.right:
+    node = node.right
+return node
+```
+
+**How to set the largest child in left subtree as current node?**
+1. Find the largest child in left subtree
+2. Delete the largest child in left subtree (this can be done by calling `deleteNode()`, which is the function we're trying to build)
+3. Make current node (the node to delete)'s left and right child attach to this new node
+4. Return largest child (remember that at every recursive call, we are returning the node we are processing right now)
 
