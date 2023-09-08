@@ -22,6 +22,7 @@
 - 701 - 🚩 Insert into a Binary Search Tree 🍊 
 - 450 - 🚩 Delete Node in a Binary Search Tree 🍊 
 - 257 - Binary Tree Paths 🍏
+- 129 - Sum Root to Leaf Numbers 🍊 
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
