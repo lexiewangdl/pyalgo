@@ -21,6 +21,7 @@
 - 700 - Search in a Binary Search Tree 🍏
 - 701 - 🚩 Insert into a Binary Search Tree 🍊 
 - 450 - 🚩 Delete Node in a Binary Search Tree 🍊 
+- 257 - Binary Tree Paths 🍏
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -930,4 +931,13 @@ return node
 2. Delete the largest child in left subtree (this can be done by calling `deleteNode()`, which is the function we're trying to build)
 3. Make current node (the node to delete)'s left and right child attach to this new node
 4. Return largest child (remember that at every recursive call, we are returning the node we are processing right now)
+
+## Traversal Problems
+
+### 257. [Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/description/) (Easy)
+
+Use a `path` variable (which is a string), passed down as a parameter of `dfs()` to keep track of path to current node.
+When processing, if current node does not have any children (`if not node.left and not node.right`), add path to a 
+list `ans` (a global variable). Return this list eventually.
+
 
