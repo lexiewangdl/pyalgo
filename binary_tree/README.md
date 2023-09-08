@@ -936,8 +936,17 @@ return node
 
 ### 257. [Binary Tree Paths](https://leetcode.com/problems/binary-tree-paths/description/) (Easy)
 
+To find all paths to leaf nodes in a binary tree, we need to traverse the tree once.
+
 Use a `path` variable (which is a string), passed down as a parameter of `dfs()` to keep track of path to current node.
 When processing, if current node does not have any children (`if not node.left and not node.right`), add path to a 
 list `ans` (a global variable). Return this list eventually.
+
+### 129. [Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/description/) (Medium)
+
+Similar to previous problem, use a string to build the numbers that represent each path from root to leaf.
+Eventually, convert strings back to integers and add them up.
+
+
 
 
