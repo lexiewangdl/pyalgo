@@ -11,15 +11,16 @@
 - 654 - Maximum Binary Tree 🍊
 - 105 - Construct Binary Tree from Preorder and Inorder Traversal 🍊
 - 106 - Construct Binary Tree from Inorder and Postorder Traversal 🍊
-- 889 - Construct Binary Tree from Preorder and Postorder Traversal 🍊 🚩
-- 652 - Find Duplicate Subtrees 🍊 🚩
+- 889 - 🚩 Construct Binary Tree from Preorder and Postorder Traversal 🍊
+- 652 - 🚩 Find Duplicate Subtrees 🍊 
 - 297 - Serialize and Deserialize Binary Tree 🍎
 - 538 - Convert BST to Greater Tree 🍊
 - 98 - Validate Binary Search Tree 🍊
-- 96 - Unique Binary Search Trees 🍊 🚩
+- 96 - 🚩 Unique Binary Search Trees 🍊 
+- 95 - Unique Binary Search Trees II 🍊
 - 700 - Search in a Binary Search Tree 🍏
-- 701 - Insert into a Binary Search Tree 🍊 🚩
-- 450 - Delete Node in a Binary Search Tree 🍊 🚩
+- 701 - 🚩 Insert into a Binary Search Tree 🍊 
+- 450 - 🚩 Delete Node in a Binary Search Tree 🍊 
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -797,6 +798,41 @@ This memo is a 2D-array of size _n*n_.
 Note that when initializing the array, we must do `[[0 for col in range(n)] for row in range(n)]` instead of `[[0] * n] * n]`,
 because the latter will create `n` copies of the same array! In this case, every time we modify one element in one row,
 all other rows mirror the same changes.
+
+### 95. Unique Binary Search Trees II (Medium)
+The key to constructing binary trees is: build root node first, then recursively build left and right subtrees.
+
+**Helper function parameters:**
+- Similar to previous problem, use two integers `left` and `right` to indicate the left and right boundaries (inclusive) of node values
+- Return type should be a list of tree nodes, which contains all possible tree structures, given that all node values are within range `left` and `right` (inclusive)
+
+**Base case:**
+- If `left > right`, subtree should be a null tree, return `[None]`
+- If `left == right`, subtree can only be one single node, return `[TreeNode(left)]`
+- Else, we need to recursively call our function to find possible left subtrees and right subtrees.
+  ```python
+  def build(left, right):
+      ... # define base cases
+  
+      result = []
+  
+      for i in range(left, right+1):
+          left_trees = build(left, i-1)
+          right_trees = build(i+1, right)
+  
+          # 2 embedded for loops
+          for left_tree in left_trees:
+              for right_tree in right_trees:
+                  root = TreeNode(i)  # create new subtree root node
+                  root.left = left_tree
+                  root.right = right_tree
+                  result.append(root)
+  
+      return result
+  ```
+  
+Similarly, we can also use a data structure to store computed results, so that we don't have to compute the same subproblem multiple times.
+Here, I used a dictionary.
 
 ## BST: Binary Search
 Very helpful code structure to solve binary search problems.
