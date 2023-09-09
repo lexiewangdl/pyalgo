@@ -23,6 +23,7 @@
 - 450 - 🚩 Delete Node in a Binary Search Tree 🍊 
 - 257 - Binary Tree Paths 🍏
 - 129 - Sum Root to Leaf Numbers 🍊 
+- 199 - Binary Tree Right Side View 🍊 
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -948,6 +949,42 @@ list `ans` (a global variable). Return this list eventually.
 Similar to previous problem, use a string to build the numbers that represent each path from root to leaf.
 Eventually, convert strings back to integers and add them up.
 
+### 199. [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/description/) (Medium)
 
+Two solutions:
+(1) use BFS, keep track of right-most child in each level,
+(2) use DFS, visit right children first, then left children.
 
+**My solution: DFS**
 
+**Pre-order** processing of root node, this is because the resulting list of right side view
+needs to be ordered top-down (parent comes before child).
+
+My initial plan was to only traverse the right-most branch, and stop immediately when leaf node is reached. However, this is 
+problematic because there can be examples like this:
+```python
+     3
+    / \
+   1   2
+  /
+ 0
+  \
+   5
+```
+If only visit right-most branch, result will be `[3, 2]`, but the answer should be
+`[3, 1, 0, 5]`.
+
+Thus, we need a `dfs()` that keeps track of current level of node. This `level` is also used as
+index in the resulting list. We only want one value (the right-most one) at each index.
+
+```python
+def dfs(node, level):
+    if not node:
+        return
+    
+    # pre-order processing
+    ...
+
+    dfs(node.right, level+1)  # visit right child first
+    dfs(node.left, level+1)
+```
