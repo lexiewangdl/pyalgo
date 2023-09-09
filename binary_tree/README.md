@@ -24,6 +24,7 @@
 - 257 - Binary Tree Paths 🍏
 - 129 - Sum Root to Leaf Numbers 🍊 
 - 199 - Binary Tree Right Side View 🍊 
+- 1022 - Sum of Root To Leaf Binary Numbers 🍏
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -988,3 +989,22 @@ def dfs(node, level):
     dfs(node.right, level+1)  # visit right child first
     dfs(node.left, level+1)
 ```
+
+### 1022. [Sum of Root To Leaf Binary Numbers](https://leetcode.com/problems/sum-of-root-to-leaf-binary-numbers/description/) (Easy)
+
+**My solution 1:**
+- Traverse binary tree with DFS, store each individual path from root to leaf as a string (e.g. "1011") in a global list
+- In the end, for each string (number) in list, convert the binary number to decimal number
+
+**How to convert binary to decimal?**
+Starting from the last digit, multiply the number by 2^0, increment the power by 1 every time we move one digit to the left.
+For example: `1011 = 1*2^0 + 1*2^1 + 0*2^2 + 1*2^3 = 1 + 2 + 0 + 8 = 11`
+
+**Runtime analysis:**
+For the recursive part, we visit every single node in the tree once.
+
+For the calculation part, the runtime is approximately `O(num_leaf_nodes * average_tree_length)`, where number of leaf nodes 
+is the number of binary numbers we have, and average tree length is average number of digits in binary numbers.
+
+
+
