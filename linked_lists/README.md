@@ -44,7 +44,7 @@ we can make the recursive function return _head node_ of reversed linked list.
 **For each recursive call, what needs to be done?**
 - If current node `head` is null, or if current node's next pointer points to null, return current node
   - This takes care of two situations: 
-  - (1) input linked list is empty linked list, with an empty head node (just return a null node)
+  - (1) input linked list is empty linked list, with an empty head node, the reversed version of itself is also a null node, just return null
   - (2) if we have reached the last node in linked list, the current node would be the head node of our reversed linked list, return this node (we will make sure its next pointer and its following nodes' next pointers point to correct things while we do processing)
 - Recursive call, `reversed_head = reverseList(head.next)`
   - Since recursive function call _precedes_ processing of input node, we will _reach the final node in input linked list_ first
@@ -98,6 +98,9 @@ we can make the recursive function return _head node_ of reversed linked list.
   reversed_head   
   ```
 
+**What does our recursive function do?**
+`reverseList()` takes the head of a linked list as input, and returns the
+head node of reversed version of itself.
 
 
 
