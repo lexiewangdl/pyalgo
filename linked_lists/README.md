@@ -2,6 +2,7 @@
 
 **Table of Contents**
 - 206 - 🚩 Reverse Linked List 🍏
+- 92 - 🚩 [Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/description/) 🍊
 
 ### 206. Reverse Linked List
 
@@ -10,7 +11,8 @@
 - Initialize tail of reversed linked list to be `None`
 - Use one pointer `head`, pointing to the head node in the unprocessed part of linked list
 - While there are still unprocessed nodes, do the following...
-  - Store the new unprocessed part of linked list as a temp variable `temp = head.next`
+  - Store the new unprocessed part of linked list as a temp variable `temp = head.next` 
+    - This is because if we don't store the new unprocessed part, we will lose track of it, and we won't be able to move on to the next node
   - Make current head (head of unprocessed part)'s `next` pointer point to `tail` (`head.next = tail`)
   - Update `tail` (note that `tail` should always point to the _first_ node), `tail = head` 
   - Update `head`, make it point to the head of new unprocessed part, `head = temp`
@@ -46,6 +48,9 @@ we can make the recursive function return _head node_ of reversed linked list.
   - This takes care of two situations: 
   - (1) input linked list is empty linked list, with an empty head node, the reversed version of itself is also a null node, just return null
   - (2) if we have reached the last node in linked list, the current node would be the head node of our reversed linked list, return this node (we will make sure its next pointer and its following nodes' next pointers point to correct things while we do processing)
+  - Another way to think about this is ...
+  - (1) the reversed version of an empty linked list is also an **empty linked list**
+  - (2) the reversed version of a **linked list with only one node** is **itself**
 - Recursive call, `reversed_head = reverseList(head.next)`
   - Since recursive function call _precedes_ processing of input node, we will _reach the final node in input linked list_ first
   - Assume that the returned node is the _head of reversed linked list_
