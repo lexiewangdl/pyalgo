@@ -103,12 +103,131 @@ we can make the recursive function return _head node_ of reversed linked list.
   reversed_head   
   ```
 
+#### Summary
 **What does our recursive function do?**
 `reverseList()` takes the head of a linked list as input, and returns the
 head node of reversed version of itself.
 
+Iterative solution is more efficient than recursive solution.
+For both solutions, time complexity is O(n). However, iterative solution has O(1) space complexity,
+whereas recursive solution has O(n) space complexity (because of the **call stack**).
+
+### 92. [Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/description/) (Medium)
+
+The basic idea is that, since we are reversing all nodes from position `left` to position `right`, we need to
+save the node to the left of `left`, save the node to the right of `right`, and then reverse the middle part. Finally,
+connect the three parts back together.
+
+- **Leading linked list:** The sub-chain to the left of `left` that is not going to be reversed.
+- **Trailing linked list:** The tail at the end, which is not going to be reversed.
 
 
+#### (a) Iterative Solution:
+- Use one `for` loop to find the final node of leading linked list
+- Use another `for` loop to reverse the middle part
+- Return modified linked list
+- Note: best to use a **dummy** node, which helps simplify edge cases
+
+1. If `left == right`, return `head`, because if the part to be reversed contains only 1 node, we don't need to do anything
+2. Initialize dummy node, which helps simplify edge cases:
+  ```python
+  dummy = ListNode(-1)
+  dummy.next = head
+  ```
+3. Initialize `prev`, `prev = dummy`
+4. First for loop: `for i in range(1, left): prev = prev.next`
+5. Here, `prev` should be pointing to the **final node in leading linked list**
+6. Next, reverse the nodes with another for loop
+```python
+curr = prev.next
+
+for i in range(left, right):
+    ptr = prev.next
+    prev.next = curr.next
+    curr.next = curr.next.next
+    prev.next.next = ptr
+```
+7. Finally, return `dummy.next`
+
+**How does the reversion work?**
+- To reverse the nodes from `left` to `right` inclusive, it takes `right - left` steps
+- At each step, what we are doing is simply:
+  - Current node is first node to be reversed
+  - Make the final node of leading linked list point to the next node of current node
+  - Make current node's next pointer point to remainder of linked list (not yet processed)
+  - Connect these two nodes in reverse direction
+```bash
+left = 2, right = 4
+
+# After executing: ptr = prev.next
+prev
+|
+1 -> 2 -> 3 -> 4 -> 5
+     | 
+ ptr, curr
+ 
+# After executing: prev.next = curr.next
+prev   ptr, curr
+|     /
+1    2 -> 3 -> 4 -> 5
+|_________| 
+
+# After executing: curr.next = curr.next.next
+curr is 2, curr.next.next is 4,
+now curr.next is 4
+
+prev   ____>___ 
+|     /        |                              2 --\
+1    2    3 -> 4 -> 5    -- same as -->  1 -> 3 -> 4 -> 5
+|____>____| 
+
+# After executing: prev.next.next = ptr
+prev is 1
+ptr is 2, curr is 2
+
+prev     ptr
+|         |
+1 -> 3 -> 2 -> 4 -> 5
+```
+
+#### (b) Recursive Solution:
+
+To reverse the middle part (part to be reversed), we can travel to the end of the leading linked list (final node of leading linked list), 
+save this node. Then, start reversing on the next node.
+
+We can reverse the middle part and save the trailing part in one step, using a helper function called 
+`reverseFrontK()`. This function will reverse the first `k` nodes in a linked list.
+```python
+def reverseFrontK(node: ListNode, k: int) -> ListNode:
+    if k == 1:  # current node is only node in linked list
+        return node  # the reverse of a single-node linked list is itself
+
+    reversed_head = reverseFrontK(node.next, k-1)  # decrement k as we move to next
+    
+    tail = node.next.next  # node.next is final node in reversed LL
+                           # node.next.next is the head node of trailing part
+    node.next.next = node  # put current node at the end of reversed LL
+    node.next = tail  # make current node point to trailing part
+
+    return reversed_head  # return head of reversed linked list
+```
+
+With this helper function, we can simply do the following:
+```python
+  def reverseBetween(head: ListNode, left: int, right: int) -> ListNode:
+      # If the part to be reversed contains only 1 node, no need to process
+      if left == right:
+          return head
+
+      # If there is no leading part
+      if left == 1:
+          return reverseFrontK(head, right - left + 1)
+
+      # travel to the next node while we haven't reached the first node to be reversed
+      head.next = reverseBetween(head.next, left - 1, right - 1)
+
+      return head
+```
 
 
 
