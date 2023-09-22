@@ -3,6 +3,7 @@
 **Table of Contents**
 - 206 - 🚩 Reverse Linked List 🍏
 - 92 - 🚩 [Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/description/) 🍊
+- 25 - 🚩 [Reverse Nodes in K-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/description/) 🍎
 
 ### 206. Reverse Linked List
 
@@ -229,6 +230,35 @@ With this helper function, we can simply do the following:
       return head
 ```
 
+### 25. [Reverse Nodes in k Group](https://leetcode.com/problems/reverse-nodes-in-k-group/description/) (Hard)
+
+#### Recursive Solution
+Given the head of a linked list, reverse the first _k_ nodes.
+Then, recursively call function on the following node (the _k+1-th_ node) to reverse the next _k_ nodes, and so on.
+
+Base case: if the chain starting from current node has length _n < k_, no need to reverse, just return the head node.
+
+After reversing the first _k_ nodes, we want to connect the reversed part with the following part. For example,
+if we want to reverse `1 -> 2 -> 3 -> 4 -> 5` in groups of 2, after reversing the first group, we have
+`2 -> 1 ,  3 -> 4 -> 5`, the two parts are not connected together. Also, since the second part is not reversed yet, we 
+need to call recursive function `reverseKGroup()` on this part, and then connect the resulting
+linked list to the first part.
+
+So far, we know that we need a function `reverse()` that reverses the first _k_ nodes in a linked list,
+and then, we need to do `head.next = self.reverseKGroup()` to connect the two parts together. `head` is the input to 
+our function, it is the head of the un-reversed linked list, so after the reversal, it is the final node, and we can use
+it to connect the first part to the second part.
+
+In general, the solution is ...
+1. Edge cases: if `k == 1`, no need to reverse
+2. Pre-order processing: before recursively calling function on sub-chain, process the first _k_ nodes of current chain.
+3. Use two pointers `A` and `B` to keep track of the region in which nodes need to be reversed
+   4. `A` points to beginning node of linked list, `B` needs to be moved several times to get to the head node of next linked list (input to next recursive call)
+   5. Before moving `B` to the next node, check whether `B` is `null`, if so, the current chain doesn't have length `n >= k`, we don't need to reverse this chain, just return
+5. Helper function `reverse(A, B)` is used to reverse nodes in between A and B (not including B)
+   6. `reverse(A, B)` returns the **head node of reversed part**, which is the _k-th_ node in input chain before reversal
+7. Recursively call current function on `B`, the head node of the un-processed part, `reverseKGroup(B, k)`
+8. We still need to connect the reversed part with the returned value of step 5. To connect the reversed linked list with this part, we need the final node in reversed linked list, which is `head`, because the head node of input list will become the final node after reversal. `head.next = reverseKGroup(B, k)`
 
 
 
