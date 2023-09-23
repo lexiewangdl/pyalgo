@@ -309,7 +309,7 @@ def traverse(node):
 
 ### Summary
 1. Linked list和binary tree一样，用递归遍历都有pre-order和post-order操作位置。在Pre-order位置打印node val，最后的结果是顺序。在Post-order位置打印val，最后的结果是倒序。
-
+2. 快速找到链表**中间点**：用快慢指针，慢指针走一步，快指针走两步，快指针走到头，慢指针走到中间点。两种情况：链表**节点数为单数**或节点数为**复数**。
 
 
 
