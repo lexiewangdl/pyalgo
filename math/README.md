@@ -2,17 +2,18 @@
 
 ## Table of Contents
 
-- (9) Palindrome Number (Easy)
-- (303) Range Sum Query - Immutable (Easy)
+- 9 - Palindrome Number (Easy)
+- 303 - Range Sum Query - Immutable (Easy)
+- 304 - Range Sum Query 2D - Immutable (Medium)
 
 ### 9. [Palindrome Number](https://leetcode.com/problems/palindrome-number/description/) (Easy)
-#### Solution 1: Two pointers, Convert integer to string
+#### Naive Solution: Two pointers, Convert integer to string
 Convert the input integer to a string, use two pointers, `left` initialized to be at index 0, 
 and `right` initialized to be at `len(string_x)-1`.
 Increment `left` and decrement `right` simultaneously until they meet. At each step, check if the
 character at two indices are the same. If not, return `False`.
 
-#### Solution 2: Maths
+#### Better Solution: Maths
 For integers, we can't just use indices to access digits.
 
 However, we can reverse the input integer (just like how we reverse a string), doing the following:
@@ -57,5 +58,39 @@ Thus, `preSum[i]` stores the sum of all values from `nums[0]` to `nums[i-1]` inc
 
 How to fill in this array `preSum`? `preSum[i] = preSum[i-1] + nums[i]`. The first value is always initialized to be 0, becuase
 the sum of all numbers in `nums` array before index 0 is always 0.
+
+### 304. [Range Sum Query 2D - Immutable](https://leetcode.com/problems/range-sum-query-2d-immutable/description/) (Medium)
+The 2D array `memo` stores at (x+1, y+1) the area of rectangle with the origin (0, 0) as top-left corner, and (x, y) as bottom-right
+corner (where x and y are coordinates in `matrix`).
+
+For ease of calculation, `memo`'s size will be `len(matrix)+1, len(matrix[0])+1`, and the first row and first column 
+will be initialized to be 0.
+
+**Initializing memo**:
+```bash
+# Matrix
+[[3, 0],
+ [5, 6]]
+ 
+# Memo
+[[0, 0, 0],       [[0, 0, 0],
+ [0, 3, 0],  -->   [0, 3, 3],  
+ [0, 0, 0]]        [0, 8, ?]]
+ 
+ ? = 8 + 3 - 2 + 6 = 14
+```
+For example, given the 2 by 2 matrix above ...
+- Initialize `memo` of size (2+1, 2+1), first row and first col are all zeroes
+- Starting from index `(1,1)`, fill in the number
+- How to find the value at `memo[i][j]` given that previous cells have been filled?
+- `memo[i][j] = memo[i-1][j] + memo[i][j-1] - memo[i-1][j-1] + matrix[i-1][j-1]`, where ...
+  - `memo[i-1][j]` is the cell immediately on top of current cell we are trying to fill
+  - `memo[i][j-1]` is the cell to the left
+  - Since both of these cell values were determined by summing `memo[i-1][j-1]` and the matrix value corresponding to their position, `memo[i-1][j-1]` (top left cell) needs to be subtracted
+  - Finally, add `matrix[i-1][j-1]`, which is this cell's corresponding cell in matrix
+
+**Query:**
+Simply access values from `memo` and do subtraction and addition accordingly.
+![Example](https://labuladong.github.io/algo/images/%E5%89%8D%E7%BC%80%E5%92%8C/5.jpeg)
 
 
