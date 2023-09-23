@@ -4,6 +4,7 @@
 - 206 - 🚩 Reverse Linked List 🍏
 - 92 - 🚩 [Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/description/) 🍊
 - 25 - 🚩 [Reverse Nodes in K-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/description/) 🍎
+- 234 - Palindrome Linked List 🍏
 
 ### 206. Reverse Linked List
 
@@ -260,8 +261,54 @@ In general, the solution is ...
 7. Recursively call current function on `B`, the head node of the un-processed part, `reverseKGroup(B, k)`
 8. We still need to connect the reversed part with the returned value of step 5. To connect the reversed linked list with this part, we need the final node in reversed linked list, which is `head`, because the head node of input list will become the final node after reversal. `head.next = reverseKGroup(B, k)`
 
+### 234. [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/description/) (Easy)
 
+#### Better Solution
+Use **two pointers**, one slow pointer and one fast pointer, to find the middle point of the linked list.
+Then, **reverse the latter half** of the linked list. Finally, compare node by node whether the two linked lists are equal.
 
+**Key points:**
+- Slow and fast pointers: 
+  - `slow` moves one step, `fast` moves two steps
+- The number of nodes in linked list can be odd-numbered or even-numbdered
+  - If the linked list is **odd-numbered**, after moving, `slow` will point to the middle node, and `fast` will point to the final node
+  - If **even-numbered**, `slow` will point to the first node of the second half of the linked list, `fast` will point to null
+- Reverse the second half, the head node of which is `slow`
+- Use two pointers `p1` and `p2`, one starts from the head node of input linked list, the other starts from the head node of reversed linked list, at each step, check whether two values are equal
+
+如果判断array或string是否是palindrome，只需要两个指针从两头向中间靠拢。
+但是linked list只能单方向移动，不能从两头向中间移动。
+
+通过**快慢指针**找到链表的中间节点，然后将后半段Linked List反转，我们就把input linked list
+变成了一个可以从两边向中间走的linked list：
+```bash
+# input
+1 -> 2 -> 3 -> 2 -> 1 -> null
+
+# after reversal of second half
+1 -> 2 -> 3 <- 2 <- 1
+```
+
+#### Naive Solution
+Traverse linked list recursively. Use two global variables (strings) to keep track of the forward reading and backward readings
+of the linked list. The forward reading needs to be updated at pre-order position, the backward reading needs to be updated
+at post-order position.
+```python
+forward = ""
+backward = ""
+
+def traverse(node):
+    ... # base case
+    
+    forward += node.val  # pre-order
+    
+    traverse(node.next)  # recurse
+    
+    backward += node.val  # post-order
+```
+
+### Summary
+1. Linked list和binary tree一样，用递归遍历都有pre-order和post-order操作位置。在Pre-order位置打印node val，最后的结果是顺序。在Post-order位置打印val，最后的结果是倒序。
 
 
 
