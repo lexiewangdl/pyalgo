@@ -1,6 +1,8 @@
 # Array Problems
 
 ## Table of Contents
+- 704 - Binary Search 🍏
+- 34 - Find First and Last Position of Element in Sorted Array 🍊
 
 ### 704. [Binary Search](https://leetcode.com/problems/binary-search/description/) (Easy)
 Binary search (of array) code structure:
@@ -28,4 +30,11 @@ def search(nums: list, target: int):
 - Updating the left and right pointers:
   - If `right` is inclusive, it can be updated as `right = mid - 1`, to avoid including mid in the next search
   - If `right` is exclusive, it can be updated as `right = mid`
+
+
+### 34. [Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/) (Medium)
+See this page for binary search template.
+
+Basically, do binary search once to find the left-most target, and search again to find 
+the right-most target.
 
