@@ -33,7 +33,7 @@ def search(nums: list, target: int):
 
 
 ### 34. [Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/) (Medium)
-See [this page](README.md) for binary search template.
+See [this page]([README.md](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md)) for binary search template.
 
 Basically, do binary search once to find the left-most target, and search again to find 
 the right-most target.
