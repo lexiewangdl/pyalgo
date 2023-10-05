@@ -42,7 +42,11 @@ def search_left_bound(nums: list, target: int):
         elif nums[mid] < target:
             left = mid + 1  # left is inclusive
 
-    return left
+    # make sure that index `right` is not out of bounds
+    if right == len(nums) or nums[right] != target:
+        return -1
+    else:
+        return right  # or return left because they are equal
 ```
 
 How to check whether `target` was found or not?
@@ -74,8 +78,12 @@ def search_right_bound(nums: list, target: int):
             left = mid + 1 
         elif nums[mid] < target:
             right = mid
-
-    return left - 1  # ** important **
+            
+    # make sure that index `left - 1` is not out of bounds
+    if left == 0 or nums[left - 1] != target:
+        return -1
+    else:
+        return left - 1  # ** important **
 ```
 
 Why this method can find the right-most target?
@@ -93,3 +101,8 @@ when we exit the while loop, `nums[left]` is not necessarily equal to `target`
 What if `nums` doesn't contain `target`?
 - Prior to returning, check if the element at `left - 1` is equal to `target`:
   - `return nums[left - 1] == target ? left - 1 : -1`
+
+Why check whether `left - 1` is out of bounds?
+- The range of `left` is `[0, len(nums)]`, because when we exit the while loop, 
+`left` and `right` will be equal
+- If `left == 0`, then `left - 1` will be out of bounds, this happens when the left pointer has never moved
