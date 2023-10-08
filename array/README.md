@@ -15,6 +15,12 @@ Key points:
 - This is why the returned result is `s[left:right]` (this is a simplified way of representing it, refer to code for edge case handling)
 - Only save char in `window` if char is a needed char (save some space)
 
+### 567. [Permutation in String](https://leetcode.com/problems/permutation-in-string/) (Medium)
+Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
+
+### 438. [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/) (Medium)
+Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
+
 
 ### 704. [Binary Search](https://leetcode.com/problems/binary-search/description/) (Easy)
 Binary search (of array) code structure:
