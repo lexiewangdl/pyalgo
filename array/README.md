@@ -1,9 +1,20 @@
 # Array Problems
 
 ## Table of Contents
+- 76 - 🚩 Minimum Window Substring 🍎
 - 704 - Binary Search 🍏
 - 34 - Find First and Last Position of Element in Sorted Array 🍊
 - 528 - 🚩 Random Pick with Weight 🍊
+
+### 76. [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
+For template of sliding window questions, see [this page](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
+
+Key points:
+- Must use `valid` (in this case, I used `count`) to store the number of keys whose value in `window` is greater than or equal to in `need` (I used `t_map`), this is because when comparing two dicts directly, it won't take care of situations where the values in `window` are greater than in `need` (e.g. `window = {'A': 2, 'B': 1}` and `need = {'A': 1, 'B': 1}`)
+- Even though `right` is initialize to be zero, it's always incremented right after the corresponding character is saved in a variable. When we exit the outer while loop, right will be equal to `len(s)`. Thus, the range is actually `[left, right)` (the right index is non-inclusive).
+- This is why the returned result is `s[left:right]` (this is a simplified way of representing it, refer to code for edge case handling)
+- Only save char in `window` if char is a needed char (save some space)
+
 
 ### 704. [Binary Search](https://leetcode.com/problems/binary-search/description/) (Easy)
 Binary search (of array) code structure:

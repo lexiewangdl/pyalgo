@@ -46,10 +46,9 @@ def sliding_window(s: str, t: str):
 ```
 
 Key points:
-1. Initialize `left` and `right` to be zero
-2. Immediately increment `left` and `right` right after getting the corresponding character
-3. **Update the window**: update information saved in dict `window`
-4. Move `left` when window needs to be shrinked
+1. Initialize `left` and `right` to be zero, immediately increment `left` and `right` right after getting the corresponding character
+2. **Time complexity is O(N)** because even through there is an embedded `while` loop, the pointers `left` and `right` will only increase, and never decrease. Every single element in array (or string) will only be added to the `window` once, and removed from it once (at max).
+3. `...` means we need to update data stored in `window`. The first instance is when we add new element, the second is when we remove an element.
 
 
 ## Binary Search on Arrays
