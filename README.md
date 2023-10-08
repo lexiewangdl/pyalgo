@@ -7,9 +7,52 @@ This repository contains solutions to LeetCode problems written in Python3.
 3. Dynamic programming
 4. Linked lists
 5. Arrays
+   1. Prefix sum algorithm
+   2. Sliding window
+   3. Binary search
 6. Math
 
-## Binary Search (Arrays)
+## Sliding Window
+Template:
+```python
+def sliding_window(s: str, t: str):
+    left = 0
+    right = 0
+    
+    window = dict()  # what we have currently in our window
+    need = dict()  # the chars we need (keys) and each char's corresponding count (values)
+    
+    valid = 0  # total number of valid keys 
+               # a valid key's count in window must be greater or same as in need
+    
+    # store chars in t in dictionary need
+    for c in t:
+        need[c] = need.get(c, 0) + 1
+    
+    while right < len(s):
+        c = s[right]
+        right += 1  # increment immediately after getting c
+        
+        # update window data
+        ...
+        
+        # check whether window needs shrink
+        while left < right and window_needs_shrink:
+            d = s[left]
+            left += 1
+            
+            # update window data
+            ...
+```
+
+Key points:
+1. Initialize `left` and `right` to be zero
+2. Immediately increment `left` and `right` right after getting the corresponding character
+3. **Update the window**: update information saved in dict `window`
+4. Move `left` when window needs to be shrinked
+
+
+## Binary Search on Arrays
 Code structure:
 ```python
 def search(nums: list, target: int):
