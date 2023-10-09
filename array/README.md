@@ -2,6 +2,8 @@
 
 ## Table of Contents
 - 76 - 🚩 Minimum Window Substring 🍎
+- 567 - Permutation in String 🍊
+- 438 - Find All Anagrams in a String 🍊
 - 704 - Binary Search 🍏
 - 34 - Find First and Last Position of Element in Sorted Array 🍊
 - 528 - 🚩 Random Pick with Weight 🍊
