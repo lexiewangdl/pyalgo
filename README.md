@@ -13,6 +13,12 @@ This repository contains solutions to LeetCode problems written in Python3.
 6. Math
 
 ## Sliding Window
+Key Questions:
+1. 什么时候扩大窗口？
+2. 什么时候缩小窗口？
+3. 什么时候更新结果？
+
+
 Template:
 ```python
 def sliding_window(s: str, t: str):
