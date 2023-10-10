@@ -7,6 +7,7 @@
 - 704 - Binary Search 🍏
 - 34 - Find First and Last Position of Element in Sorted Array 🍊
 - 528 - 🚩 Random Pick with Weight 🍊
+- 380 - Insert Delete GetRandom O(1) 🍊
 
 ### 76. [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
 For template of sliding window questions, see [this page](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
@@ -79,3 +80,17 @@ Python自带的生成随机整数的方法`random.randint(a, b)`是在range [a, 
 - 此值为数组中小于`target`的元素的个数
 
 比如输入为`nums = [0, 3, 17, 18, 25]`，要找的数字为10，最后退出while loop的时候左右指针都会指向17，也就是index为2。如果数字10需要insert到数组中，它就会出现在index 2的位置。同时，数组中小于10的数字一共有两个。
+
+### 380. [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/description/) (Medium)
+1. How to get a random element in a data structure in O(1) time?
+
+    If we have an **array**, we can use `random.randint()` to generate a random index within the range (0, len(array)-1). Then we can return the element at that index.
+    We can also just use `random.choice(array)` to get a random element in the array.
+2. How to insert and delete an element in a data structure in O(1) time?
+
+    If we have a **hash table**, we can insert and delete an element in O(1) time. However, we cannot get a random element in O(1) time.
+    If we have an **array**, we can still insert and delete in O(1) time, as long as the item is added to the end or removed from the end.
+3. How to make sure that the item to delete is at the end of the array?
+
+   Swap the item to be deleted with the last item in the array, and then delete the last item in the array.
+4. Other key points: (1) remember to increment data length when inserting an item; (2) remember to decrement data length when deleting an item; (3) remember to update the hash table when swapping items.
