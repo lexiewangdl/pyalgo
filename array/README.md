@@ -93,4 +93,8 @@ Python自带的生成随机整数的方法`random.randint(a, b)`是在range [a, 
 3. How to make sure that the item to delete is at the end of the array?
 
    Swap the item to be deleted with the last item in the array, and then delete the last item in the array.
-4. Other key points: (1) remember to increment data length when inserting an item; (2) remember to decrement data length when deleting an item; (3) remember to update the hash table when swapping items.
+4. Swap items in O(1) time?
+
+   Use a hash table to store the index of each item in the array. In this way, we can find the **index of item to delete** in O(1) time and swap it with the last element in list in O(1) time.
+5. Other key points: (1) remember to increment data length when inserting an item; (2) remember to decrement data length when deleting an item; (3) remember to update the hash table when swapping items.
+
