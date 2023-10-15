@@ -124,3 +124,15 @@ There are two scenarios: (1) the longest palindrome has odd-numbered length, e.g
 the starting values of `l` and `r` (for previous sub-task) are both equal to `i`. (2) the longest palindrome has even-numbered
 length, in this case, `l` and `r` should be `i` and `i+1`.
 
+### 121. Best Time to Buy and Sell Stock (Easy)
+
+Use two pointers `l` and `r`, `l` starts at index `0` and `r` starts at index `1`.
+Use a while loop (`while r < len(arr):`) to iterate through the array, at each step, do the following: (1)
+If current profit is greater than 0, it means that we can make a profit by buying at `l` and selling at `r`, so we check
+whether current profit is greater than `max_profit`, if so, update `max_profit`. (2) If current profit is less than 0,
+it means that `prices[l]` is greater than `prices[r]`, so we should set `l` to be equal to `r`. Note that we can't
+just increment `l` by 1, because we don't know whether `prices[r]` is the smallest element in the array, so we need to
+set `l` to be equal to `r` to ensure that `prices[l]` is the smallest element in the array.
+In other words, we are trying to find the smallest element in the array, and we want `l` to be pointing to that element.
+If we find an element that is smaller than `prices[l]`, we set `l` to point to that element.
+(3) Increment `r` by 1, at every step.
