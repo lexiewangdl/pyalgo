@@ -8,6 +8,7 @@
 - 34 - Find First and Last Position of Element in Sorted Array 🍊
 - 528 - 🚩 Random Pick with Weight 🍊
 - 380 - Insert Delete GetRandom O(1) 🍊
+- 347 - 🚩 Top K Frequent Elements 🍊
 
 ### 76. [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
 For template of sliding window questions, see [this page](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
