@@ -8,7 +8,7 @@
 - 34 - Find First and Last Position of Element in Sorted Array 🍊
 - 528 - 🚩 Random Pick with Weight 🍊
 - 380 - Insert Delete GetRandom O(1) 🍊
-- 347 - 🚩 Top K Frequent Elements 🍊
+
 
 ### 76. [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
 For template of sliding window questions, see [this page](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
@@ -99,13 +99,4 @@ Python自带的生成随机整数的方法`random.randint(a, b)`是在range [a, 
    Use a hash table to store the index of each item in the array. In this way, we can find the **index of item to delete** in O(1) time and swap it with the last element in list in O(1) time.
 5. Other key points: (1) remember to increment data length when inserting an item; (2) remember to decrement data length when deleting an item; (3) remember to update the hash table when swapping items.
 
-### 347. Top K Frequent Elements (Medium)
-1. Use `Counter()` to get the frequency of each element in the list.
-2. Store each number and its corresponding frequency in a `heap`. Note: since this heap is a min heap, and what we want is the top k frequent elements, we need to store the negative frequency of each element in the heap, `heappq.heappush(heap, (-freq, num))`. In this way, we have a max heap.
-3. Pop the top k elements from the heap, `heapq.heappop(heap)[1]`.
-
-### Heap in Python
-1. Initialize a heap: `heap = []`
-2. Insert an item into a heap: `heapq.heappush(heap, (priority, item))`
-3. Pop the smallest item from a heap: `heapq.heappop(heap)`
 
