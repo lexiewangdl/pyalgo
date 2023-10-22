@@ -5,6 +5,7 @@
 - 9 - Palindrome Number (Easy)
 - 303 - Range Sum Query - Immutable (Easy)
 - 304 - Range Sum Query 2D - Immutable (Medium)
+- [311. Sparse Matrix Multiplication](#311-sparse-matrix-multiplication--medium-) (Medium)
 
 ### 9. [Palindrome Number](https://leetcode.com/problems/palindrome-number/description/) (Easy)
 #### Naive Solution: Two pointers, Convert integer to string
@@ -93,4 +94,26 @@ For example, given the 2 by 2 matrix above ...
 Simply access values from `memo` and do subtraction and addition accordingly.
 ![Example](https://labuladong.github.io/algo/images/%E5%89%8D%E7%BC%80%E5%92%8C/5.jpeg)
 
+### 311. [Sparse Matrix Multiplication](https://leetcode.com/problems/sparse-matrix-multiplication/description/) (Medium)
+
+**矩阵乘法**：
+- 矩阵点乘：矩阵A和B的size必须一样，对应位置的元素相乘
+- 矩阵叉乘：矩阵A✖️B，A的列数必须等于B的行数，结果矩阵的size是A的行数和B的列数
+
+A (l x m) ✖️ B (m x n) = C (l x n)
+
+![Matrix Multiplication](https://www.geeksforgeeks.org/wp-content/uploads/strassen_new.png)
+
+**Python solution**
+用三个nested for loops，第一层和第二层for loop分别遍历结果矩阵R的每一行和每一列。第一层for loop为
+`for l in range(len(A))`，第二层for loop为`for n in range(len(B[0]))`。第三层for loop为`for m in range(len(A[0]))`，
+这样的话，在每一步更新`R[l][n]`的时候，就可以用`R[l][n] += A[l][m] * B[m][n]`。
+
+**Time Complexity:** O(lmn)
+
+**NumPy solution:**
+- Initialize array from list of list: `A = np.array(matrix1)`
+- Matrix multiplication: `R = matmul(A, B)`
+- Result: `R.tolist()`
+- Simplified: `matmul(np.array(mat1), np.array(mat2)).tolist()`
 
