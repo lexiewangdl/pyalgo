@@ -1,4 +1,5 @@
 # Python Cheat Sheet
+This cheat sheet contains useful Python functions and data structures for solving LeetCode problems.
 
 ## Table of Contents
 1. Math
@@ -27,3 +28,4 @@ Using `collections.deque` to implement a queue.
 
 Useful links:
 - [Python collections.deque() cheat sheet](https://cheatography.com/fidelp27/cheat-sheets/python-collections-deque/)
+
