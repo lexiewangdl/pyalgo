@@ -8,6 +8,7 @@
 - 34 - Find First and Last Position of Element in Sorted Array 🍊
 - 528 - 🚩 Random Pick with Weight 🍊
 - 380 - Insert Delete GetRandom O(1) 🍊
+- 268 - Mising Number 🍏
 
 
 ### 76. [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
@@ -99,4 +100,17 @@ Python自带的生成随机整数的方法`random.randint(a, b)`是在range [a, 
    Use a hash table to store the index of each item in the array. In this way, we can find the **index of item to delete** in O(1) time and swap it with the last element in list in O(1) time.
 5. Other key points: (1) remember to increment data length when inserting an item; (2) remember to decrement data length when deleting an item; (3) remember to update the hash table when swapping items.
 
+### 268. [Missing Number](https://leetcode.com/problems/missing-number/description/) (Easy)
+
+**My approach:** 
+
+Sort the array in ascending order using `array.sort(revers=False)`. Initialize `ans = 0`. 
+Iterate through the array, if the current number is not equal to `ans`, return `ans`. 
+Otherwise, increment `ans` by 1. If the loop finishes, return `ans`.
+
+**Mathematical approach:**
+
+Calculate the expected sum of all integers within the range `[0, N]`, where `N` is the length of the array.
+Then calculate the actual sum of all integers in the array. 
+The difference between the expected sum and the actual sum is the missing number.
 

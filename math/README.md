@@ -6,6 +6,7 @@
 - 303 - Range Sum Query - Immutable (Easy)
 - 304 - Range Sum Query 2D - Immutable (Medium)
 - [311. Sparse Matrix Multiplication](#311-sparse-matrix-multiplication--medium-) (Medium)
+- [268. Missing Number](#268-missing-number-easy) (Easy)
 
 ### 9. [Palindrome Number](https://leetcode.com/problems/palindrome-number/description/) (Easy)
 #### Naive Solution: Two pointers, Convert integer to string
@@ -116,4 +117,19 @@ A (l x m) ✖️ B (m x n) = C (l x n)
 - Matrix multiplication: `R = matmul(A, B)`
 - Result: `R.tolist()`
 - Simplified: `matmul(np.array(mat1), np.array(mat2)).tolist()`
+
+
+### 268. [Missing Number](https://leetcode.com/problems/missing-number/description/) (Easy)
+
+**My approach:** 
+
+Sort the array in ascending order using `array.sort(revers=False)`. Initialize `ans = 0`. 
+Iterate through the array, if the current number is not equal to `ans`, return `ans`. 
+Otherwise, increment `ans` by 1. If the loop finishes, return `ans`.
+
+**Mathematical approach:**
+
+Calculate the expected sum of all integers within the range `[0, N]`, where `N` is the length of the array.
+Then calculate the actual sum of all integers in the array. 
+The difference between the expected sum and the actual sum is the missing number.
 
