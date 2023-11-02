@@ -7,8 +7,9 @@
 - 704 - Binary Search 🍏
 - 34 - Find First and Last Position of Element in Sorted Array 🍊
 - 528 - 🚩 Random Pick with Weight 🍊
-- 380 - Insert Delete GetRandom O(1) 🍊
-- 268 - Mising Number 🍏
+- [380. Insert Delete GetRandom O(1)](#380-insert-delete-getrandom-o--1--medium) 🍊
+- [268. Mising Number](#268-missing-number-easy) 🍏
+- [1306. Jump Game III]() 🍊
 
 
 ### 76. [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
@@ -114,3 +115,13 @@ Calculate the expected sum of all integers within the range `[0, N]`, where `N` 
 Then calculate the actual sum of all integers in the array. 
 The difference between the expected sum and the actual sum is the missing number.
 
+### 1306. [Jump Game III](https://leetcode.com/problems/jump-game-iii/) (Medium)
+
+**Topics**: Array, BFS, DFS
+
+**My approach (BFS solution):** Use a queue to store the indices of the elements that we are going to visit. Use a set
+`visited` to stored the indices that we have visited. This is to avoid visiting the same index many times, which will 
+lead to TLE error if there is no way for us to reach the element with value 0.
+For each element in the queue, check if it is equal to 0. If yes, return True. Otherwise, add the indices that we can
+reach from the current index to the queue. Then add the current index to the set `visited`. If the queue is empty, return
+False.
