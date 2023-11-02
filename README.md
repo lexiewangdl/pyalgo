@@ -8,8 +8,10 @@ This repository contains solutions to LeetCode problems written in Python3.
 4. Linked lists
 5. Arrays
    1. Prefix sum algorithm
-   2. Sliding window
-   3. Binary search
+   2. [Sliding window](#sliding-window)
+   3. [Binary search](#binary-search-on-arrays)
+      1. [Find left-most target](#look-for-left-most-target)
+      2. [Find right-most target](#look-for-right-most-target)
 6. Math
 
 ## Sliding Window
