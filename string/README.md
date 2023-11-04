@@ -38,4 +38,18 @@ The input expression can be split into four parts by adding a pair of parenthese
 
 **Time complexity**: O(n^2)
 
+### [38. Count and Say](https://leetcode.com/problems/count-and-say/description/) (Medium)
+**My solution:** recursive approach
 
+Since the problem is defined recursively, it makes sense to adopt an recursive approach.
+The idea is that the output of `CountAndSay(n)` is the way you speak the output of `CountAndSay(n-1)`. 
+To write a recursive function, we need to define the base case and the recursive case.
+- The base case: when n = 1, the output is "1"
+- The recursive case: we need to know the output of `CountAndSay(n-1)`, and then using the output, determine how we can 
+  speak it out loud.
+
+One thing to note is that when we loop through the string, keeping track of the current digit and its count,
+we need to **add the last digit to the result string after the loop is finished.** This is because the loop only adds
+the digit to the result string when the next digit is different from the current digit. If the last digit is the same
+as the second last digit, the last digit will not be added to the result string. Therefore, we need to add it manually
+after the loop is finished.
