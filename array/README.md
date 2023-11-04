@@ -6,10 +6,11 @@
 - 438 - Find All Anagrams in a String 🍊
 - 704 - Binary Search 🍏
 - 34 - Find First and Last Position of Element in Sorted Array 🍊
-- 528 - 🚩 Random Pick with Weight 🍊
+- 🚩 [528. Random Pick with Weight](#528-random-pick-with-weight-medium) 🍊
 - [380. Insert Delete GetRandom O(1)](#380-insert-delete-getrandom-o--1--medium) 🍊
 - [268. Mising Number](#268-missing-number-easy) 🍏
 - [1306. Jump Game III]() 🍊
+- 🚩 [540. Single Element in a Sorted Array](#540--single-element-in-a-sorted-array-medium) 🍊
 
 
 ### 76. [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
@@ -125,3 +126,48 @@ lead to TLE error if there is no way for us to reach the element with value 0.
 For each element in the queue, check if it is equal to 0. If yes, return True. Otherwise, add the indices that we can
 reach from the current index to the queue. Then add the current index to the set `visited`. If the queue is empty, return
 False.
+
+### 540. 🚩 [Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/) (Medium)
+**Topics**: Binary Search
+
+#### Naive Approach: For Loop, O(n) time complexity
+Loop through the array once and keep track of the count of previous element. If current element is 
+different from previous one, and the count of previous element is 1, return the previous element. If the loop finishes,
+return the last element.
+
+Time complexity: O(n), space complexity: O(1)
+
+#### Binary Search, O(log n) time complexity
+The question asks for O(log n) time complexity, so it makes sense to use binary search.
+However, how to use binary search? We know that for there to be a single element, the length of
+the array must be an odd number. If we check carefully, we can see the following pattern:
+
+```shell
+ 0  1  2  3  4
+    |     |
+[1, 2, 2, 3, 3]  # 在single element右边的digit pairs中的第一个element的index永远为单数
+
+[1, 1, 2, 2, 3]  # single element左边的digit pairs中第一个element的index永远为偶数
+ |     |
+ 0  1  2  3  4
+```
+- To the right of the single element, the indices of the **first** element in pair are _odd_ numbers.
+- To the left of the single element, the indices of the **first** element in pair are _even_ numbers.
+
+We can make use of this pattern to perform binary search. The steps are as follows:
+1. Initialize `left = 0` and `right = len(array) - 1`, it's important to use a non-inclusive right index, otherwise
+   the code will be more complicated.
+2. While `left < right`
+   1. calculate the mid point `mid = left + (right - left) // 2`. 
+   2. If `mid` is an even number, compare `array[mid]` with `array[mid + 1]`. 
+   3. If they are equal, it means that the single element is to the right of
+      `mid`. 
+   4. Otherwise, it means that the single element is to the left of `mid`. 
+   5. If `mid` is an odd number, compare `array[mid]` with `array[mid - 1]`. 
+   6. If they are equal, it means that the single element is to the right of `mid`.
+   7. Otherwise, it means that the single element is to the left of `mid`.
+3. Eventually, `left` will be equal to `right`, and the loop will exit. 
+4. Return `array[left]`.
+
+#### Maths Approach, O(n) time complexity
+Use the formula `2 * sum(set(array)) - sum(array)` to get the value of the single element.
