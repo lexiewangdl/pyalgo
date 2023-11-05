@@ -11,6 +11,7 @@
 - [268. Mising Number](#268-missing-number-easy) 🍏
 - [1306. Jump Game III]() 🍊
 - 🚩 [540. Single Element in a Sorted Array](#540--single-element-in-a-sorted-array-medium) 🍊
+- [36. Valid Sudoku](#36-valid-sudoku-medium) 🍊
 
 
 ### 76. [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
@@ -171,3 +172,12 @@ We can make use of this pattern to perform binary search. The steps are as follo
 
 #### Maths Approach, O(n) time complexity
 Use the formula `2 * sum(set(array)) - sum(array)` to get the value of the single element.
+
+### [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/description/) (Medium)
+Use two list of sets, `rows` and `cols`, to keep track of numbers in each row and each column.
+Use a  3 by 3matrix of sets `grids` to keep track of numbers in each 3 by 3 grid.
+Iterate through the board using a nested for loop, for each element, check if it is an empty 
+spot `matrix[i][j] == '.'`. If so, continue to next spot. Otherwise, check if the number is already in `rows`, `cols`, 
+or `grids`. If yes, return `False`. Otherwise, add the number to `rows`, `cols`, and `grids`. 
+If the loop finishes, return `True`.
+

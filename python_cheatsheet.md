@@ -11,6 +11,8 @@ This cheat sheet contains useful Python functions and data structures for solvin
 ## 1. Math
 1. Generate a random number in range [0, 1] (inclusive): `random.random()`
 2. Generate a random integer in range [a, b] (inclusive): `random.randint(a, b)`
+3. Floor division: `//`
+4. Ceiling division: `math.ceil(x / y)`
 
 ## 2. String
 
