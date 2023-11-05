@@ -1,5 +1,41 @@
 # Two Pointers
 
+## Summary
+Two pointers is a technique that involves using two pointers to solve a problem.
+The time complexity of two pointers is usually **O(N)**, where N is the length of input array.
+
+Two pointers is usually used to solve problems that involve **arrays** or **linked lists**.
+
+### Type of Two Pointers
+
+#### (1) 快慢指针 Slow and fast pointers, in the same direction
+Useful for ...
+1. 环形链表：Detect cycle in linked list
+2. 找链表中点：Find middle of linked list
+3. 找链表中第n个元素：Find nth element in linked list
+4. 删除重复元素：Remove duplicates from sorted array
+
+#### (2) 对撞指针 Pointers that move in the opposite direction
+Useful for ...
+1. 有序数组中两数之和：Two sum in sorted array
+2. 检测回文串：Find palindrome 
+
+#### (3) 分离指针 Pointers on different arrays
+Useful for ...
+1. 两个有序数组的交集：Intersection of two sorted arrays
+2. 合并有序数组：Merge two sorted arrays, aka. merge sort
+
+## Table of Contents
+1. [26. Remove Duplicates from Sorted Array](#26-remove-duplicates-from-sorted-array-easy) 🍏
+2. [83. Remove Duplicates from Sorted List](#83-remove-duplicates-from-sorted-list-easy) 🍏
+3. [27. Remove Element](#27-remove-element-easy) 🍏
+4. [283. Move Zeroes](#283-move-zeroes-easy) 🍏
+5. [167. Two Sum II - Input Array Is Sorted](#167-two-sum-ii---input-array-is-sorted-medium) 🍊
+6. [344. Reverse String](#344-reverse-string-easy) 🍏
+7. [5. Longest Palindromic Substring](#5-longest-palindromic-substring-medium) 🍊
+8. [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock-easy) 🍏
+9. [443. String Compression](#443-string-compression) 🍊
+
 
 ## Two Pointers on Arrays
 
@@ -136,3 +172,28 @@ set `l` to be equal to `r` to ensure that `prices[l]` is the smallest element in
 In other words, we are trying to find the smallest element in the array, and we want `l` to be pointing to that element.
 If we find an element that is smaller than `prices[l]`, we set `l` to point to that element.
 (3) Increment `r` by 1, at every step.
+
+
+### 443. String Compression
+Use two pointers `l` and `r`, `l` starts at index `0` and `r` starts at index `1`.
+Use two variables `curr_char` and `curr_count` to keep track of current character and current count.
+Use a while loop (`while r < len(arr):`) to iterate through the array, at each step, do the following: 
+1. If `arr[r] == curr_char`, increment `curr_count` by 1. 
+2. If `arr[r] != curr_char`, we have found a new character, so ...
+   1. Update resulting array: 
+      1. set `arr[l]` to be equal to `curr_char`, increment `l` by 1.
+      2. set `arr[l+1]` to be equal to `curr_count`. Note that if count is more than 10, for example "12", it will need 
+         to be stored as two separate characters, "1" and "2", so we need to convert `curr_count` to a string, and then
+         use a for loop to iterate through the string and set `arr[l]` to be equal to each character in the string,
+         and increment `l` by 1 at every step.
+   2. Update `curr_char` and `curr_count`:
+      1. set `curr_char` to be equal to `arr[r]`
+      2. set `curr_count` to be equal to `1`
+   3. Increment `r` by 1, at every step.
+3. After the while loop, we need to update the resulting array one last time. 
+   This is because the while loop only updates the resulting array when `arr[r] != curr_char`,
+    but if `arr[r] == curr_char` at the end of the while loop, we need to update the resulting array one last time.
+
+Time complexity: O(N)
+Space complexity: O(1)
+
