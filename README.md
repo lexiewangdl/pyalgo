@@ -3,7 +3,7 @@ This repository contains solutions to LeetCode problems written in Python3.
 
 ## Topics
 1. [Two pointers](#two-pointers) (linked list and array)
-2. Binary tree
+2. [Binary trees](#binary-trees)
 3. Dynamic programming
 4. Linked lists
 5. Arrays
@@ -13,12 +13,15 @@ This repository contains solutions to LeetCode problems written in Python3.
       1. [Find left-most target](#look-for-left-most-target)
       2. [Find right-most target](#look-for-right-most-target)
 6. Math
+7. Graph
 
 ## Two Pointers
 
 1. **快慢指针** Slow and fast pointers, in the same direction
 2. **对撞指针** Pointers that move in the opposite direction
 3. **分离指针** Pointers on different arrays
+
+## Binary Trees
 
 ## Sliding Window
 Key Questions:

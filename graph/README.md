@@ -2,8 +2,27 @@
 This directory contains solutions to graph problems.
 
 ## Overview
+* A **graph** consists of a set of **nodes** and a set of **edges**. 
+* Each edge connects two nodes.
+* An edge can be **directed** or **undirected**. 
+* A **path** is a sequence of nodes connected by edges.
+* A **cycle** is a path that starts and ends at the same node.
+* We use an **adjacency list** or an **adjacency matrix** to store a graph.
+* **邻接链表 Adjacency list**: `adj_list[i]` is a list of nodes that are connected to node `i`.
+  * Advantage: saves space.
+  * Disadvantage: takes O(E) time to check if there is an edge between two nodes.
+* **邻接矩阵 Adjacency matrix**: `matrix[i][j]` is `True` if there is an edge from node `i` to node `j`, or if they are connected
+  by an edge, in case of undirected graph. Otherwise, `matrix[i][j]` is `False`.
+     * Advantage: takes O(1) time to check if there is an edge between two nodes.
+     * Disadvantage: takes O(V^2) space.
 
+![Storage of graph](https://algorithmtutor.com/images/graph_representation_directed.png)
 
+## Graph Traversal
+- Same as traversal of a tree.
+- Graphs can have cycles, so we need to keep track of `visited` nodes to avoid infinite loops.
+- Difference between backtracking and DFS:
+  - The key of **backtracking** is that we don't care about the **node**, we care about the **edge**.
 
 ## Table of Contents
 - [277. Find the Celebrity](#277-find-the-celebrity-medium) 🍊
@@ -28,7 +47,7 @@ When there is only one person left in the queue, we need to check if this person
 checking if this person knows no one else and if everyone else knows this person.
 If that's the case, return the index of this person. Otherwise, return -1.
 
-#### Best Solution 💡 O(N) time, O(1) space
+#### 💡 Best Solution: O(N) time, O(1) space
 Use a integer `c` to keep track of the index of the celebrity. Initially, set `c = 0`.
 Iterate through the rest of the people. If `c` knows `i` or `i` does not know `c`, then `c` is not the celebrity, but 
 `i` could be the celebrity, so set `c = i`. Otherwise, `c` is still the celebrity.
