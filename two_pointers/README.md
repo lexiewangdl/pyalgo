@@ -194,6 +194,8 @@ Use a while loop (`while r < len(arr):`) to iterate through the array, at each s
    This is because the while loop only updates the resulting array when `arr[r] != curr_char`,
     but if `arr[r] == curr_char` at the end of the while loop, we need to update the resulting array one last time.
 
-Time complexity: O(N)
-Space complexity: O(1)
+Note: `l` is the index where next processed element should be placed at, it is also the length of the
+resulting array.
+
+Time complexity: O(N), Space complexity: O(1)
 
