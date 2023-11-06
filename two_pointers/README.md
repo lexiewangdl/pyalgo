@@ -35,6 +35,8 @@ Useful for ...
 7. [5. Longest Palindromic Substring](#5-longest-palindromic-substring-medium) 🍊
 8. [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock-easy) 🍏
 9. [443. String Compression](#443-string-compression) 🍊
+10. 🚩 [42. Trapping Rain Water](#42-trapping-rain-water-hard) 🍎
+11. 🚩 [11. Container With Most Water](#11-container-with-most-water-medium) 🍊
 
 
 ## Two Pointers on Arrays
@@ -199,3 +201,38 @@ resulting array.
 
 Time complexity: O(N), Space complexity: O(1)
 
+### 42. [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/description/) (Hard)
+
+重点：不要去想整体能装多少水，先去想在每个位置`i`上能装多少水。
+位置`i`能装多少水取决于左侧和右侧最高的柱子的高度，即`max_left`和`max_right`。
+所以位置`i`能装多少水取决于`min(max_left, max_right) - height[i]`。
+
+**Two pointers solution**: [trapping_rain_water.py](trapping_rain_water.py)
+- Initialize `left = 0`, `right = len(height) - 1`
+- Keep track of `l_max` and `r_max`, where `l_max` is the maximum height of all bars to the left of `left` pointer,
+  and `r_max` is the maximum height of all bars to the right of `right` pointer
+  ```shell
+  [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
+         ^                    ^
+         l                    r
+  l_max = 1
+  r_max = 2
+  ```
+- Use a while loop `while left < right`, make two pointers move in opposite directions
+- The question is: when do we move `left` pointer and when do we move `right` pointer?
+  - 当`left`指针和`right`指针相遇之前，`l_max`一定是`left`左边最高的bar的高度。但是，`r_max`不一定是`left`右边最高的bar的高度。
+  - 这是因为`left` and `right`中间还有一段位置没有见过。
+  - 但是，我们并不在乎`r_max`是不是`left`右边最高的bar，因为`height[i]`位置能够取的水量取决于最低的那个bar，也就是`min(l_max, r_max)`。
+  - 接下来，我们要决定移动`left`还是移动`right`。
+  - 如果`l_max < r_max`，那么`height[left]`能够取的水量取决于`l_max`，这个时候我们已经算完了`height[left]`的水量，所以我们移动`left`。
+  - 如果`l_max >= r_max`，那么`height[right]`能够取的水量取决于`r_max`，这个时候我们已经算完了`height[right]`的水量，所以我们移动`right`。
+  - At every step, we only move one pointer, and we only move the pointer on the side that has the smaller maximum height.
+
+### 11. [Container With Most Water](https://leetcode.com/problems/container-with-most-water/) (Medium)
+Similar to previous question, use **two pointers** ([solution](container_with_most_water.py)). Initialize `left = 0` 
+and `right = len(height) - 1`. Keep track of maximum bar height to the left of `left` pointer and maximum bar height
+to the right of `right` pointer, using `l_max` and `r_max` respectively. 
+Use a while loop `while left < right`, make two pointers move in opposite directions.
+At every step, update `l_max` and `r_max` first, and then, compare `l_max` to `r_max`, because the amount of water
+we can store in between `left` and `right` is determined by the smaller of the two maximum bar heights.
+If `l_max < r_max`, increment `left` by 1, otherwise, decrement `right` by 1.
