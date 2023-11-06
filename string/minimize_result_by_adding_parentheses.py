@@ -1,6 +1,5 @@
 import math
 
-
 class Solution:
     def minimizeResult(self, expression: str) -> str:
         ans = (math.inf, expression)
@@ -8,7 +7,7 @@ class Solution:
         # find index of '+'
         plus_idx = expression.find('+')
 
-        # two pointers, [l, r)
+        # two pointers, [l, r), nested for loop
         for l in range(0, plus_idx):
             left = expression[:l] if expression[:l] else "1"
 
