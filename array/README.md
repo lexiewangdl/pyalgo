@@ -1,68 +1,25 @@
 # Array Problems
 
 ## Table of Contents
-- 76 - 🚩 Minimum Window Substring 🍎
-- 567 - Permutation in String 🍊
-- 438 - Find All Anagrams in a String 🍊
-- 704 - Binary Search 🍏
-- 34 - Find First and Last Position of Element in Sorted Array 🍊
-- 🚩 [528. Random Pick with Weight](#528-random-pick-with-weight-medium) 🍊
+- [Prefix Sum Questions](#1-prefix-sum-questions) 前缀和数组
+  - 🚩 [528. Random Pick with Weight](#528-random-pick-with-weight-medium) 🍊
+- Difference Array Questions 差分数组
+- [Sliding Window Questions](#3-sliding-window-questions) 滑动窗口
+  - 76 - 🚩 Minimum Window Substring 🍎
+  - 567 - Permutation in String 🍊
+  - 438 - Find All Anagrams in a String 🍊
 - [380. Insert Delete GetRandom O(1)](#380-insert-delete-getrandom-o--1--medium) 🍊
 - [268. Mising Number](#268-missing-number-easy) 🍏
 - [1306. Jump Game III]() 🍊
-- 🚩 [540. Single Element in a Sorted Array](#540--single-element-in-a-sorted-array-medium) 🍊
 - [36. Valid Sudoku](#36-valid-sudoku-medium) 🍊
+- [Binary Search Questions](#4-binary-search-problems) 二分搜索
+  - [704. Binary Search](#704-binary-search-easy) 🍏
+  - [34. Find First and Last Position of Element in Sorted Array](#34-find-first-and-last-position-of-element-in-sorted-array-medium) 🍊
+  - 🚩 [540. Single Element in a Sorted Array](#540--single-element-in-a-sorted-array-medium) 🍊
+  - [1268. Search Suggestions System](#1268-search-suggestions-system-medium) 🍊
 
 
-### 76. [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
-For template of sliding window questions, see [this page](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
-
-Key points:
-- Must use `valid` (in this case, I used `count`) to store the number of keys whose value in `window` is greater than or equal to in `need` (I used `t_map`), this is because when comparing two dicts directly, it won't take care of situations where the values in `window` are greater than in `need` (e.g. `window = {'A': 2, 'B': 1}` and `need = {'A': 1, 'B': 1}`)
-- Even though `right` is initialize to be zero, it's always incremented right after the corresponding character is saved in a variable. When we exit the outer while loop, right will be equal to `len(s)`. Thus, the range is actually `[left, right)` (the right index is non-inclusive).
-- This is why the returned result is `s[left:right]` (this is a simplified way of representing it, refer to code for edge case handling)
-- Only save char in `window` if char is a needed char (save some space)
-
-### 567. [Permutation in String](https://leetcode.com/problems/permutation-in-string/) (Medium)
-Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
-
-### 438. [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/) (Medium)
-Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
-
-
-### 704. [Binary Search](https://leetcode.com/problems/binary-search/description/) (Easy)
-Binary search (of array) code structure:
-```python
-def search(nums: list, target: int):
-    left = 0
-    right = len(nums)  # right = len(nums-1)
-    
-    while left < right:  # while left <= right, if inclusive
-        mid = left + (right - left) // 2  # use // operator and avoid overflow
-        if nums[mid] == target:
-            ...
-        elif nums[mid] < target:
-            left = ...  # update left pointer
-        else:
-            right = ... # update right pointer
-    
-```
-
-- Starting index of `right` can be either `len(nums)` or `len(nums-1)`, depending on whether the right index is inclusive or not
-- `while left < right` or `while left <= right` depends on whether the right index is inclusive or not
-- Calculating the mid point: `mid = left + (right - left) // 2` is the most accurate way to avoid overflow
-  - Using `mid = (left + right) // 2` is not accurate because `left + right` may overflow
-  - Using `//` operator is more efficient than using `/` operator because `/` gives a float number
-- Updating the left and right pointers:
-  - If `right` is inclusive, it can be updated as `right = mid - 1`, to avoid including mid in the next search
-  - If `right` is exclusive, it can be updated as `right = mid`
-
-
-### 34. [Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/) (Medium)
-See [this page](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md) for binary search template.
-
-Basically, do binary search once to find the left-most target, and search again to find 
-the right-most target.
+## 1. Prefix Sum Questions
 
 ### 528. [Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/description/) (Medium)
 
@@ -85,6 +42,24 @@ Python自带的生成随机整数的方法`random.randint(a, b)`是在range [a, 
 - 此值为数组中小于`target`的元素的个数
 
 比如输入为`nums = [0, 3, 17, 18, 25]`，要找的数字为10，最后退出while loop的时候左右指针都会指向17，也就是index为2。如果数字10需要insert到数组中，它就会出现在index 2的位置。同时，数组中小于10的数字一共有两个。
+
+
+## 3. Sliding Window Questions
+
+### 76. [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
+For template of sliding window questions, see [this page](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
+
+Key points:
+- Must use `valid` (in this case, I used `count`) to store the number of keys whose value in `window` is greater than or equal to in `need` (I used `t_map`), this is because when comparing two dicts directly, it won't take care of situations where the values in `window` are greater than in `need` (e.g. `window = {'A': 2, 'B': 1}` and `need = {'A': 1, 'B': 1}`)
+- Even though `right` is initialize to be zero, it's always incremented right after the corresponding character is saved in a variable. When we exit the outer while loop, right will be equal to `len(s)`. Thus, the range is actually `[left, right)` (the right index is non-inclusive).
+- This is why the returned result is `s[left:right]` (this is a simplified way of representing it, refer to code for edge case handling)
+- Only save char in `window` if char is a needed char (save some space)
+
+### 567. [Permutation in String](https://leetcode.com/problems/permutation-in-string/) (Medium)
+Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
+
+### 438. [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/) (Medium)
+Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
 
 ### 380. [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/description/) (Medium)
 1. How to get a random element in a data structure in O(1) time?
@@ -128,8 +103,53 @@ For each element in the queue, check if it is equal to 0. If yes, return True. O
 reach from the current index to the queue. Then add the current index to the set `visited`. If the queue is empty, return
 False.
 
+### [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/description/) (Medium)
+Use two list of sets, `rows` and `cols`, to keep track of numbers in each row and each column.
+Use a  3 by 3matrix of sets `grids` to keep track of numbers in each 3 by 3 grid.
+Iterate through the board using a nested for loop, for each element, check if it is an empty 
+spot `matrix[i][j] == '.'`. If so, continue to next spot. Otherwise, check if the number is already in `rows`, `cols`, 
+or `grids`. If yes, return `False`. Otherwise, add the number to `rows`, `cols`, and `grids`. 
+If the loop finishes, return `True`.
+
+## 4. Binary Search Problems
+### 704. [Binary Search](https://leetcode.com/problems/binary-search/description/) (Easy)
+Binary search (of array) code structure:
+```python
+def search(nums: list, target: int):
+    left = 0
+    right = len(nums)  # right = len(nums-1)
+    
+    while left < right:  # while left <= right, if inclusive
+        mid = left + (right - left) // 2  # use // operator and avoid overflow
+        if nums[mid] == target:
+            ...
+        elif nums[mid] < target:
+            left = ...  # update left pointer
+        else:
+            right = ... # update right pointer
+    
+```
+
+- Starting index of `right` can be either `len(nums)` or `len(nums-1)`, depending on whether the right index is inclusive or not
+- `while left < right` or `while left <= right` depends on whether the right index is inclusive or not
+- Calculating the mid point: `mid = left + (right - left) // 2` is the most accurate way to avoid overflow
+  - Using `mid = (left + right) // 2` is not accurate because `left + right` may overflow
+  - Using `//` operator is more efficient than using `/` operator because `/` gives a float number
+- Updating the left and right pointers:
+  - If `right` is inclusive, it can be updated as `right = mid - 1`, to avoid including mid in the next search
+  - If `right` is exclusive, it can be updated as `right = mid`
+
+
+### 34. [Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/description/) (Medium)
+See [this page](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md) for binary search template.
+
+Basically, do binary search once to find the left-most target, and search again to find 
+the right-most target.
+
 ### 540. 🚩 [Single Element in a Sorted Array](https://leetcode.com/problems/single-element-in-a-sorted-array/) (Medium)
 **Topics**: Binary Search
+
+[Solution](single_element_in_sorted_array.py)
 
 #### Naive Approach: For Loop, O(n) time complexity
 Loop through the array once and keep track of the count of previous element. If current element is 
@@ -173,11 +193,27 @@ We can make use of this pattern to perform binary search. The steps are as follo
 #### Maths Approach, O(n) time complexity
 Use the formula `2 * sum(set(array)) - sum(array)` to get the value of the single element.
 
-### [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/description/) (Medium)
-Use two list of sets, `rows` and `cols`, to keep track of numbers in each row and each column.
-Use a  3 by 3matrix of sets `grids` to keep track of numbers in each 3 by 3 grid.
-Iterate through the board using a nested for loop, for each element, check if it is an empty 
-spot `matrix[i][j] == '.'`. If so, continue to next spot. Otherwise, check if the number is already in `rows`, `cols`, 
-or `grids`. If yes, return `False`. Otherwise, add the number to `rows`, `cols`, and `grids`. 
-If the loop finishes, return `True`.
+
+### 1268. [Search Suggestions System](https://leetcode.com/problems/search-suggestions-system/description/) (Medium)
+**Topics**: Binary Search, String
+
+[Solution](search_suggestions_system.py)
+
+#### Binary Search Appraoch
+- Sort the products array in alphabetical order, e.g. `['apple', 'bag', 'banana', 'box', 'phone']`
+- For each prefix in the searchWord, do binary search on the sorted products array to find the first word that starts with the prefix.
+  - `for i in range(1, len(searchWord) + 1):`
+    - `prefix = searchWord[:i]`
+  - Find index of _first word_ that starts with this prefix using _binary search_, i.e. find the left-most target
+    - Initialize `left = 0`, `right = len(products)` (exclusive index which I like the most)
+    - While `left < right`
+      - Calculate mid point `mid = left + (right - left) // 2`
+      - If `products[mid]` starts with `prefix`, it means that the first word that starts with `prefix` is to the left of `mid`, so we update `right = mid`
+      - Otherwise, it means that the first word that starts with `prefix` is to the right of `mid`, so we update `left = mid + 1`
+    - When the loop finishes, `left` will be equal to `right`, and the loop will exit.
+    - This `left` is the index of the first word that starts with `prefix`.
+    - Use a for loop to get the next 3 words that start with `prefix` and append them to the result list.
+  - Append the result list to the final result list.
+- Return the final result list.
+
 
