@@ -64,3 +64,46 @@ Very important questions to ask:
 
 
 ### 864. [Shortest Path to Get All Keys](https://leetcode.com/problems/shortest-path-to-get-all-keys/description/) (Hard)
+
+Very similar to previous question, except for the following:
+1. The goal is to get all keys, not to reach a specific cell
+2. We can go back to a cell that we have visited before, but this is dependent on the keys we have (for example,
+   if we have visited a cell with key `a`, we can walk back and take another route to open the door `A` and keep moving)
+
+Thus, it's very important to not use a single matrix to store visited cells,
+instead, use a _hashmap_ to store visited cells, where the key is a representation of _key state_ (i.e. the unique 
+combination of possible keys that we have), and the value is a matrix or set that stores visited cells for that key state.
+
+Since number of keys is in the range `[0, 6]`, we can use a string to represent key states. For example, `000000` means 
+we have no key, `010000` means we have key `b`. The index of a key is determined by `ord(key) - ord('a')`.
+
+What needs to be stored in queue? We need the row index, column index, key state, and distance from start.
+
+[BFS Solution](shortest_path_to_get_all_keys.py):
+- Define 4 directions
+- Initialize _queue_ and _visited_ hashmap
+  - `q = collections.deque()`
+  - `visited = dict()`
+- Find the start cell and total number of keys in grid, this is our goal
+  - Once we found the start cell, we can add it to the queue and mark it as visited,
+    `q.append((start_row, start_col, '000000', dist))` then `visited['000000'] = set((start_row, start_colu))`
+    - Note: we use a string to represent key state, where `000000` means we have no key
+    - Note: we mark the start cell as visited when we add it to the queue
+- While the queue is not empty:
+  - Pop the first cell from the queue, `row, col, key_state, dist = q.popleft()`
+  - Go to all 4 directors:
+    - `new_row = row + dir[0]`, `new_col = col + dir[1]`
+    - Check if the cell is a valid move by checking the following:
+      - (1) Are the indices out of bound?
+      - (2) Is the cell visited (in the current key state)?
+      - (3) Is the cell blocked? (i.e. is the cell `#`?)
+      - (4) If the cell is a door, do we have the key to open it? If not, `continue`.
+      - (5) If the cell is a key, is it a new key that we don't have?
+        - If yes, update key state
+        - Here, check if we have found all keys! If yes, return the distance
+          - Note: must check if we have found all keys using new key state, i.e. `new_key_state.count('1') == all_keys_count`, must not use current key state
+        - Update the `visited[new_key_state]`, maybe initialize it to an empty set
+        - Add the cell to the queue and mark it as visited in new key state
+      - Otherwise, just add the cell to the queue and mark it as visited in current key state, remember to update distance
+- Eventually, return `-1` if we can't find all keys
+

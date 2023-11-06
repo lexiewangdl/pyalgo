@@ -2,10 +2,11 @@
 This cheat sheet contains useful Python functions and data structures for solving LeetCode problems.
 
 ## Table of Contents
-1. Math
-2. String
-3. Queue
+1. [Math](#1-math)
+2. [String](#2-string)
+3. [Queue](#3-queue)
 4. Stack
+5. [List](#5-list)
 
 
 ## 1. Math
@@ -15,6 +16,8 @@ This cheat sheet contains useful Python functions and data structures for solvin
 4. Ceiling division: `math.ceil(x / y)`
 
 ## 2. String
+1. Get ASCII code of a character: `ord('a')`
+2. Compare strings: `str1 == str2`, `str1 < str2`, `str1 > str2`, etc.
 
 ## 3. Queue
 
@@ -30,4 +33,11 @@ Using `collections.deque` to implement a queue.
 
 Useful links:
 - [Python collections.deque() cheat sheet](https://cheatography.com/fidelp27/cheat-sheets/python-collections-deque/)
+
+## 5. List
+1. Sorting inplace: `list.sort()`
+2. Sorting and return a new list: `sorted(list)`
+3. Count the number of occurrences of an element in a list: `list.count(element)`
+4. Initializing a list with a default value: `list = [0] * 10`
+5. Initializing a matrix with a default value: `matrix = [[0] * n for _ in range(m)]`
 
