@@ -141,6 +141,36 @@ When to use DFS? When to use BFS?
 - DFS 通常都是 recursive code, use call stack, BFS 通常都是 iterative code, use queue.
 - BFS starts visiting from _root_, DFS starts visiting from _leaves_. 如果你要找的target更接近于root，那么BFS更适合。
 
+### 2.6. Binary Tree Questions
+
+#### 2.6.1. Construct Binary Trees
+**构造二叉树**问题一般都用divide and conquer, 构造一棵树 = 构造根节点 + 构造左子树 + 构造右子树。
+
+#### 2.6.2 Serialize and Deserialize Binary Trees
+**序列化和反序列化**二叉树，需要利用对不同遍历顺序的理解，总结为：
+
+当二叉树中的节点没有重复时：
+
+1. 如果序列化结果**不包含空指针信息** / If serialization result **does not contain null pointers** ... 
+   - 只用一种遍历顺序是无法还原二叉树的，需要两种遍历顺序！
+   - 如果用两种遍历顺序，以下组合可以还原二叉树：
+     - 前序遍历 + 中序遍历 / Pre-order + In-order 
+     - 中序遍历 + 后序遍历 / In-order + Post-order
+   - 如果用前序+后序，是无法还原二叉树的。
+2. 如果序列化结果**包含空指针信息** / If serialization result **contains null pointers**
+   - 仅用前序遍历（Preorder）就可以还原二叉树！😄
+   - 仅用后序遍历（Postorder）也可以还原二叉树！✌️
+   - 如果是中序遍历（Inorder），是无法还原二叉树的。😢
+
+#### 2.6.3 Binary Search Tree (BST)
+
+- For every node in a BST, the value of all nodes in its left subtree is less than the value of the node, and the value of all nodes in its right subtree is greater than the value of the node.
+- All subtrees of a BST are also BSTs.
+- BST 的中序遍历（inorder）结果是**升序**的。
+- BST `containsKey()` runtime:
+  - Perfectly balanced (best case): $`T(n)=\begin{cases}T(n/2)+1 & \text{if }n\gt 1\\ 3 & \text{otherwise}\end{cases} \\ T(n) = \Theta(\log n) \\ `$
+  - Degenerate case (worst case): $`T(n)=\begin{cases}T(n-1)+1 & \text{if }n\gt 1\\ 3 & \text{otherwise}\end{cases} \\ T(n) = \Theta(n)`$
+
 ## 3. Arrays
 
 ### 3.1. Prefix Sum Algorithm
