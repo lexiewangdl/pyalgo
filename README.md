@@ -7,7 +7,7 @@ data structures and what kind of problems they are useful for.
 
 
 ## Topics
-1. [Two pointers](#two-pointers) (linked list and array)
+1. [Two pointers](#1-two-pointers) / 双指针
 2. [Binary trees](#binary-trees)
 3. Arrays
    1. Prefix sum algorithm
@@ -18,12 +18,19 @@ data structures and what kind of problems they are useful for.
 4. Linked lists
 5. Dynamic programming
 6. Math
-7. Graph algorithms
-8. [Interesting problems](#interesting-problems)
-   1. [Selling and buying stocks](#1-selling-and-buying-stocks)
-   2. [Trapping rain water](#2-trapping-rain-water)
+7. [Graph algorithms](#7-graph-algorithms) / 图
+8. [String](#8-string-problems)
+   1. [Palindrome problems](#81-palindrome-problems--回文串问题) / 回文串
+9. [Interesting problems](#9-interesting-problems)
+   1. [Selling and buying stocks](#91-selling-and-buying-stocks) / 股票买卖
+   2. [Trapping rain water](#92-trapping-rain-water) / 接水
+   3. [Palindrome problems](#93-palindrome-problems) / 回文串
+      1. [Palindrome problems on strings](#931-palindrome-problems-on-strings) / 字符串回文串
+      2. [Palindrome problems on linked lists](#932-palindrome-problems-on-linked-lists) / 链表回文串
+      3. [Palindrome problems on arrays](#933-palindrome-problems-on-arrays) / 数组回文串
+      4. [Palindrome problems on integers](#934-palindrome-problems-on-integers) / 整数回文串
 
-## Two Pointers
+## 1. Two Pointers
 
 1. **快慢指针** Slow and fast pointers, in the same direction
    - Linked Lists
@@ -201,13 +208,85 @@ Why check whether `left - 1` is out of bounds?
 
 ### 1. 反转链表 Reverse a linked list
 
-## Interesting Problems
+## 7. Graph Algorithms
 
-### 1. Selling and buying stocks
+### 7.1. Topological Sort
 
-### 2. Trapping rain water
-重点：不要去思考整体能装多少水，而是每个位置`i`能装多少水。每个位置`i`能装多少水取决于`i`左边最高的柱子和`i`右边最高的柱子中较矮的那个。
+### 7.2
+
+### 7.3. Union Find
+
+### 7.4
+
+### 7.5
+
+## 8. String Problems
+
+### 8.1 Palindrome Problems / 回文串问题
+1. 判断回文串：对撞指针，从两端收缩，判断回文串 (Example: [125. Valid Palindrome](string/valid_palindrome.py))
+2. 寻找回文串：中心扩散法，从中间向两端扩散，寻找回文串 (Example: [5. Longest Palindromic Substring](two_pointers/longest_palindromic_substring.py))
+
+More on palindrome problems: [Palindrome Problems](#93-palindrome-problems)
+
+## 9. Interesting Problems
+
+### 9.1. Selling and buying stocks
+
+### 9.2. Trapping rain water
+思路：不要去思考整体能装多少水，而是每个位置`i`能装多少水。每个位置`i`能装多少水取决于`i`左边最高的柱子和`i`右边最高的柱子中较矮的那个。
+
+方法：用**对撞指针**，从两端收缩，每次收缩较矮的那个柱子，同时更新结果。Use [two pointers](#1-two-pointers) that move in the opposite direction (moving towards the middle), and each time move the pointer that is pointing to the _shorter bar_. Update the result at each step.
 
 [Python solution](two_pointers/trapping_rain_water.py)
+
+### 9.3. Palindrome problems
+Palindrome problems can be divided into multiple categories based on the _data structure_ used to store the palindrome:
+1. String
+2. Linked list
+3. Array
+4. Integer
+
+#### 9.3.1. Palindrome problems on strings
+Palindrome problems on strings are usually solved using [two pointers](#1-two-pointers).
+
+1. 判断回文串 Check palindrome:
+   - 用**对撞指针**，从两端收缩，判断回文串
+   - Example: [125. Valid Palindrome](string/valid_palindrome.py)
+2. 寻找回文串 Find palindrome
+   - 用**中心扩散法**，从中间向两端扩散，寻找回文串
+   - Example: [5. Longest Palindromic Substring](two_pointers/longest_palindromic_substring.py)
+
+#### 9.3.2. Palindrome Problems on Linked Lists
+
+先找链表中点，再反转后半段链表。
+
+Because you can only move in _a single direction_ in a linked list, we can't use two pointers and make then move in 
+opposite directions. However, we can find the _mid-point_ of a linked list, and then _reverse_ the latter
+half of the linked list.
+
+```shell
+# Input
+1 -> 2 -> 3 -> 2 -> 1
+# After processing
+1 -> 2 -> 3 <- 2 <- 1
+```
+
+Example: [234. Palindrome Linked List](linked_lists/palindrome_linked_list.py)
+
+#### 9.3.3 Palindrome Problems on Arrays
+
+Basically the same as palindrome problems on strings.
+
+#### 9.3.4 Palindrome Problems on Integers
+Do not convert the integer to a string and then check if the string is a palindrome! Very inefficient.
+
+The intuition is to _reverse the integer_ and simply use `==` to check if reversed integer is equal to the original integer.
+Use two variables: `y` is the reversed integer, and `temp` is an integer we use to find each digit of input `x`.
+Initialize `temp = x`, while `temp > 0`, find the last digit using `digit = temp % 10`, and then update `temp` using integer division `temp = temp // 10`.
+Update `y` at each step, `y = y * 10 + digit`. Finally, check if `y == x`.
+
+
+
+Example: [9. Palindrome Number](math/palindrome_number.py)
 
 
