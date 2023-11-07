@@ -8,15 +8,21 @@ data structures and what kind of problems they are useful for.
 
 ## Topics
 1. [Two pointers](#1-two-pointers) / 双指针
-2. [Binary trees](#binary-trees)
-3. Arrays
-   1. Prefix sum algorithm
-   2. [Sliding window](#sliding-window)
-   3. [Binary search](#binary-search-on-arrays)
-      1. [Find left-most target](#look-for-left-most-target)
-      2. [Find right-most target](#look-for-right-most-target)
+2. [Binary trees](#2-binary-trees) / 二叉树
+   1. [Traversal](#21-traversal) / 遍历
+   2. [Divide and conquer](#22-divide-and-conquer) / 分治
+   3. [Depth-first search (DFS)](#23-depth-first-search-dfs) / 深度优先搜索
+   4. [Breadth-first search (BFS)](#24-breadth-first-search-bfs) / 广度优先搜索
+   5. [DFS vs. BFS](#25-dfs-vs-bfs) / 深度优先搜索 vs. 广度优先搜索
+3. [Arrays](#3-arrays) / 数组
+   1. [Prefix sum algorithm](#31-prefix-sum-algorithm) / 前缀和数组
+   2. [Difference array](#32-difference-array) / 差分数组
+   3. [Sliding window](#33-sliding-window) / 滑动窗口
+   4. [Binary search](#34-binary-search-on-arrays) / 二分查找
+      1. [Find left-most target](#look-for-left-most-target) / 查找左边界
+      2. [Find right-most target](#look-for-right-most-target)  / 查找右边界
 4. Linked lists
-5. Dynamic programming
+5. Recursion
 6. Math
 7. [Graph algorithms](#7-graph-algorithms) / 图
 8. [String](#8-string-problems)
@@ -54,14 +60,94 @@ data structures and what kind of problems they are useful for.
    - Merge sort
    - 找两个数组的交集：sort后用分离双指针
 
-## Binary Trees
+## 2. Binary Trees
 
-Key questions:
+Whenever you see a binary tree question, ask yourself the following questions:
+1. 能否**遍历**二叉树得到结果？ / Can I solve this problem by _**traversing**_ the tree once?
+2. 能否用**分治**的思想，用子问题（子树）的解来得到原问题（树）的解？ / Can I use _**divide and conquer**_, and use the solution of the sub-problem (subtree) to find the answer to the original problem (tree)? 
+3. 在每个**节点**，我应该做什么？我应该在什么时候（前中后序）做？/ What should I do at each _**node**_? When should I do it (i.e. pre-order, in-order, post-order)?
 
+All binary tree problems can be solved using either **traversal** or **divide and conquer**.
 
+### 2.1. Traversal
+The return type of traversal helper method is usually `None`.
+No value is returned.
+Instead, this method updates a _global variable_ to store the result.
+The key is to choose the correct [order of traversal](#23-depth-first-search-dfs).
 
-## Arrays
-### Sliding Window
+```python
+result = None  # global variable
+
+def traverse(root):
+    if not root:
+        return
+    
+    # Pre-order traversal
+    ...
+    
+    traverse(root.left)
+    
+    # In-order traversal
+    ...
+    
+    traverse(root.right)
+
+    # Post-order traversal
+    ...
+```
+
+### 2.2. Divide and Conquer
+The return type of divide and conquer helper method is usually the same type as the _output_,
+but it depends on the problem. 
+
+### 2.3. Depth-first Search (DFS)
+1. Pre-order traversal / 前序遍历 = 根左右
+   - 通常如果题目对遍历位置不敏感，就用前序遍历，没什么特别的。
+   - 一棵二叉树的前序遍历结果 = 根节点 + 左子树的前序遍历结果 + 右子树的前序遍历结果
+   - Time complexity O(N), space complexity O(h) where _h_ is height of tree. If we don't consider call stack, then space complexity is O(1).
+   - e.g. Quick sort
+2. In-order traversal / 中序遍历 = 左根右
+   - 主要用于Binary search tree (BST)
+   - BST 的中序遍历结果为 _non-decreasing_ order
+   - Time complexity O(N), space complexity O(h) where _h_ is height of tree. If we don't consider call stack, then space complexity is O(1).
+   - e.g. Binary search tree
+3. Post-order traversal / 后序遍历 = 左右根
+   - 后续遍历十分特殊，因为 post-order operations have access to information passed up from the children (sub-trees).
+   - 一旦题目和**子树**有关，大概率要给函数设置一个返回值，然后用后续遍历。
+   - Use cases: e.g. merge sort, _delete_ a node from a binary tree, subtree problems
+
+**Summary**:
+- 前序位置的代码执行是**自顶向下**的，后续位置的代码执行是**自底向上**的。
+- 前序位置的代码只能access从parent node传递下来的数据，而后续位置的代码可以利用children nodes传递上来的数据。
+- 前序位置的代码在刚刚**进入**某个节点时执行，中序位置的代码在左子树遍历完成，即将开始遍历右子树的时候执行，后续位置的代码在将要**离开**某个节点时执行。
+
+### 2.4. Breadth-first Search (BFS)
+
+1. Use FIFO queue
+   - In Python, use `collections.deque` to implement queue, more efficient than `queue.Queue`
+2. Add root node to queue first
+3. While queue is not empty, pop first node, add its children to queue
+
+### 2.5. DFS vs. BFS
+
+When to use DFS? When to use BFS?
+
+- BFS uses O(w) extra memory, where w is the maximum width of the tree
+  - Maximum width of a binary tree is 2^(h), where _h_ is the height of the tree and _h_ starts from 0
+  - Worst case: a binary tree is a linked list, then _h_ is equal to _N_
+  - Height of a _balanced_ tree is O(log N)
+- DFS uses extra space because of the _functional call stack_, O(h) extra space.
+- 如果 tree 是 balanced，那么BFS需要的extra space更多；如果 tree 是 linked list，那么DFS需要的extra space更多。
+- DFS 通常都是 recursive code, use call stack, BFS 通常都是 iterative code, use queue.
+- BFS starts visiting from _root_, DFS starts visiting from _leaves_. 如果你要找的target更接近于root，那么BFS更适合。
+
+## 3. Arrays
+
+### 3.1. Prefix Sum Algorithm
+
+### 3.2. Difference Array
+
+### 3.3. Sliding Window
 Key Questions:
 1. 什么时候扩大窗口？
 2. 什么时候缩小窗口？
@@ -106,7 +192,7 @@ Key points:
 3. `...` means we need to update data stored in `window`. The first instance is when we add new element, the second is when we remove an element.
 
 
-### Binary Search on Arrays
+### 3.4. Binary Search on Arrays
 Code structure:
 ```python
 def search(nums: list, target: int):
