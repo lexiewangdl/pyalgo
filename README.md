@@ -1,12 +1,13 @@
 # The Ultimate LeetCode Cheatsheet
+
 This repository contains solutions to LeetCode problems written in Python3, stored
-in different folders based on their topics. 
+in different folders based on their topics.
 
 💡 The current file is a cheatsheet that contains the most important algorithms and
-data structures and what kind of problems they are useful for. 
-
+data structures and what kind of problems they are useful for.
 
 ## Topics
+
 1. [Two pointers](#1-two-pointers) / 双指针
 2. [Binary trees](#2-binary-trees) / 二叉树
    1. [Traversal](#21-traversal) / 遍历
@@ -40,9 +41,9 @@ data structures and what kind of problems they are useful for.
 
 1. **快慢指针** Slow and fast pointers, in the same direction
    - Linked Lists
-      - 找链表中点 Find the middle point of a linked list （慢指针走一步，快指针走两步）
-      - 找链表第n个节点 Find the n-th node from the end of a linked list  (快指针先走n步，然后快慢指针同时前进)
-      - 判断链表是否有环 Check if a linked list has a cycle（慢指针走一步，快指针走两步）
+     - 找链表中点 Find the middle point of a linked list （慢指针走一步，快指针走两步）
+     - 找链表第n个节点 Find the n-th node from the end of a linked list  (快指针先走n步，然后快慢指针同时前进)
+     - 判断链表是否有环 Check if a linked list has a cycle（慢指针走一步，快指针走两步）
    - Array
      - Remove redundant elements in a sorted array （慢指针左侧是已经处理好的元素，快指针指向现在要处理的元素）
      - [Move zeroes](two_pointers/move_zeroes.py) （慢指针左侧是已经处理好的元素，快指针指向现在要处理的元素）
@@ -53,7 +54,7 @@ data structures and what kind of problems they are useful for.
 2. **对撞指针** Pointers that move in the opposite direction
    - [Binary Search](#binary-search-on-arrays)
    - 有序数组两数之和 [Two sum in a sorted array](two_pointers/two_sum_2.py)
-   - 判断回文串 Check palindrome 
+   - 判断回文串 Check palindrome
    - [Trapping rain water](two_pointers/trapping_rain_water.py)
 3. **分离指针** Pointers on different arrays
    - Merge two sorted arrays
@@ -63,13 +64,15 @@ data structures and what kind of problems they are useful for.
 ## 2. Binary Trees
 
 Whenever you see a binary tree question, ask yourself the following questions:
+
 1. 能否**遍历**二叉树得到结果？ / Can I solve this problem by _**traversing**_ the tree once?
-2. 能否用**分治**的思想，用子问题（子树）的解来得到原问题（树）的解？ / Can I use _**divide and conquer**_, and use the solution of the sub-problem (subtree) to find the answer to the original problem (tree)? 
+2. 能否用**分治**的思想，用子问题（子树）的解来得到原问题（树）的解？ / Can I use _**divide and conquer**_, and use the solution of the sub-problem (subtree) to find the answer to the original problem (tree)?
 3. 在每个**节点**，我应该做什么？我应该在什么时候（前中后序）做？/ What should I do at each _**node**_? When should I do it (i.e. pre-order, in-order, post-order)?
 
 All binary tree problems can be solved using either **traversal** or **divide and conquer**.
 
 ### 2.1. Traversal
+
 The return type of traversal helper method is usually `None`.
 No value is returned.
 Instead, this method updates a _global variable_ to store the result.
@@ -81,15 +84,15 @@ result = None  # global variable
 def traverse(root):
     if not root:
         return
-    
+  
     # Pre-order traversal
     ...
-    
+  
     traverse(root.left)
-    
+  
     # In-order traversal
     ...
-    
+  
     traverse(root.right)
 
     # Post-order traversal
@@ -97,10 +100,12 @@ def traverse(root):
 ```
 
 ### 2.2. Divide and Conquer
+
 The return type of divide and conquer helper method is usually the same type as the _output_,
-but it depends on the problem. 
+but it depends on the problem.
 
 ### 2.3. Depth-first Search (DFS)
+
 1. Pre-order traversal / 前序遍历 = 根左右
    - 通常如果题目对遍历位置不敏感，就用前序遍历，没什么特别的。
    - 一棵二叉树的前序遍历结果 = 根节点 + 左子树的前序遍历结果 + 右子树的前序遍历结果
@@ -117,6 +122,7 @@ but it depends on the problem.
    - Use cases: e.g. merge sort, _delete_ a node from a binary tree, subtree problems
 
 **Summary**:
+
 - 前序位置的代码执行是**自顶向下**的，后续位置的代码执行是**自底向上**的。
 - 前序位置的代码只能access从parent node传递下来的数据，而后续位置的代码可以利用children nodes传递上来的数据。
 - 前序位置的代码在刚刚**进入**某个节点时执行，中序位置的代码在左子树遍历完成，即将开始遍历右子树的时候执行，后续位置的代码在将要**离开**某个节点时执行。
@@ -144,17 +150,19 @@ When to use DFS? When to use BFS?
 ### 2.6. Binary Tree Questions
 
 #### 2.6.1. Construct Binary Trees
+
 **构造二叉树**问题一般都用divide and conquer, 构造一棵树 = 构造根节点 + 构造左子树 + 构造右子树。
 
 #### 2.6.2 Serialize and Deserialize Binary Trees
+
 **序列化和反序列化**二叉树，需要利用对不同遍历顺序的理解，总结为：
 
 当二叉树中的节点没有重复时：
 
-1. 如果序列化结果**不包含空指针信息** / If serialization result **does not contain null pointers** ... 
+1. 如果序列化结果**不包含空指针信息** / If serialization result **does not contain null pointers** ...
    - 只用一种遍历顺序是无法还原二叉树的，需要两种遍历顺序！
    - 如果用两种遍历顺序，以下组合可以还原二叉树：
-     - 前序遍历 + 中序遍历 / Pre-order + In-order 
+     - 前序遍历 + 中序遍历 / Pre-order + In-order
      - 中序遍历 + 后序遍历 / In-order + Post-order
    - 如果用前序+后序，是无法还原二叉树的。
 2. 如果序列化结果**包含空指针信息** / If serialization result **contains null pointers**
@@ -178,57 +186,61 @@ When to use DFS? When to use BFS?
 ### 3.2. Difference Array
 
 ### 3.3. Sliding Window
+
 Key Questions:
+
 1. 什么时候扩大窗口？
 2. 什么时候缩小窗口？
 3. 什么时候更新结果？
 
-
 Template:
+
 ```python
 def sliding_window(s: str, t: str):
     left = 0
     right = 0
-    
+  
     window = dict()  # what we have currently in our window
     need = dict()  # the chars we need (keys) and each char's corresponding count (values)
-    
+  
     valid = 0  # total number of valid keys 
                # a valid key's count in window must be greater or same as in need
-    
+  
     # store chars in t in dictionary need
     for c in t:
         need[c] = need.get(c, 0) + 1
-    
+  
     while right < len(s):
         c = s[right]
         right += 1  # increment immediately after getting c
-        
+      
         # update window data
         ...
-        
+      
         # check whether window needs shrink
         while left < right and window_needs_shrink:
             d = s[left]
             left += 1
-            
+          
             # update window data
             ...
 ```
 
 Key points:
+
 1. Initialize `left` and `right` to be zero, immediately increment `left` and `right` right after getting the corresponding character
 2. **Time complexity is O(N)** because even through there is an embedded `while` loop, the pointers `left` and `right` will only increase, and never decrease. Every single element in array (or string) will only be added to the `window` once, and removed from it once (at max).
 3. `...` means we need to update data stored in `window`. The first instance is when we add new element, the second is when we remove an element.
 
-
 ### 3.4. Binary Search on Arrays
+
 Code structure:
+
 ```python
 def search(nums: list, target: int):
     left = 0
     right = len(nums)  # right = len(nums-1)
-    
+  
     while left < right:  # while left <= right, if inclusive
         mid = left + (right - left) // 2  # use // operator and avoid overflow
         if nums[mid] == target:
@@ -237,15 +249,16 @@ def search(nums: list, target: int):
             left = ...  # update left pointer
         else:
             right = ... # update right pointer
-    
+  
 ```
 
 #### Look for left-most target
+
 ```python
 def search_left_bound(nums: list, target: int):
     left = 0
     right = len(nums)  # ** important **
-    
+  
     while left < right:  # ** important **
         mid = left + (right - left) // 2  # use // operator and avoid overflow
         if nums[mid] == target:
@@ -263,26 +276,30 @@ def search_left_bound(nums: list, target: int):
 ```
 
 How to check whether `target` was found or not?
+
 - If `target` was found, `left` will be the index of the target
 - If `target` was not found, `left` will be the index of the first element that is greater than `target`
 - Prior to returning, check if the element at `left` is equal to `target`:
   - `return nums[left] == target ? left : -1`
 
 Why return `left` and not `right`?
+
 - It's the same thing
 - When we exit while loop, `left` and `right` will be equal
 
 Why this method can find the left-most target?
+
 - When `nums[mid] == target`, we update `right = mid`
 - This will cause the search to continue on the left side of `mid`
 - This means that once we have found a target, we will keep looking for more targets on the left side of `mid`
 
 #### Look for right-most target
+
 ```python
 def search_right_bound(nums: list, target: int):
     left = 0
     right = len(nums)  # ** important **
-    
+  
     while left < right:  # ** important **
         mid = left + (right - left) // 2 
         if nums[mid] == target:
@@ -291,7 +308,7 @@ def search_right_bound(nums: list, target: int):
             left = mid + 1 
         elif nums[mid] < target:
             right = mid
-            
+          
     # make sure that index `left - 1` is not out of bounds
     if left == 0 or nums[left - 1] != target:
         return -1
@@ -300,6 +317,7 @@ def search_right_bound(nums: list, target: int):
 ```
 
 Why this method can find the right-most target?
+
 - Whenever we have found a target, we update `left = mid + 1`
 - This will cause the search to continue on the right side of `mid`
 - This means that once we have found a target, we will keep looking for more targets on the right side of `mid`
@@ -307,17 +325,20 @@ Why this method can find the right-most target?
 - Prior to returning, we return `left - 1` to get the index of the right-most target
 
 Why return `left - 1` and not `right`?
+
 - When exiting the while loop, `left` and `right` will be equal
 - However, since the way we update `left` is `left = mid + 1`,
-when we exit the while loop, `nums[left]` is not necessarily equal to `target`
+  when we exit the while loop, `nums[left]` is not necessarily equal to `target`
 
 What if `nums` doesn't contain `target`?
+
 - Prior to returning, check if the element at `left - 1` is equal to `target`:
   - `return nums[left - 1] == target ? left - 1 : -1`
 
 Why check whether `left - 1` is out of bounds?
-- The range of `left` is `[0, len(nums)]`, because when we exit the while loop, 
-`left` and `right` will be equal
+
+- The range of `left` is `[0, len(nums)]`, because when we exit the while loop,
+  `left` and `right` will be equal
 - If `left == 0`, then `left - 1` will be out of bounds, this happens when the left pointer has never moved
 
 ## Linked Lists
@@ -339,6 +360,7 @@ Why check whether `left - 1` is out of bounds?
 ## 8. String Problems
 
 ### 8.1 Palindrome Problems / 回文串问题
+
 1. 判断回文串：对撞指针，从两端收缩，判断回文串 (Example: [125. Valid Palindrome](string/valid_palindrome.py))
 2. 寻找回文串：中心扩散法，从中间向两端扩散，寻找回文串 (Example: [5. Longest Palindromic Substring](two_pointers/longest_palindromic_substring.py))
 
@@ -349,6 +371,7 @@ More on palindrome problems: [Palindrome Problems](#93-palindrome-problems)
 ### 9.1. Selling and buying stocks
 
 ### 9.2. Trapping rain water
+
 思路：不要去思考整体能装多少水，而是每个位置`i`能装多少水。每个位置`i`能装多少水取决于`i`左边最高的柱子和`i`右边最高的柱子中较矮的那个。
 
 方法：用**对撞指针**，从两端收缩，每次收缩较矮的那个柱子，同时更新结果。Use [two pointers](#1-two-pointers) that move in the opposite direction (moving towards the middle), and each time move the pointer that is pointing to the _shorter bar_. Update the result at each step.
@@ -356,13 +379,16 @@ More on palindrome problems: [Palindrome Problems](#93-palindrome-problems)
 [Python solution](two_pointers/trapping_rain_water.py)
 
 ### 9.3. Palindrome problems
+
 Palindrome problems can be divided into multiple categories based on the _data structure_ used to store the palindrome:
+
 1. String
 2. Linked list
 3. Array
 4. Integer
 
 #### 9.3.1. Palindrome problems on strings
+
 Palindrome problems on strings are usually solved using [two pointers](#1-two-pointers).
 
 1. 判断回文串 Check palindrome:
@@ -376,7 +402,7 @@ Palindrome problems on strings are usually solved using [two pointers](#1-two-po
 
 先找链表中点，再反转后半段链表。
 
-Because you can only move in _a single direction_ in a linked list, we can't use two pointers and make then move in 
+Because you can only move in _a single direction_ in a linked list, we can't use two pointers and make then move in
 opposite directions. However, we can find the _mid-point_ of a linked list, and then _reverse_ the latter
 half of the linked list.
 
@@ -394,6 +420,7 @@ Example: [234. Palindrome Linked List](linked_lists/palindrome_linked_list.py)
 Basically the same as palindrome problems on strings.
 
 #### 9.3.4 Palindrome Problems on Integers
+
 Do not convert the integer to a string and then check if the string is a palindrome! Very inefficient.
 
 The intuition is to _reverse the integer_ and simply use `==` to check if reversed integer is equal to the original integer.
@@ -401,8 +428,4 @@ Use two variables: `y` is the reversed integer, and `temp` is an integer we use 
 Initialize `temp = x`, while `temp > 0`, find the last digit using `digit = temp % 10`, and then update `temp` using integer division `temp = temp // 10`.
 Update `y` at each step, `y = y * 10 + digit`. Finally, check if `y == x`.
 
-
-
 Example: [9. Palindrome Number](math/palindrome_number.py)
-
-
