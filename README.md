@@ -183,7 +183,37 @@ When to use DFS? When to use BFS?
 
 ### 3.1. Prefix Sum Algorithm
 
+Prefix sum arrays are useful for *efficient and frequent* calculation of the *sum* of elements within a index range.
+
+The idea is to store an array `preSum`, in which `preSum[i]` is the sum of `nums[0 ... i-1]`, which means that `preSum[i] = preSun[i-1] + nums[i]`. For example:
+
+```python
+      arr = [1, 2, 3,  4,  5]
+preSum = [0, 1, 3, 6, 10, 15]
+```
+
+To find the sum of elements within the range `[1, 3]`, we can do the following:
+
+- The sum of elements within the range `[1, 3]` is equal to `preSum[4] - preSum[1] = 9`
+
+Example: [303. Range Sum Query](https://leetcode.cn/problems/range-sum-query-immutable/)
+
+注意：前缀和数组比原input数组的size大一个。
+
 ### 3.2. Difference Array
+
+Difference array is used for *fast, efficient* addition and subtraction of numbers within a range of indices. For example, add all numbers within range [0, 3] by 6, subtract all numbers within [2, 5] by 3, ..., etc. The idea is that, for every operation to add or subtract a number on all numbers within the range `[i, j]`, we only change the value of `diff[i]` and `diff[j+1]`, and then based on the result of diff array, find the result array.
+
+`diff[i]` is the difference between `nums[i]` and `nums[i-1]`.
+
+```python
+diff = [0] * len(nums)
+diff[0] = nums[0]
+for i in range(1, len(nums)):
+    diff[i] = nums[i] - nums[i - 1]
+```
+
+用差分数组迅速有效地进行区域中数字的加减，然后利用差分数组还原出`result`。比如想要`[i, j]`区间所有数字都+5，那么就把`diff[i] += 5`,`diff[j+1] -= 5`,然后还原结果。注意：差分数组和原input数组的size相等。
 
 ### 3.3. Sliding Window
 
@@ -213,15 +243,15 @@ def sliding_window(s: str, t: str):
     while right < len(s):
         c = s[right]
         right += 1  # increment immediately after getting c
-      
+    
         # update window data
         ...
-      
+    
         # check whether window needs shrink
         while left < right and window_needs_shrink:
             d = s[left]
             left += 1
-          
+        
             # update window data
             ...
 ```
@@ -308,7 +338,7 @@ def search_right_bound(nums: list, target: int):
             left = mid + 1 
         elif nums[mid] < target:
             right = mid
-          
+        
     # make sure that index `left - 1` is not out of bounds
     if left == 0 or nums[left - 1] != target:
         return -1
