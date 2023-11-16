@@ -408,6 +408,17 @@ More on palindrome problems: [Palindrome Problems](#93-palindrome-problems)
 
 ### 9.1. Selling and buying stocks
 
+股票买卖问题都可以用 dynamic programming 的方法来解决。
+
+#### Summary
+
+
+#### Examples
+
+- [题解及思路](dynamic_programming/README.md)
+- [Solution to Problem 121. Best Time to Buy and Sell Stock](dynamic_programming/best_time_to_buy_and_sell_stock.py)
+- [Solution to Problem 122. Best Time to Buy and Sell Stock II](dynamic_programming/best_time_to_buy_and_sell_stock_II.py)
+
 ### 9.2. Trapping rain water
 
 思路：不要去思考整体能装多少水，而是每个位置`i`能装多少水。每个位置`i`能装多少水取决于`i`左边最高的柱子和`i`右边最高的柱子中较矮的那个。
