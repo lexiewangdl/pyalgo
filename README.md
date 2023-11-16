@@ -217,6 +217,10 @@ for i in range(1, len(nums)):
 
 ### 3.3. Sliding Window
 
+The sliding window technique is used to solve *subarray* and *substring* problems.
+
+Time complexity is usually O(N) because each element will only be added to window once and hence removed from window once (as `left` and `right` will never decrease).
+
 Key Questions:
 
 1. 什么时候扩大窗口？
@@ -243,15 +247,15 @@ def sliding_window(s: str, t: str):
     while right < len(s):
         c = s[right]
         right += 1  # increment immediately after getting c
-    
+  
         # update window data
         ...
-    
+  
         # check whether window needs shrink
         while left < right and window_needs_shrink:
             d = s[left]
             left += 1
-        
+    
             # update window data
             ...
 ```
@@ -261,6 +265,10 @@ Key points:
 1. Initialize `left` and `right` to be zero, immediately increment `left` and `right` right after getting the corresponding character
 2. **Time complexity is O(N)** because even through there is an embedded `while` loop, the pointers `left` and `right` will only increase, and never decrease. Every single element in array (or string) will only be added to the `window` once, and removed from it once (at max).
 3. `...` means we need to update data stored in `window`. The first instance is when we add new element, the second is when we remove an element.
+
+Example Questions:
+
+- [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/description/), [solution](array/sliding_window/minimum_window_substring.py)
 
 ### 3.4. Binary Search on Arrays
 
@@ -338,7 +346,7 @@ def search_right_bound(nums: list, target: int):
             left = mid + 1 
         elif nums[mid] < target:
             right = mid
-        
+    
     # make sure that index `left - 1` is not out of bounds
     if left == 0 or nums[left - 1] != target:
         return -1
