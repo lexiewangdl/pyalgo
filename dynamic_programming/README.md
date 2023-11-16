@@ -1,7 +1,62 @@
 # Dynamic Programming
 **Table of Contents**
-- 509 Fibonacci Number
-- 322 Coin Change
+- Buying and Selling Stocks
+  - [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock-easy)
+- Uncategorized
+  - [509. Fibonacci Number](#509-fibonacci-number-easy)
+  - [322. Coin Change](#322-coin-change-medium)
+
+## Buying and Selling Stocks
+
+### Summary
+
+### 121. [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/) (Easy)
+使用一个dp table来存储在每一天，持有和不持有股票的情况下，最大的利润是多少。最后返回dp table中最后一天，不持有股票的情况下的最大利润。
+因为这道题中`k`（交易次数）并不是一个变量，而是固定的`k=1`，所以可以使用一个2D dp table，`dp[i][0]`代表第`i`天不持有股票的最大利润，
+`dp[i][1]`代表第`i`天持有股票的最大利润。`0`和`1`是不同的**状态**。
+
+接下来需要思考的是状态如何转移。
+
+假设今天是第`i`天，那么今天不持有股票的最大利润有两种情况：
+(1) 昨天不持有股票，今天也不持有股票，即`dp[i][0] = dp[i-1][0]`
+(2) 昨天持有股票，今天卖出了股票，即`dp[i][0] = dp[i-1][1] + prices[i]`
+
+今天持有股票的最大利润也有两种情况：
+(1) 昨天持有股票，今天也持有股票，即`dp[i][1] = dp[i-1][1]`
+(2) 昨天不持有股票，今天买入了股票，即`dp[i][1] = dp[i-1][0] - prices[i]`，
+但是因为这道题中只能进行一次交易，所以`dp[i][1] = -prices[i]`（也就是买入股票之前最大利润必定是0），如果交易次数不限，那就可以用原式子。
+
+接下来还需要考虑dp table如何 initialize，第一天`i=0`时，不持有股票的最大利润为0，持有股票的最大利润为`-prices[0]`。
+这是因为第一天如果持有股票，那么必定是在第一天买入了股票，所以最大利润为`-prices[0]`。
+
+Example:
+```python
+prices = [7, 1, 5, 3, 6, 4]
+```
+
+Initialize dp table, at this time, only initialize the first row, which is when `i=0`:
+```python
+dp = [[0, -7],  # day 0
+      [0, 0],  # day 1
+      [0, 0],  # day 2
+      [0, 0],  # day 3
+      [0, 0],  # day 4
+      [0, 0]]  # day 5
+```
+
+Fill in the rest of the dp table:
+```python
+dp = [[0, -7],  # day 0，不买股票的话利润为0，买了股票利润为-7
+      [0, -1],  # day 1，不持有股票状态，要么利润和昨天不持有股票一样为0，要么是买了股票又卖了，就是-7+1=-6，选择0
+                # 持有股票状态，要么利润和昨天持有股票一样为-7，要么是昨天不持有股票，今天买入了，就是0-1=-1，选择-1
+      [4, -1],  # day 2， 不持有股票状态，可以卖掉手里的股票，也就是-1+5=4，也可以不持有股票，利润和昨天一样为0，选择4
+                # 持有股票状态，可以选择和昨天一样持有股票，利润为-1，也可以选择买入股票，利润为0-5=-5，选择-1
+      [4, -1],  # day 3
+      [5, -1],  # day 4
+      [5, -1]]  # day 5
+```
+
+最后返回dp table中最后一天，不持有股票的最大利润，即`dp[n-1][0] = 5`（最后一天把股票卖了肯定比不卖利润要高）。
 
 ### 509. Fibonacci Number (Easy)
 Given two base cases `f(0) = 0` and `f(1) = 1`, we know that for all other values of `n`, `f(n) = f(n-1) + f(n-2)`.
