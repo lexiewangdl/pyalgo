@@ -1,10 +1,11 @@
 # Dynamic Programming
 **Table of Contents**
 - Buying and Selling Stocks
-  - [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock-easy)
+  - [121. Best Time to Buy and Sell Stock](#121-best-time-to-buy-and-sell-stock-easy) 🍏
+  - [122. Best Time to Buy and Sell Stock II](#122-best-time-to-buy-and-sell-stock-ii-medium) 🍊
 - Uncategorized
-  - [509. Fibonacci Number](#509-fibonacci-number-easy)
-  - [322. Coin Change](#322-coin-change-medium)
+  - [509. Fibonacci Number](#509-fibonacci-number-easy) 🍏
+  - [322. Coin Change](#322-coin-change-medium) 🍊
 
 ## Buying and Selling Stocks
 
@@ -57,6 +58,15 @@ dp = [[0, -7],  # day 0，不买股票的话利润为0，买了股票利润为-7
 ```
 
 最后返回dp table中最后一天，不持有股票的最大利润，即`dp[n-1][0] = 5`（最后一天把股票卖了肯定比不卖利润要高）。
+
+### [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/) (Medium)
+
+注意这道题中`k`（交易次数）是不限制的，但是同一时间只能持有1支股票。
+
+和上一道题用同样的方法，只是有一点不同，也就是当第`i`天是持有股票的状态时，`dp[i][1]`的值是多少。
+`dp[i][1]`的选择有两种，要么就是前一天也持有股票，今天没有卖出，也就是`dp[i-1][1]`。或者前一天不持有股票，
+今天选择买入股票`dp[i-1][0] - prices[i]`，也就是上一道题中说到的不限制交易次数的情况。
+
 
 ### 509. Fibonacci Number (Easy)
 Given two base cases `f(0) = 0` and `f(1) = 1`, we know that for all other values of `n`, `f(n) = f(n-1) + f(n-2)`.
