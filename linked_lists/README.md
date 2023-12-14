@@ -5,6 +5,7 @@
 - 92 - 🚩 [Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/description/) 🍊
 - 25 - 🚩 [Reverse Nodes in K-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/description/) 🍎
 - 234 - Palindrome Linked List 🍏
+- [2130.  Maximum Twin Sum of a Linked List](#2130-maximum-twin-sum-of-a-linked-list-medium) 🍊
 
 ### 206. Reverse Linked List
 
@@ -307,10 +308,23 @@ def traverse(node):
     backward += node.val  # post-order
 ```
 
+### 2130.  [Maximum Twin Sum of a Linked List](https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/description) (Medium)
+
+The twin of a node in a linked list is the `n-1-i`-th node in the linked list, where `n` is the length of the linked list.
+For example, if the linked list is `1 -> 2 -> 3 -> 4`, the twin of node `1` is node `4`, the twin of node `2` is node `3`.
+
+To find the maximum twin sum, we want to be able to traverse the linked list from both ends, so that we can find the twin
+sum in O(n) time. Thus, we need to **reverse** the second half of the linked list.
+
+**Key points:**
+1. To reverse the second half of the linked list, we need to find the middle node of the linked list
+2. Use **two pointers**, one slow pointer and one fast pointer, to find the middle node of the linked list
+3. Reverse the second half of the linked list
+4. Traverse the linked list from both ends, and find the maximum twin sum
+
 ### Summary
 1. Linked list和binary tree一样，用递归遍历都有pre-order和post-order操作位置。在Pre-order位置打印node val，最后的结果是顺序。在Post-order位置打印val，最后的结果是倒序。
 2. 快速找到链表**中间点**：用快慢指针，慢指针走一步，快指针走两步，快指针走到头，慢指针走到中间点。两种情况：链表**节点数为单数**或节点数为**复数**。
-
 
 
 
