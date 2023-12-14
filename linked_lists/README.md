@@ -1,13 +1,13 @@
 # Linked List Problems
 
 **Table of Contents**
-- 206 - 🚩 Reverse Linked List 🍏
-- 92 - 🚩 [Reverse Linked List II](https://leetcode.com/problems/reverse-linked-list-ii/description/) 🍊
-- 25 - 🚩 [Reverse Nodes in K-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/description/) 🍎
-- 234 - Palindrome Linked List 🍏
+- 🚩 [206. Reverse Linked List](#206-reverse-linked-list-easy) 🍏
+- 🚩 [92. Reverse Linked List II](#92-reverse-linked-list-ii-medium) 🍊
+- 🚩 [25. Reverse Nodes in K-Group](#25-reverse-nodes-in-k-group-hard) 🍎
+- [234. Palindrome Linked List](#234-palindrome-linked-list-easy) 🍏
 - [2130.  Maximum Twin Sum of a Linked List](#2130-maximum-twin-sum-of-a-linked-list-medium) 🍊
 
-### 206. Reverse Linked List
+### 206. Reverse Linked List (Easy)
 
 #### (a) Iterative solution:
 - Store the tail of the reversed linked list (of type `ListNode`)
@@ -306,6 +306,62 @@ def traverse(node):
     traverse(node.next)  # recurse
     
     backward += node.val  # post-order
+```
+
+### 328. [Odd Even Linked List](https://leetcode.com/problems/odd-even-linked-list/description) (Medium)
+The linked list need to be re-arranged in place, so that all nodes with odd indices are placed before all nodes with even indices,
+in the same relative order.
+
+The solution is to use **two pointers**, where the first pointer points to the final processed odd node, and the second
+pointer points to the first node of un-processed even nodes. All nodes to the left of second pointer `e` should be odd nodes
+in the correct order. All nodes to the right of `e` can either be un-processed even nodes, or processed even nodes.
+For example,
+
+```angular2html
+1 -> 2 -> 3 -> 4 -> 5 -> null
+|    | 
+o    e
+```
+
+At each step, re-connect the nodes such that `o.next = e.next`, and `e.next = e.next.next`. Then, move `o` to the next 
+node, and `e` to the next node of `o`. Also make sure to set `o.next` as the head of the even part.
+
+```angular2html
+1 -> 2 -> 3 -> 4 -> 5 -> null
+|    | 
+o    e
+
+>>> o.next = e.next
+     2 -- e
+     |
+     v
+1 -> 3 -> 4 -> 5 -> null
+|
+o
+
+>>> e.next = e.next.next
+          2 -- e
+          |
+          v
+1 -> 3 -> 4 -> 5 -> null
+
+>>> o = o.next
+          2 -- e
+          |
+          v
+1 -> 3 -> 4 -> 5 -> null
+     |
+     o
+
+>>> o.next = head_of_even_part
+1 -> 3 -> 2 -> 4 -> 5 -> null
+     |    |
+     o    head_of_even_part, e 
+
+>>> e = e.next
+1 -> 3 -> 2 -> 4 -> 5 -> null
+     |         |
+     o         e
 ```
 
 ### 2130.  [Maximum Twin Sum of a Linked List](https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/description) (Medium)
