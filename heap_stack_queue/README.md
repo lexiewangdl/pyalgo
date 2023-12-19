@@ -41,9 +41,9 @@ heapq.heappush(heap, (1, 3))  # (frequency, number)
 print(heapq.heappop(heap)) # (1, 3)
 ```
 ## Heap Problems
-- 347 - 🚩 [Top K Frequent Elements](#347-top-k-frequent-elements--medium-) 🍊
-- 23 - [Merge k Sorted Lists](#23-merge-k-sorted-lists--hard-) 🍎
-- 295 - 🚩 [Find Median from Data Stream](#295-find-median-from-data-stream--hard-) 🍎
+- 🚩 [347. Top K Frequent Elements](#347-top-k-frequent-elements-medium) 🍊
+- [23. Merge k Sorted Lists](#23-merge-k-sorted-lists-hard) 🍎
+- 🚩 [295. Find Median from Data Stream](#295-find-median-from-data-stream-hard) 🍎
 
 ### 347. Top K Frequent Elements (Medium)
 1. Use `Counter()` to get the frequency of each element in the list.
@@ -109,6 +109,25 @@ Step 3: heappush(min_heap, n)
 - Add to max heap: `heappush(max_heap, -num)`
 - Pop from max heap: `-heappop(max_heap)`
 - Get max value from max heap: `-max_heap[0]`
+
+### 215. [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) (Medium)
+
+[Python solution](kth_largest_element_in_array.py):
+
+Maintain a single **heap** of size _k_. This heap stores the _k_ largest elements in the processed array.
+For example, the array `nums` is `[1, 2, 3, 4, 5]`, and `k = 2`. 
+
+We use a for loop to iterate through the array. For each element, we do the following:
+1. Push the element into the heap
+2. If the heap size is greater than _k_, pop the smallest element from the heap (so that the heap size is always _k_, and always contains the _k_ largest elements in the processed part of the array)
+
+At the end of the loop, the heap will contain `[4, 5]`.
+The top element of the heap is the _k_-th largest element in the array.
+
+**Time complexity**: O(N log k)
+
+The for loop iterates through the array, which is O(N), 
+and each iteration takes O(log k) time to push and pop elements from the heap.
 
 ## Stack Problems
 
