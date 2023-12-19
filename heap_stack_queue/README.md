@@ -45,6 +45,7 @@ print(heapq.heappop(heap)) # (1, 3)
 - [23. Merge k Sorted Lists](#23-merge-k-sorted-lists-hard) 🍎
 - 🚩 [295. Find Median from Data Stream](#295-find-median-from-data-stream-hard) 🍎
 - [215. k-th Largest Element in an Array](#215-kth-largest-element-in-an-array-medium) 🍊
+- 🚩[2462. Total Cost to Hire K Workers](#2462-total-cost-to-hire-k-workers-medium) 🍊
 
 ### 347. Top K Frequent Elements (Medium)
 1. Use `Counter()` to get the frequency of each element in the list.
@@ -129,6 +130,32 @@ The top element of the heap is the _k_-th largest element in the array.
 
 The for loop iterates through the array, which is O(N), 
 and each iteration takes O(log k) time to push and pop elements from the heap.
+
+### 2462. [Total Cost to Hire K Workers](https://leetcode.com/problems/minimum-cost-to-hire-k-workers/) (Medium)
+
+[Python solution](total_cost_to_hire_k_workers.py):
+
+This problem needs to find the minimum cost to hire _k_ workers. For each hiring session, we need to hire exactly _1_ worker.
+There will be _k_ hiring sessions in total.
+
+For each session, the candidates are the workers from the first `candidates` in `costs` (which defines the cost of hiring each worker at corresponding index) to the last `candidates` in `costs`. 
+For example, if `costs` is `[1, 2, 3, 4, 5]`, and `candidates = 2`, then 
+the candidates for the first session are `[1, 2]` and `[4, 5]`.
+Note that **each person can only be hired once**, so if `candidates = 3`, then in the first session,
+the candidates are `[1, 2, 3]` and `[4, 5]`.
+
+The approach is to initialize two heaps:
+- `l_heap` is used to store the candidates from the first `candidates` in `costs`
+- `r_heap` is used to store the candidates from the last `candidates` in `costs`
+
+Using a for loop `for i in range(k):` to iterate through the hiring sessions.
+
+For each session, we do the following:
+1. Use a `while` loop to add the candidates from the first `candidates` in `costs` to `l_heap` until the size of `l_heap` is `candidates`
+2. Use a `while` loop to add the candidates from the last `candidates` in `costs` to `r_heap` until the size of `r_heap` is `candidates`
+3. After the `while` loops, we have two heaps, `l_heap` and `r_heap`, each with size `candidates`.
+4. Compare the top elements of the two heaps. The heap with the smaller top element is the heap that contains the candidates with the lowest cost. Pop the top element from this heap and add it to the `total_cost`. (Note that if a heap is empty, we can't pop from it. So we need to check if the heap is empty before popping from it.)
+
 
 ## Stack Problems
 
