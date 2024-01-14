@@ -16,8 +16,6 @@ class Solution:
                 result.append(start)
             start += len(substring)
 
-        return result
-
     def beautifulIndices(self, s: str, a: str, b: str, k: int) -> List[int]:
 
         i_candidates = self.find_all(s, a)
