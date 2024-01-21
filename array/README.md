@@ -45,72 +45,7 @@ Python自带的生成随机整数的方法`random.randint(a, b)`是在range [a, 
 
 
 ## 3. Sliding Window Questions
-
-### 76. [Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) (Hard)
-For template of sliding window questions, see [this page](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
-
-Key points:
-- Must use `valid` (in this case, I used `count`) to store the number of keys whose value in `window` is greater than or equal to in `need` (I used `t_map`), this is because when comparing two dicts directly, it won't take care of situations where the values in `window` are greater than in `need` (e.g. `window = {'A': 2, 'B': 1}` and `need = {'A': 1, 'B': 1}`)
-- In other words, `valid` represents the number of elements in current window that have satisfied the requirement in `need` (i.e. greater than or equal to the needed count)
-- Even though `right` is initialized to be zero, it's always incremented right after the corresponding character is saved in a variable. When we exit the outer while loop, right will be equal to `len(s)`. Thus, the range is actually `[left, right)` (the right index is non-inclusive).
-- This is why the returned result is `s[left:right]` (this is a simplified way of representing it, refer to code for edge case handling)
-- Only save char in `window` if char is a needed char (save some space), and only remove char from window if char is a needed char.
-
-### 567. [Permutation in String](https://leetcode.com/problems/permutation-in-string/) (Medium)
-Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
-
-### 438. [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/) (Medium)
-Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
-
-### 380. [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/description/) (Medium)
-1. How to get a random element in a data structure in O(1) time?
-
-    If we have an **array**, we can use `random.randint()` to generate a random index within the range (0, len(array)-1). Then we can return the element at that index.
-    We can also just use `random.choice(array)` to get a random element in the array.
-2. How to insert and delete an element in a data structure in O(1) time?
-
-    If we have a **hash table**, we can insert and delete an element in O(1) time. However, we cannot get a random element in O(1) time.
-    If we have an **array**, we can still insert and delete in O(1) time, as long as the item is added to the end or removed from the end.
-3. How to make sure that the item to delete is at the end of the array?
-
-   Swap the item to be deleted with the last item in the array, and then delete the last item in the array.
-4. Swap items in O(1) time?
-
-   Use a hash table to store the index of each item in the array. In this way, we can find the **index of item to delete** in O(1) time and swap it with the last element in list in O(1) time.
-5. Other key points: (1) remember to increment data length when inserting an item; (2) remember to decrement data length when deleting an item; (3) remember to update the hash table when swapping items.
-
-### 268. [Missing Number](https://leetcode.com/problems/missing-number/description/) (Easy)
-
-**My approach:** 
-
-Sort the array in ascending order using `array.sort(revers=False)`. Initialize `ans = 0`. 
-Iterate through the array, if the current number is not equal to `ans`, return `ans`. 
-Otherwise, increment `ans` by 1. If the loop finishes, return `ans`.
-
-**Mathematical approach:**
-
-Calculate the expected sum of all integers within the range `[0, N]`, where `N` is the length of the array.
-Then calculate the actual sum of all integers in the array. 
-The difference between the expected sum and the actual sum is the missing number.
-
-### 1306. [Jump Game III](https://leetcode.com/problems/jump-game-iii/) (Medium)
-
-**Topics**: Array, BFS, DFS
-
-**My approach (BFS solution):** Use a queue to store the indices of the elements that we are going to visit. Use a set
-`visited` to stored the indices that we have visited. This is to avoid visiting the same index many times, which will 
-lead to TLE error if there is no way for us to reach the element with value 0.
-For each element in the queue, check if it is equal to 0. If yes, return True. Otherwise, add the indices that we can
-reach from the current index to the queue. Then add the current index to the set `visited`. If the queue is empty, return
-False.
-
-### [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/description/) (Medium)
-Use two list of sets, `rows` and `cols`, to keep track of numbers in each row and each column.
-Use a  3 by 3matrix of sets `grids` to keep track of numbers in each 3 by 3 grid.
-Iterate through the board using a nested for loop, for each element, check if it is an empty 
-spot `matrix[i][j] == '.'`. If so, continue to next spot. Otherwise, check if the number is already in `rows`, `cols`, 
-or `grids`. If yes, return `False`. Otherwise, add the number to `rows`, `cols`, and `grids`. 
-If the loop finishes, return `True`.
+See [this page](../sliding_window/README.md) for sliding window template and solutions to problems.
 
 ## 4. Binary Search Problems
 ### 704. [Binary Search](https://leetcode.com/problems/binary-search/description/) (Easy)
@@ -217,4 +152,54 @@ Use the formula `2 * sum(set(array)) - sum(array)` to get the value of the singl
   - Append the result list to the final result list.
 - Return the final result list.
 
+## 4. Other Problems
 
+### 380. [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/description/) (Medium)
+1. How to get a random element in a data structure in O(1) time?
+
+    If we have an **array**, we can use `random.randint()` to generate a random index within the range (0, len(array)-1). Then we can return the element at that index.
+    We can also just use `random.choice(array)` to get a random element in the array.
+2. How to insert and delete an element in a data structure in O(1) time?
+
+    If we have a **hash table**, we can insert and delete an element in O(1) time. However, we cannot get a random element in O(1) time.
+    If we have an **array**, we can still insert and delete in O(1) time, as long as the item is added to the end or removed from the end.
+3. How to make sure that the item to delete is at the end of the array?
+
+   Swap the item to be deleted with the last item in the array, and then delete the last item in the array.
+4. Swap items in O(1) time?
+
+   Use a hash table to store the index of each item in the array. In this way, we can find the **index of item to delete** in O(1) time and swap it with the last element in list in O(1) time.
+5. Other key points: (1) remember to increment data length when inserting an item; (2) remember to decrement data length when deleting an item; (3) remember to update the hash table when swapping items.
+
+### 268. [Missing Number](https://leetcode.com/problems/missing-number/description/) (Easy)
+
+**My approach:** 
+
+Sort the array in ascending order using `array.sort(revers=False)`. Initialize `ans = 0`. 
+Iterate through the array, if the current number is not equal to `ans`, return `ans`. 
+Otherwise, increment `ans` by 1. If the loop finishes, return `ans`.
+
+**Mathematical approach:**
+
+Calculate the expected sum of all integers within the range `[0, N]`, where `N` is the length of the array.
+Then calculate the actual sum of all integers in the array. 
+The difference between the expected sum and the actual sum is the missing number.
+
+### 1306. [Jump Game III](https://leetcode.com/problems/jump-game-iii/) (Medium)
+
+**Topics**: Array, BFS, DFS
+
+**My approach (BFS solution):** Use a queue to store the indices of the elements that we are going to visit. Use a set
+`visited` to stored the indices that we have visited. This is to avoid visiting the same index many times, which will 
+lead to TLE error if there is no way for us to reach the element with value 0.
+For each element in the queue, check if it is equal to 0. If yes, return True. Otherwise, add the indices that we can
+reach from the current index to the queue. Then add the current index to the set `visited`. If the queue is empty, return
+False.
+
+### [36. Valid Sudoku](https://leetcode.com/problems/valid-sudoku/description/) (Medium)
+Use two list of sets, `rows` and `cols`, to keep track of numbers in each row and each column.
+Use a  3 by 3matrix of sets `grids` to keep track of numbers in each 3 by 3 grid.
+Iterate through the board using a nested for loop, for each element, check if it is an empty 
+spot `matrix[i][j] == '.'`. If so, continue to next spot. Otherwise, check if the number is already in `rows`, `cols`, 
+or `grids`. If yes, return `False`. Otherwise, add the number to `rows`, `cols`, and `grids`. 
+If the loop finishes, return `True`.

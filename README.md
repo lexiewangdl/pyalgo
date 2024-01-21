@@ -268,7 +268,7 @@ Key points:
 
 Example Questions:
 
-- [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/description/), [solution](array/sliding_window/minimum_window_substring.py)
+- [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/description/), [solution](sliding_window/minimum_window_substring.py)
 
 ### 3.4. Binary Search on Arrays
 
