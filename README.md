@@ -255,7 +255,7 @@ def sliding_window(s: str, t: str):
         while left < right and window_needs_shrink:
             d = s[left]
             left += 1
-    
+  
             # update window data
             ...
 ```
@@ -346,7 +346,7 @@ def search_right_bound(nums: list, target: int):
             left = mid + 1 
         elif nums[mid] < target:
             right = mid
-    
+  
     # make sure that index `left - 1` is not out of bounds
     if left == 0 or nums[left - 1] != target:
         return -1
@@ -404,6 +404,14 @@ Why check whether `left - 1` is out of bounds?
 
 More on palindrome problems: [Palindrome Problems](#93-palindrome-problems)
 
+### 8.2 Get ASCII Code of Characters
+
+To get the ASCII code of a char: `ord(char)`
+
+For example, `ord('A') = 65`
+
+We can also do `ord('Z') - ord('A') = 25`. If we want to use an array of size 26 to store the count (or something else) of 26 upper case English characters, `ord(char) - ord('A')` will be the index of `char` in this array.
+
 ## 9. Interesting Problems
 
 ### 9.1. Selling and buying stocks
@@ -411,7 +419,6 @@ More on palindrome problems: [Palindrome Problems](#93-palindrome-problems)
 股票买卖问题都可以用 dynamic programming 的方法来解决。
 
 #### Summary
-
 
 #### Examples
 
