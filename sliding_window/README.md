@@ -8,6 +8,8 @@ The sliding window template: see [this page](../README.md).
 - [567. Permutation in String](#567-permutation-in-string-medium) 🍊
 - [438. Find All Anagrams in a String](#438-find-all-anagrams-in-a-string-medium) 🍊
 - [159. Longest Substring with At Most Two Distinct Characters](#159-longest-substring-with-at-most-two-distinct-characters-medium) 🍊
+- [187. Repeated DNA Sequences](#187-repeated-dna-sequences-medium) 🍊
+- [209. Minimum Size Subarray Sum](#209-minimum-size-subarray-sum-medium) 🍊
 
 ## Questions and Solutions
 
@@ -34,3 +36,8 @@ characters from the window when the number of unique characters in the window is
 ### 187. [Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/) (Medium)
 - Check every single possible substring of length 10, and store the substring in a set if it's not already in the set.
 - Use a set to store duplicates, and return the list of duplicates at the end.
+
+### 209. [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) (Medium)
+- Initialize `min_len` to be `math.inf`
+- When returning the result, check if `min_len` is still `math.inf`, if so, return 0
+- Use the sliding window template to solve this problem
