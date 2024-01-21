@@ -45,3 +45,19 @@ Same as above, except that when we check if a window needs to be shrinked, use `
 - Initialize `min_len` to be `math.inf`
 - When returning the result, check if `min_len` is still `math.inf`, if so, return 0
 - Use the sliding window template to solve this problem
+
+### 424. [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/) (Medium)
+- Use the sliding window template to solve this problem
+- To solve this question, we need to keep track of the following variables:
+  - `max_count`: the maximum count of a single character in the current window
+  - Then, we know that `len_window - max_count` is the number of characters that are not the most frequent character in the current window, which is the number of characters that need to be replaced
+- Using the sliding window template, we keep track of two pointers `left` and `right`, and we keep expanding the window by incrementing `right` until `right` reaches the end of the string
+- We use an array `window` to keep track of the count of each character in the current window
+  - Initialize window: `window = [0 for _ in range(26)]`
+  - Get the index of the current character: `index = ord(s[right]) - ord('A')` which is the same as `index = ord(s[right]) - 65`
+- Every time we expand the window, update `max_count` in the following way: `if window[s[right]] > max_count: max_count = window[s[right]]`
+- Then, we decide if the window needs to be shrinked: `if right - left + 1 - max_count > k:`
+  - If so, we shrink the window by incrementing `left` and decrementing `window[s[left]]`
+  - We also need to update `max_count` after shrinking the window: `max_count = max(window)`
+- Finally, we update `max_len` every time we expand the window: `max_len = max(max_len, right - left + 1)`
+- Return `max_len` at the end
