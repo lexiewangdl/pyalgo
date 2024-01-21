@@ -30,3 +30,7 @@ Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0
 ### 159. [Longest Substring with At Most Two Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/) (Medium)
 The key point is to use `del dictionary[key]` to remove a key from a dictionary, this happens when we need to delete
 characters from the window when the number of unique characters in the window is greater than 2.
+
+### 187. [Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/) (Medium)
+- Check every single possible substring of length 10, and store the substring in a set if it's not already in the set.
+- Use a set to store duplicates, and return the list of duplicates at the end.
