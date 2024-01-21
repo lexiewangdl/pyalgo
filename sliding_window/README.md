@@ -8,6 +8,7 @@ The sliding window template: see [this page](../README.md).
 - [567. Permutation in String](#567-permutation-in-string-medium) 🍊
 - [438. Find All Anagrams in a String](#438-find-all-anagrams-in-a-string-medium) 🍊
 - [159. Longest Substring with At Most Two Distinct Characters](#159-longest-substring-with-at-most-two-distinct-characters-medium) 🍊
+- [340. Longest Substring with At Most K Distinct Characters](#340-longest-substring-with-at-most-k-distinct-characters-medium) 🍊
 - [187. Repeated DNA Sequences](#187-repeated-dna-sequences-medium) 🍊
 - [209. Minimum Size Subarray Sum](#209-minimum-size-subarray-sum-medium) 🍊
 
@@ -32,6 +33,9 @@ Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0
 ### 159. [Longest Substring with At Most Two Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/) (Medium)
 The key point is to use `del dictionary[key]` to remove a key from a dictionary, this happens when we need to delete
 characters from the window when the number of unique characters in the window is greater than 2.
+
+### 340. [Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/) (Medium)
+Same as above, except that when we check if a window needs to be shrinked, use `while len(window) > k` instead of `while len(window) > 2`.
 
 ### 187. [Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/) (Medium)
 - Check every single possible substring of length 10, and store the substring in a set if it's not already in the set.
