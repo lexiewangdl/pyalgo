@@ -1,14 +1,13 @@
 
 # Sliding Window
 
+The sliding window template: see [this page](../README.md).
+
 ## Table of Content
-- [76. Minimum Window Substring](#76-minimum-window-substring-hard)
-- [567. Permutation in String](#567-permutation-in-string-medium)
-- [438. Find All Anagrams in a String](#438-find-all-anagrams-in-a-string-medium)
-- [380. Insert Delete GetRandom O(1)](#380-insert-delete-getrandom-o1-medium)
-- [268. Missing Number](#268-missing-number-easy)
-- [1306. Jump Game III](#1306-jump-game-iii-medium)
-- [36. Valid Sudoku](#36-valid-sudoku-medium)
+- [76. Minimum Window Substring](#76-minimum-window-substring-hard) 🍎
+- [567. Permutation in String](#567-permutation-in-string-medium) 🍊
+- [438. Find All Anagrams in a String](#438-find-all-anagrams-in-a-string-medium) 🍊
+- [159. Longest Substring with At Most Two Distinct Characters](#159-longest-substring-with-at-most-two-distinct-characters-medium) 🍊
 
 ## Questions and Solutions
 
@@ -28,3 +27,6 @@ Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0
 ### 438. [Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/description/) (Medium)
 Use the [sliding window template](https://github.com/lexiewangdl/pyalgo/blob/2f0446458ce2647cca671149926d3492e395ad48/README.md).
 
+### 159. [Longest Substring with At Most Two Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/) (Medium)
+The key point is to use `del dictionary[key]` to remove a key from a dictionary, this happens when we need to delete
+characters from the window when the number of unique characters in the window is greater than 2.
