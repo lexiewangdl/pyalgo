@@ -11,6 +11,7 @@ The sliding window template: see [this page](../README.md).
 - [340. Longest Substring with At Most K Distinct Characters](#340-longest-substring-with-at-most-k-distinct-characters-medium) 🍊
 - [187. Repeated DNA Sequences](#187-repeated-dna-sequences-medium) 🍊
 - [209. Minimum Size Subarray Sum](#209-minimum-size-subarray-sum-medium) 🍊
+- [487. Max Consecutive Ones II](#487-max-consecutive-ones-ii-medium) 🍊
 
 ## Questions and Solutions
 
