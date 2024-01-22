@@ -46,6 +46,7 @@ print(heapq.heappop(heap)) # (1, 3)
 - 🚩 [295. Find Median from Data Stream](#295-find-median-from-data-stream-hard) 🍎
 - [215. k-th Largest Element in an Array](#215-kth-largest-element-in-an-array-medium) 🍊
 - 🚩[2462. Total Cost to Hire K Workers](#2462-total-cost-to-hire-k-workers-medium) 🍊
+- 🚩 [658. Find K Closest Elements](#658-find-k-closest-elements-medium) 🍊
 
 ### 347. Top K Frequent Elements (Medium)
 1. Use `Counter()` to get the frequency of each element in the list.
@@ -155,6 +156,17 @@ For each session, we do the following:
 2. Use a `while` loop to add the candidates from the last `candidates` in `costs` to `r_heap` until the size of `r_heap` is `candidates`
 3. After the `while` loops, we have two heaps, `l_heap` and `r_heap`, each with size `candidates`.
 4. Compare the top elements of the two heaps. The heap with the smaller top element is the heap that contains the candidates with the lowest cost. Pop the top element from this heap and add it to the `total_cost`. (Note that if a heap is empty, we can't pop from it. So we need to check if the heap is empty before popping from it.)
+
+### 658. [Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/) (Medium)
+The input array is in ascending order, and there is a target value. We need to find the _k_ closest elements to the target value
+in the array, and return them in ascending order.
+It's important to note that this target value may or may not be in the array.
+
+It makes sense to use **binary search** for this problem, but it's actually a lot easier to use **heap**.
+
+- Store every single element in `arr` into a heap, with the priority being the absolute difference between the element and the target value `abs(arr[i] - x)`.
+- The elements in heap will be ordered by the priority, so we can just pop the top _k_ elements from the heap and store them in a list.
+- Sort the list and return it.
 
 
 ## Stack Problems
