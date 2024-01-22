@@ -61,3 +61,6 @@ Same as above, except that when we check if a window needs to be shrinked, use `
   - We also need to update `max_count` after shrinking the window: `max_count = max(window)`
 - Finally, we update `max_len` every time we expand the window: `max_len = max(max_len, right - left + 1)`
 - Return `max_len` at the end
+
+### 487. [Max Consecutive Ones II](https://leetcode.com/problems/max-consecutive-ones-ii/) (Medium)
+Use a variable `flip_count` to keep track of the number of zeros that need to be flipped.
