@@ -22,6 +22,9 @@ data structures and what kind of problems they are useful for.
    4. [Binary search](#34-binary-search-on-arrays) / 二分查找
       1. [Find left-most target](#look-for-left-most-target) / 查找左边界
       2. [Find right-most target](#look-for-right-most-target)  / 查找右边界
+   5. Heap
+   6. Stack
+   7. Queue
 4. Linked lists
 5. Recursion
 6. Math
@@ -378,6 +381,25 @@ Why check whether `left - 1` is out of bounds?
 - The range of `left` is `[0, len(nums)]`, because when we exit the while loop,
   `left` and `right` will be equal
 - If `left == 0`, then `left - 1` will be out of bounds, this happens when the left pointer has never moved
+
+
+### 3.5. Heap
+
+In Python, use the `heapq` package to initialize and operate heaps.
+
+```python
+# Initialize heap
+h = []
+
+# Add element
+heapq.heappush(h, (priority, element))
+
+# Peek element
+h[0]
+
+# Pop element
+priority, element = heapq.heappop(h)
+```
 
 ## Linked Lists
 
