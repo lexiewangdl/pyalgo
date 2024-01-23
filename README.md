@@ -399,7 +399,14 @@ h[0]
 
 # Pop element
 priority, element = heapq.heappop(h)
+
 ```
+
+`heapq` runtime:
+
+- Push: $O(\log n)$
+- Pop: $O(\log n)$
+- Push all elements in an array to heap: $O(n \log n)$
 
 ## Linked Lists
 
