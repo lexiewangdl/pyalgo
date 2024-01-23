@@ -12,6 +12,7 @@ The sliding window template: see [this page](../README.md).
 - [187. Repeated DNA Sequences](#187-repeated-dna-sequences-medium) 🍊
 - [209. Minimum Size Subarray Sum](#209-minimum-size-subarray-sum-medium) 🍊
 - [487. Max Consecutive Ones II](#487-max-consecutive-ones-ii-medium) 🍊
+- 🚩 [713. Subarray Product Less Than K](#-713-subarray-product-less-than-k-medium) 🍊
 
 ## Questions and Solutions
 
@@ -65,3 +66,41 @@ Same as above, except that when we check if a window needs to be shrinked, use `
 
 ### 487. [Max Consecutive Ones II](https://leetcode.com/problems/max-consecutive-ones-ii/) (Medium)
 Use a variable `flip_count` to keep track of the number of zeros that need to be flipped.
+
+### 🚩 713. [Subarray Product Less Than K](https://leetcode.com/problems/subarray-product-less-than-k/) (Medium)
+This problem is slightly different from the other sliding window problems because ...
+- The window can be of size 1 (i.e. the window can be a single element)
+- Must make sure that `l <= r` (i.e. the left pointer must be less than or equal to the right pointer)
+
+It can be difficult to determine when to increment `l`. Here's the rule:
+- (1) If the product of all elements in the window is less than `k` (`window_prod < k`), and
+- (2) If `l <= r` (to take care of index out of range error),
+- Then, we can increment `l` and update the product of all elements in the window.
+
+Also, how many subarrays do we add to the result every time we increment `r`?
+For example:
+```python
+nums = [10, 5, 2, 6]
+k = 100
+```
+- When `r` is at index 0, we must add `[10]` to the result.
+- When `r` is at index 1, we must add `[10, 5]` and `[5]` to the result.
+- When `r` is at index 2, we must add `[5, 2]` and `[2]` to the result.
+- When `r` is at index 3, we must add `[5, 2, 6]`, `[2, 6]`, and `[6]` to the result.
+
+We can see that the number of subarrays we add to the result every time we increment `r` is equal to `r - l + 1`.
+**Why is this the case?** 
+
+The `+1` comes from the fact that we must add the subarray that contains only the element at index `r` (e.g. `[6]` when `r` is at index 3).
+After the `while` loop used to increment `l`, `r` can either point to an element that's (1) less than `k` or (2) greater than or equal to `k`.
+- If `r` points to an element that's less than `k`, then we must add the subarray that contains only the element at index `r` to the result.
+  - e.g. `nums = [10, 5, 2, 6], r = 2, l = 0, k = 100`, value at index 2 is 2, which needs to be added to result
+- If `r` points to an element that's greater than or equal to `k`, then `l` must be equal to `r + 1`, and `r - l + 1` will be equal to 0, so we don't need to add anything to the result.
+  - e.g. `nums = [1, 1, 200, 1], r = 2, l = 3, k = 100`, value at index 2 is 200, which is greater than or equal to 100, 
+    and `l` should be equal to `r + 1` after shrinking the window.
+
+The `r - l` is equal to the number of subarrays of length >= 1 within the window that need to be added to the result.
+For example, if the window is `[5, 2, 6]`, then we have two subarrays of length greater than 1 that need to be added to the result: `[5, 2, 6]` and `[2, 6]`.
+Then we count the `+1` which will take care of `[6]`. Note that `[5, 2]` doesn't need to be counted because it would have been
+counted already when `r` was pointing to `[2]`.
+
