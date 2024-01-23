@@ -22,7 +22,7 @@ data structures and what kind of problems they are useful for.
    4. [Binary search](#34-binary-search-on-arrays) / 二分查找
       1. [Find left-most target](#look-for-left-most-target) / 查找左边界
       2. [Find right-most target](#look-for-right-most-target)  / 查找右边界
-   5. Heap
+   5. [Heap](#35-heap)
    6. Stack
    7. Queue
 4. Linked lists
