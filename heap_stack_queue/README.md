@@ -4,6 +4,9 @@
 1. [Heap Summary](#heap-summary)
 2. [Heap in Python](#heap-in-python)
 3. [Heap Problems](#heap-problems)
+4. [Queue Summary](#queue-summary)
+5. [Queue in Python](#queue-in-python)
+6. [Queue Problems](#queue-problems)
 
 
 ## Heap Summary
@@ -170,6 +173,20 @@ It makes sense to use **binary search** for this problem, but it's actually a lo
 
 
 ## Stack Problems
+
+## Queue Summary
+Queue is a FIFO data structure. It's like a line of people waiting to get into a concert. The first person in line is the first person to get into the concert. It is commonly used in BFS (e.g. level-order traversal of binary tree).
+
+## Queue in Python
+```python
+queue = []
+
+# enqueue
+queue.append(item)
+
+# dequeue
+queue.pop(0)
+```
 
 ## Queue Problems
 
