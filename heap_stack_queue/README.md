@@ -50,6 +50,7 @@ print(heapq.heappop(heap)) # (1, 3)
 - [215. k-th Largest Element in an Array](#215-kth-largest-element-in-an-array-medium) 🍊
 - 🚩[2462. Total Cost to Hire K Workers](#2462-total-cost-to-hire-k-workers-medium) 🍊
 - 🚩 [658. Find K Closest Elements](#658-find-k-closest-elements-medium) 🍊
+- [272. Closest Binary Search Tree Value II](#272-closest-binary-search-tree-value-ii-hard) 🍎
 
 ### 347. Top K Frequent Elements (Medium)
 1. Use `Counter()` to get the frequency of each element in the list.
@@ -170,6 +171,12 @@ It makes sense to use **binary search** for this problem, but it's actually a lo
 - Store every single element in `arr` into a heap, with the priority being the absolute difference between the element and the target value `abs(arr[i] - x)`.
 - The elements in heap will be ordered by the priority, so we can just pop the top _k_ elements from the heap and store them in a list.
 - Sort the list and return it.
+
+### 272. [Closest Binary Search Tree Value II](https://leetcode.com/problems/closest-binary-search-tree-value-ii/) (Hard)
+Use a global variable `heap` to store the binary tree values.
+Use a helper function `dfs()` to traverse the tree in order, and add the current node's value to the heap.
+When adding the current node's value to the heap, we need to store priority as the absolute difference between the current node's value and the target value `abs(node.val - target)`: `heapq.heappush(heap, (abs(node.val - target), node.val))`.
+Finally, pop the top _k_ elements from the heap and return them: `result = [heapq.heappop(self.heap)[1] for _ in range(k)]`.
 
 
 ## Stack Problems
