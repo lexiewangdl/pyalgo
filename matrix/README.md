@@ -1,14 +1,15 @@
 # Matrix Problems
 
 ## Table of Contents
-1. BFS Questions
+1. [BFS Questions](#1-bfs-questions)
     1. 🚩 [1091. Shortest Path in Matrix](#1091-shortest-path-in-matrix-medium) 🍊
    2. 🚩 [864. Shortest Path to Get All Keys](#864-shortest-path-to-get-all-keys-hard) 🍎
-2. DFS
-3. Other
+2. [DFS](#2-dfs-questions)
+3. [Binary Search](#3-binary-search-questions)
+4. Others
 
 
-## BFS Questions
+## 1. BFS Questions
 
 - Use a queue `q = collections.deque()` to store the nodes to be visited
 - To move in different directions, define a list of directions `dirs = [(0, 1), (0, -1), (1, 0), (-1, 0)]`, depending
@@ -106,4 +107,16 @@ What needs to be stored in queue? We need the row index, column index, key state
         - Add the cell to the queue and mark it as visited in new key state
       - Otherwise, just add the cell to the queue and mark it as visited in current key state, remember to update distance
 - Eventually, return `-1` if we can't find all keys
+
+## 2. DFS Questions
+
+## 3. Binary Search Questions
+For binary search on arrays, please refer to [the binary search template](../array/README.md).
+
+### 74. [Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/) (Medium)
+- First, perform binary search on rows to find the row that may contain the target
+- If there's no such row, meaning that `row_upper` and `row_lower` are equal to `len(matrix)` after the binary search,
+  then return `False`
+- Then, perform binary search on the row to find the target. This should be the same as the binary search template
+  for arrays.
 
