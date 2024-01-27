@@ -25,6 +25,7 @@
 - 129 - Sum Root to Leaf Numbers 🍊 
 - 199 - Binary Tree Right Side View 🍊 
 - 1022 - Sum of Root To Leaf Binary Numbers 🍏
+- 109 - Convert Sorted List to Binary Search Tree 🍊
 
 ### 104. Maximum Depth of Binary Tree (Easy)
 
@@ -1006,5 +1007,21 @@ For the recursive part, we visit every single node in the tree once.
 For the calculation part, the runtime is approximately `O(num_leaf_nodes * average_tree_length)`, where number of leaf nodes 
 is the number of binary numbers we have, and average tree length is average number of digits in binary numbers.
 
+### 109. [Convert Sorted List to Binary Search Tree](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/description/) (Medium)
+**My solution:**
+Use a helper function that takes in a linked list (to be converted to BST) and two integers `left` and `right` (inclusive).
+The helper function returns the root node of the BST.
 
+- **Base case**: 
+- (1) If the linked list is empty, return `None`
+- (2) If the linked list only has one node, return a tree node with this node's value `TreeNode(head.val)`
+- **Recursive case**:
+- (1) Find the middle node of the linked list, use two pointers `slow` and `fast`
+- (2) Use `fast` to traverse the linked list, until `fast` reaches the end of the linked list; `while fast and fast.next:`
+- (3) When `fast` reaches the end of the linked list, `slow` will be at the middle node
+- (4) Use `prev` to keep track of the node before `slow`, initialize `prev = head` or `prev = None`, at every step, set `prev = slow` before `slow` gets updated
+- (5) Cut the linked list in front of slow, `prev.next = None`
+- (6) Create a tree node with `slow.val`, `root = TreeNode(slow.val)`
+- (7) Recursively call helper function on left and right halves of linked list, `root.left = helper(head)` and `root.right = helper(slow.next)`
+- Eventually, return `root`
 
