@@ -408,9 +408,85 @@ priority, element = heapq.heappop(h)
 - Pop: $O(\log n)$
 - Push all elements in an array to heap: $O(n \log n)$
 
-## Linked Lists
+## 4. Linked Lists
 
-### 1. 反转链表 Reverse a linked list
+- Usually, we use two pointers to solve linked list questions.
+- Use `slow` and `fast` pointers, `slow` moves one step at a time, `fast` moves two steps at a time. Two pointers move in the _same_ direction.
+- Use `p1` and `p2` pointers, `p1` moves one step at a time, `p2` moves one step at a time. Two pointers move in the _opposite_ direction, either from middle to two ends, or from two ends to middle.
+- Or use `p1` and `p2`, one on each linked list, to compare or merge two linked lists.
+
+`dummy` node is a very useful technique when dealing with linked lists.
+Sometimes, it will be more complicated when we don't use `dummy` node.
+
+### 4.1. Merge Two Sorted Linked Lists / 合并两个有序链表
+Use two pointers `p1` and `p2`, one for linked list 1 and one for linked list 2.
+Compare the value of nodes pointed to by `p1` and `p2`, and add the smaller one to the result linked list.
+
+### 4.2. Partition Linked List / 分隔链表
+Put all nodes that are less than value `x` to the left of all nodes that are greater than or equal to `x`.
+Use two dummy nodes `dummy1` and `dummy2` to store the head nodes of left and right parts.
+Use two pointers `p1` and `p2` to traverse the original linked list, and use two pointers `p1` and `p2` to traverse the two linked lists.
+Connect two parts together at the end.
+
+### 4.3. Merge k Sorted Linked Lists / 合并k个有序链表
+Similar to [Merge Two Sorted Linked Lists](#41-merge-two-sorted-linked-lists), but use a heap to store the first node of each linked list.
+The heap decides which node to add to the result linked list.
+
+Time complexity is O(N log k), where N is the total number of nodes in all linked lists, and k is the number of linked lists.
+
+### 4.4. Find the Middle Node of a Linked List / 寻找链表中点
+
+**寻找中点**
+
+Use two pointers `slow` and `fast`, `slow` moves one step at a time, `fast` moves two steps at a time.
+When `fast` reaches the end of the linked list, `slow` will be at the middle node.
+
+**寻找倒数第k个node**
+
+To find the `k`-th node from the end of the list, then it means we are looking for the
+`n-k+1`-th node from the beginning of the list, where `n` is the length of the list.
+In this case, make `fast` move `k` steps first, and then make `slow` and `fast` move 
+together until `fast` reaches the end of the list.
+
+**Similar Questions:**
+- [19. Remove N-th node from the end of a linked list](https://leetcode.com/problems/remove-nth-node-from-end-of-list/description/)
+- [876. Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/description/)
+
+### 4.5. Check if a Linked List has a Cycle / 判断链表是否有环
+
+**检查链表中是否含有环：**
+
+Use `slow` and `fast` pointers, `slow` moves one step at a time, `fast` moves two steps at a time.
+If `fast` reaches the end of the linked list, then there is no cycle.
+If `fast` and `slow` meet, then there is a cycle, because `fast` will eventually catch up with `slow`.
+
+**找链表中环的起点：**
+
+Use `slow` and `fast` pointers, `slow` moves one step at a time, `fast` moves two steps at a time.
+When `fast` and `slow` meet, `fast` must have walked 2 times the length of `slow`.
+Since `fast` walked k more steps, it means that the `k` steps must be walked within the cycle.
+Thus, `k` must be a multiple of the length of the cycle.
+
+Let's say that the distance from the beginning of the cycle to where two pointers meet is `m`, and `slow` walked `k` steps,
+so the distance from `head` to beginning of the cycle is `k-m`.
+From the point where the two pointers meet, if we walk `k-m` steps, we will get to the beginning of the cycle.
+
+
+### 4.6. Find if two Linked Lists intersect / 判断两个链表是否相交
+
+If two linked lists intersect, return the intersecting node, otherwise return `None`.
+
+How to make sure that two pointers reach the intersection node at the same time?
+This can be difficult because there can be any number of nodes before the intersection node,
+if we let two pointers start from the beginning of each linked list, it will take different number of
+steps for each pointer to reach the intersection node.
+
+The solution is to make two pointers start from the beginning of each linked list, and when one pointer reaches the end of the linked list, make it start from the beginning of the other linked list. In this way, the two pointers will reach the intersection node at the same time.
+For example, `p1` starts from linked list `A` and then `B`, `p2` starts from linked list `B` and then `A`.
+
+Eventually, the two pointers will meet at the intersection node, or `None` if there is no intersection.
+
+### 4.7. Reverse a linked list / 反转链表 
 
 ## 7. Graph Algorithms
 
