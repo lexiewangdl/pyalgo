@@ -28,7 +28,7 @@ The time complexity of two pointers is usually **O(N)**, where N is the length o
    1. _快慢指针_：
       (1) 什么情况下快指针和慢指针都在最左边？
       (2) 什么情况下快指针和慢指针都在最右边？For example, in the case of [merging two sorted arrays](#88-merge-sorted-array-easy), both pointers start at the end of the array. This is because the end of the array is not populated, so we don't need to worry about overwriting elements.
-      (3) 什么情况下快指针和慢指针在不同位置？
+      (3) 什么情况下快指针和慢指针在不同位置？For example, in a linked list, `left, right = None, head`, or in an array, `left, right = 0, 1`. This is useful when we want to _compare_ elements at different positions.
    2. 对撞指针：通常一个指针在最左边，一个指针在最右边
    3. 分离指针：通常两个指针都在最左边
 2. 两个指针的移动条件
