@@ -42,23 +42,31 @@ data structures and what kind of problems they are useful for.
 
 ## 1. Two Pointers
 
+如果题目中提到array is **sorted**，那么大概率可以用双指针来解决问题。
+
 1. **快慢指针** Slow and fast pointers, in the same direction
-   - Linked Lists
-     - 找链表中点 Find the middle point of a linked list （慢指针走一步，快指针走两步）
-     - 找链表第n个节点 Find the n-th node from the end of a linked list  (快指针先走n步，然后快慢指针同时前进)
-     - 判断链表是否有环 Check if a linked list has a cycle（慢指针走一步，快指针走两步）
+   - [Linked Lists](#4-linked-lists)
+     - [找链表中点](#44-find-the-middle-node-of-a-linked-list--寻找链表中点) Find the middle point of a linked list （慢指针走一步，快指针走两步）
+     - [找链表第n个节点](#44-find-the-middle-node-of-a-linked-list--寻找链表中点) Find the n-th node from the end of a linked list  (快指针先走n步，然后快慢指针同时前进)
+     - [判断链表是否有环](#45-check-if-a-linked-list-has-a-cycle--判断链表是否有环) Check if a linked list has a cycle（慢指针走一步，快指针走两步）
+     - [判断两个链表是否相交](#46-find-if-two-linked-lists-intersect--判断两个链表是否相交) Find if two linked lists intersect（两个指针从两个链表的头部开始，然后从一个链表跳到另一个链表，每个指针都要把两个链表走完）
    - Array
      - Remove redundant elements in a sorted array （慢指针左侧是已经处理好的元素，快指针指向现在要处理的元素）
      - [Move zeroes](two_pointers/move_zeroes.py) （慢指针左侧是已经处理好的元素，快指针指向现在要处理的元素）
+     - Merge sorted arrays （两个指针从两个数组的尾部开始向前处理，直到两个指针都到位置0）
    - String
      - [String compression](two_pointers/string_compression.py) (e.g. "aabbccc" -> "a2b2c3")
    - 滑动窗口 More complicated scenario: [Sliding Window](#sliding-window)
      - 什么时候扩大窗口？什么时候缩小窗口？什么时候更新结果？
-2. **对撞指针** Pointers that move in the opposite direction
-   - [Binary Search](#binary-search-on-arrays)
-   - 有序数组两数之和 [Two sum in a sorted array](two_pointers/two_sum_2.py)
-   - 判断回文串 Check palindrome
-   - [Trapping rain water](two_pointers/trapping_rain_water.py)
+2. **反向指针** Pointers that move in the opposite direction
+   - **对撞指针**：指针由外向内收缩
+     - [Binary Search](#binary-search-on-arrays)
+     - 有序数组两数之和 [Two sum in a sorted array](two_pointers/two_sum_2.py)
+     - 判断回文串 Check palindrome （两个指针从两端向中间收缩，检查元素是否相等）
+     - [Trapping rain water](two_pointers/trapping_rain_water.py)
+     - 反转数组 Reverse an array （两个指针从两端向中间收缩，互换元素）
+   - **扩散指针**： 
+     - 寻找回文串 Find palindrome （两个指针从中间向两端扩散，寻找回文串）
 3. **分离指针** Pointers on different arrays
    - Merge two sorted arrays
    - Merge sort
