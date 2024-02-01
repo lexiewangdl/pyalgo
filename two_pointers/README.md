@@ -236,3 +236,13 @@ Use a while loop `while left < right`, make two pointers move in opposite direct
 At every step, update `l_max` and `r_max` first, and then, compare `l_max` to `r_max`, because the amount of water
 we can store in between `left` and `right` is determined by the smaller of the two maximum bar heights.
 If `l_max < r_max`, increment `left` by 1, otherwise, decrement `right` by 1.
+
+### 88. [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/) (Easy)
+Use **two pointers** ([solution](merge_sorted_array.py)). Initialize `p1 = m - 1` and `p2 = n - 1`, where `m` is the length
+of `nums1` and `n` is the length of `nums2`. Use a while loop `while p1 >= 0 and p2 >= 0`, at every step, compare `nums1[p1]` and `nums2[p2]`.
+If `nums1[p1] > nums2[p2]`, set `nums1[p1 + p2 + 1]` to be equal to `nums1[p1]`, and decrement `p1` by 1. Otherwise, set `nums1[p1 + p2 + 1]` to be equal to `nums2[p2]`, and decrement `p2` by 1.
+After the while loop, if `p2 >= 0`, it means that there are still elements in `nums2` that haven't been processed, so we need to copy these elements to `nums1`.
+
+The key is to move from the back of `nums1` and `nums2`, and compare elements at `p1` and `p2` at every step, as the back of
+the array is not populated. When we get to the populated parts, we don't need to worry about overwriting elements because
+we have already processed them.
