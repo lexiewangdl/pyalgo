@@ -9,19 +9,16 @@ Two pointers is usually used to solve problems that involve **arrays** or **link
 ### Type of Two Pointers
 
 #### (1) 快慢指针 Slow and fast pointers, in the same direction
-Useful for ...
 1. 环形链表：Detect cycle in linked list
 2. 找链表中点：Find middle of linked list
 3. 找链表中第n个元素：Find nth element in linked list
 4. 删除重复元素：Remove duplicates from sorted array
 
 #### (2) 对撞指针 Pointers that move in the opposite direction
-Useful for ...
 1. 有序数组中两数之和：Two sum in sorted array
 2. 检测回文串：Find palindrome 
 
 #### (3) 分离指针 Pointers on different arrays
-Useful for ...
 1. 两个有序数组的交集：Intersection of two sorted arrays
 2. 合并有序数组：Merge two sorted arrays, aka. merge sort
 
