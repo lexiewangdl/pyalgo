@@ -37,7 +37,8 @@ Useful for ...
 9. [443. String Compression](#443-string-compression) 🍊
 10. 🚩 [42. Trapping Rain Water](#42-trapping-rain-water-hard) 🍎
 11. 🚩 [11. Container With Most Water](#11-container-with-most-water-medium) 🍊
-
+12. [88. Merge Sorted Array](#88-merge-sorted-array-easy) 🍏
+13. 🚩 [80. Remove Duplicates from Sorted Array II](#80-remove-duplicates-from-sorted-array-ii-medium) 🍊
 
 ## Two Pointers on Arrays
 
@@ -246,3 +247,9 @@ After the while loop, if `p2 >= 0`, it means that there are still elements in `n
 The key is to move from the back of `nums1` and `nums2`, and compare elements at `p1` and `p2` at every step, as the back of
 the array is not populated. When we get to the populated parts, we don't need to worry about overwriting elements because
 we have already processed them.
+
+### 🚩 80. [Remove Duplicates from Sorted Array II](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/) (Medium)
+Initialize `left = 0` and `right = 1`. Use a while loop `while right < len(nums)`, at every step, compare `nums[left]` and `nums[right]`.
+If `nums[left] == nums[right]`, increment `right` by 1. Otherwise, increment `left` by 1, and set `nums[left]` to be equal to `nums[right]`.
+Note that `left` must be incremented by 1 before setting `nums[left]` to be equal to `nums[right]`, because we want to keep the first two occurrences of a number, and we want to overwrite the third occurrence of the number.
+After the while loop, return `left + 1`.
