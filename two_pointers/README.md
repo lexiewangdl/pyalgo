@@ -4,9 +4,9 @@
 Two pointers is a technique that involves using two pointers to solve a problem.
 The time complexity of two pointers is usually **O(N)**, where N is the length of input array.
 
-Two pointers is usually used to solve problems that involve **arrays** or **linked lists**.
+尤其适用于 input array or linked list 是 *sorted* 的情况。
 
-### Type of Two Pointers
+### 双指针的三种类型
 
 #### (1) 快慢指针 Slow and fast pointers, in the same direction
 1. 环形链表：Detect cycle in linked list
@@ -21,6 +21,17 @@ Two pointers is usually used to solve problems that involve **arrays** or **link
 #### (3) 分离指针 Pointers on different arrays
 1. 两个有序数组的交集：Intersection of two sorted arrays
 2. 合并有序数组：Merge two sorted arrays, aka. merge sort
+
+### 细节处理
+
+1. 两个指针的初始位置
+   1. _快慢指针_：
+      (1) 什么情况下快指针和慢指针都在最左边？
+      (2) 什么情况下快指针和慢指针都在最右边？For example, in the case of [merging two sorted arrays](#88-merge-sorted-array-easy), both pointers start at the end of the array. This is because the end of the array is not populated, so we don't need to worry about overwriting elements.
+      (3) 什么情况下快指针和慢指针在不同位置？
+   2. 对撞指针：通常一个指针在最左边，一个指针在最右边
+   3. 分离指针：通常两个指针都在最左边
+2. 两个指针的移动条件
 
 ## Table of Contents
 1. [26. Remove Duplicates from Sorted Array](#26-remove-duplicates-from-sorted-array-easy) 🍏
