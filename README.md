@@ -453,11 +453,13 @@ m = [[7, 4, 1],
 
 ### 3.8.2. Spiral Matrix / 螺旋矩阵
 
-Key idea: simulate the process of walking in a spiral pattern. While there are still elements in the matrix, keep walking in the spiral pattern.
-To walk in a spiral pattern, we need to keep track of the four boundaries: top, bottom, left, and right.
-Everytime we finished walking in one direction, we need to update the boundary.
+- 用一个`while`循环，每次循环都是一次完整的遍历一圈。可以用`while n <= num_rows * num_cols`来控制循环次数，要记得更新`n`。
+- 每次遍历一圈，都要遍历四条边，分别是上、右、下、左。
+- 每次遍历一条边之前，都要检查边界是否合法。比如，遍历上边界之前，要检查`top <= bottom`。遍历右边界之前，要检查`left <= right`。
+- 每次遍历一条边，都要更新边界。一共四个边界：上边界`top`、下边界`bottom`、左边界`left`、右边界`right`。比如，遍历完上边界后，`top += 1`。
+- 遍历边的时候用一个`for`循环，比如遍历上边界的时候，`for i in range(left, right + 1)`。遍历下边界的时候，`for i in range(right, left - 1, -1)`。
 
-#### Example problems
+**Example problems**
 - [54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix/description/), [Python solution](matrix/spiral_matrix.py)
 - [59. Spiral Matrix II](https://leetcode.com/problems/spiral-matrix-ii/description/)
 
