@@ -6,7 +6,8 @@
    2. 🚩 [864. Shortest Path to Get All Keys](#864-shortest-path-to-get-all-keys-hard) 🍎
 2. [DFS](#2-dfs-questions)
 3. [Binary Search](#3-binary-search-questions)
-4. Others
+4. Rotating Matrix
+5. Spiral Matrix
 
 
 ## 1. BFS Questions
@@ -119,4 +120,16 @@ For binary search on arrays, please refer to [the binary search template](../arr
   then return `False`
 - Then, perform binary search on the row to find the target. This should be the same as the binary search template
   for arrays.
+
+## 4. Rotating Matrix
+
+## 5. Spiral Matrix
+
+### 54. [Spiral Matrix](https://leetcode.com/problems/spiral-matrix/) (Medium)
+- Use 4 variables to keep track of the boundaries of the matrix: `row_upper`, `row_lower`, `col_left`, `col_right`
+- Use a `while` loop to keep iterating until `len(result) == m * n`
+- Use 4 `for` loops to iterate through the boundaries of the matrix, and append the elements to `result`
+  - For example, to add the top row of a circle to result: `for i in range(col_left, col_right + 1): result.append(matrix[row_upper][i])`
+- Update the boundaries after each iteration
+- Return `result`
 

@@ -25,6 +25,7 @@ data structures and what kind of problems they are useful for.
    5. [Heap](#35-heap)
    6. Stack
    7. Queue
+   8. [Matrix](#38-matrix) / 二维数组、矩阵
 4. Linked lists
 5. Recursion
 6. Math
@@ -194,7 +195,7 @@ When to use DFS? When to use BFS?
 
 ### 3.1. Prefix Sum Algorithm
 
-Prefix sum arrays are useful for *efficient and frequent* calculation of the *sum* of elements within a index range.
+"前缀和技巧适用于快速、频繁地计算一个索引区间内的元素之和。" ([Source](https://labuladong.online/algo/))
 
 The idea is to store an array `preSum`, in which `preSum[i]` is the sum of `nums[0 ... i-1]`, which means that `preSum[i] = preSun[i-1] + nums[i]`. For example:
 
@@ -212,6 +213,8 @@ Example: [303. Range Sum Query](https://leetcode.cn/problems/range-sum-query-imm
 注意：前缀和数组比原input数组的size大一个。
 
 ### 3.2. Difference Array
+
+差分数组：迅速、频繁地对一个区间内的元素进行加减。
 
 Difference array is used for *fast, efficient* addition and subtraction of numbers within a range of indices. For example, add all numbers within range [0, 3] by 6, subtract all numbers within [2, 5] by 3, ..., etc. The idea is that, for every operation to add or subtract a number on all numbers within the range `[i, j]`, we only change the value of `diff[i]` and `diff[j+1]`, and then based on the result of diff array, find the result array.
 
@@ -416,6 +419,38 @@ priority, element = heapq.heappop(h)
 - Pop: $O(\log n)$
 - Push all elements in an array to heap: $O(n \log n)$
 
+### 3.6. Stack
+
+### 3.7. Queue
+
+### 3.8. Matrix
+
+Related topics: 二维数组的花式遍历
+
+### 3.8.1. Rotate Matrix / 旋转矩阵
+
+Key idea: each row becomes a column, and each column becomes a row.
+- **顺时针旋转90度**：先沿左上-右下对角线翻转矩阵，然后反转每一行。
+- **逆时针旋转90度**：先沿右上-左下对角线翻转矩阵，然后反转每一列。
+
+Example: Rotate a matrix 90 degrees clockwise
+
+```python
+m = [[1, 2, 3],
+     [4, 5, 6],
+     [7, 8, 9]]
+
+# First, transpose the matrix
+m = [[1, 4, 7],
+     [2, 5, 8],
+     [3, 6, 9]]
+
+# Then, reverse each row
+m = [[7, 4, 1],
+     [8, 5, 2],
+     [9, 6, 3]]
+```
+
 ## 4. Linked Lists
 
 - Usually, we use two pointers to solve linked list questions.
@@ -524,6 +559,10 @@ To get the ASCII code of a char: `ord(char)`
 For example, `ord('A') = 65`
 
 We can also do `ord('Z') - ord('A') = 25`. If we want to use an array of size 26 to store the count (or something else) of 26 upper case English characters, `ord(char) - ord('A')` will be the index of `char` in this array.
+
+### 8.3 [Reverse words in a string](https://leetcode.com/problems/reverse-words-in-a-string/description/)
+- Reverse all characters in the string first, then reverse each word one by one.
+- Take care of leading and trailing spaces, and multiple spaces between words.
 
 ## 9. Interesting Problems
 
