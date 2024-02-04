@@ -130,6 +130,7 @@ For binary search on arrays, please refer to [the binary search template](../arr
 - Use a `while` loop to keep iterating until `len(result) == m * n`
 - Use 4 `for` loops to iterate through the boundaries of the matrix, and append the elements to `result`
   - For example, to add the top row of a circle to result: `for i in range(col_left, col_right + 1): result.append(matrix[row_upper][i])`
+  - Before every `for` loop, check if the boundary is still valid, for example, before adding the top row, check if `row_upper <= row_lower`
 - Update the boundaries after each iteration
 - Return `result`
 
