@@ -451,6 +451,16 @@ m = [[7, 4, 1],
      [9, 6, 3]]
 ```
 
+### 3.8.2. Spiral Matrix / 螺旋矩阵
+
+Key idea: simulate the process of walking in a spiral pattern. While there are still elements in the matrix, keep walking in the spiral pattern.
+To walk in a spiral pattern, we need to keep track of the four boundaries: top, bottom, left, and right.
+Everytime we finished walking in one direction, we need to update the boundary.
+
+#### Example problems
+- [54. Spiral Matrix](https://leetcode.com/problems/spiral-matrix/description/), [Python solution](matrix/spiral_matrix.py)
+- [59. Spiral Matrix II](https://leetcode.com/problems/spiral-matrix-ii/description/)
+
 ## 4. Linked Lists
 
 - Usually, we use two pointers to solve linked list questions.
