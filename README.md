@@ -293,7 +293,7 @@ Example Questions:
 **核心框架：**
 - `left`和`right`指针的初始位置有两种情况，一种是`right`指向`len(nums)`（non-inclusive），另一种是`right`指向`len(nums) - 1`（inclusive）
 - `while`循环的条件：`left < right`或`left <= right`
-- `mid`的计算：`mid = left + (right - left) // 2`，避免溢出
+- `mid`的计算：`mid = left + (right - left) // 2`，避免溢出；`(left + right) / 2`和`left + (right - left) / 2`结果一样，但是后者可以预防`left`和`right`过大导致两者相加溢出。
 - 更新指针的时候，`left`和`right`的更新有两种情况，一种是`left = mid + 1`，另一种是`right = mid - 1`
 
 ```python
