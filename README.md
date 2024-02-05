@@ -288,7 +288,7 @@ Example Questions:
 
 二分查找的思路很简单，但是细节处理很复杂。比如`while`里用`<`还是`<=`，更新左右指针时是等于`mid`还是`mid + 1`还是`mid - 1`。
 
-#### 二分查找模板 / Binary Search Template
+#### 3.4.1. 二分查找模板 / Binary Search Template
 - `left`和`right`指针的初始位置有两种情况，一种是`right`指向`len(nums)`（non-inclusive），另一种是`right`指向`len(nums) - 1`（inclusive）
 - `while`循环的条件：`left < right`或`left <= right`
 - `mid`的计算：`mid = left + (right - left) // 2`，避免溢出；`(left + right) / 2`和`left + (right - left) / 2`结果一样，但是后者可以预防`left`和`right`过大导致两者相加溢出。
@@ -311,7 +311,7 @@ def search(nums: list, target: int):
   
 ```
 
-#### 开区间 Non-inclusive `right` pointer
+#### 3.4.2. 开区间 Non-inclusive `right` pointer
 ```python
 def search(nums: list, target: int):
     left = 0
@@ -330,7 +330,14 @@ def search(nums: list, target: int):
     return -1
 ```
 
-#### 闭区间 inclusive `right` pointer
+- 为什么`while`循环的条件是`left < right`？
+  - 因为`right`指向的是`len(nums)`，所以`left`和`right`所定义的是一个开区间。
+  - 什么时候搜索范围为空？是当`left == right`，这时搜索范围为空。
+  - 所以，`while`循环的终止条件是，要么找到了目标元素，要么搜索范围为空。所以这里循环条件是`left < right`。
+- 最后要判断`left`是否越界，因为最后循环结束是，左右指针应该是相等的，`left`可能是`len(nums)`，这时`left`就越界了。
+- 最后也要判断`left`是否是目标元素，因为`left`和`right`是相等的，所以返回`left`和`right`都是一样的。
+
+#### 3.4.3. 闭区间 inclusive `right` pointer
 
 ```python
 def search(nums: list, target: int):
@@ -361,7 +368,7 @@ def search(nums: list, target: int):
   - 如果`mid`元素不是目标元素，那么`mid`元素肯定不是我们要找的元素，所以我们可以把`mid`元素排除在搜索范围之外。
 
 
-#### Look for left-most target
+#### 3.4.4. 查找左边界 / Look for left-most target
 
 ```python
 def search_left_bound(nums: list, target: int):
@@ -369,13 +376,13 @@ def search_left_bound(nums: list, target: int):
     right = len(nums)  # ** important **
   
     while left < right:  # ** important **
-        mid = left + (right - left) // 2  # use // operator and avoid overflow
+        mid = left + (right - left) // 2  
         if nums[mid] == target:
-            right = mid
+            right = mid  # ** important **
         elif nums[mid] > target:
-            right = mid  # right is exclusive
+            right = mid  
         elif nums[mid] < target:
-            left = mid + 1  # left is inclusive
+            left = mid + 1 
 
     # make sure that index `right` is not out of bounds
     if right == len(nums) or nums[right] != target:
@@ -384,25 +391,19 @@ def search_left_bound(nums: list, target: int):
         return right  # or return left because they are equal
 ```
 
-How to check whether `target` was found or not?
+大致跟[3.4.2.开区间](#342-开区间-non-inclusive-right-pointer)的模板一样，只是更新`right`的时候，`right = mid`。为什么呢？因为我们要
+找到等于`target`的最左边的元素，所以当`nums[mid] == target`的时候，我们要继续在左边搜索，所以要`right = mid`。
 
+最后要检查`right`是否越界，因为最后循环结束是，左右指针应该是相等的，`right`可能是`len(nums)`，这时`right`就越界了。
+检查`left`也是一样的，反正最后循环结束后，左右指针应该是相等的。
+
+如何确定`target`是否找到了？
 - If `target` was found, `left` will be the index of the target
 - If `target` was not found, `left` will be the index of the first element that is greater than `target`
 - Prior to returning, check if the element at `left` is equal to `target`:
   - `return nums[left] == target ? left : -1`
 
-Why return `left` and not `right`?
-
-- It's the same thing
-- When we exit while loop, `left` and `right` will be equal
-
-Why this method can find the left-most target?
-
-- When `nums[mid] == target`, we update `right = mid`
-- This will cause the search to continue on the left side of `mid`
-- This means that once we have found a target, we will keep looking for more targets on the left side of `mid`
-
-#### Look for right-most target
+#### 3.4.5. Look for right-most target
 
 ```python
 def search_right_bound(nums: list, target: int):
