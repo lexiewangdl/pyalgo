@@ -333,13 +333,6 @@ def search(nums: list, target: int):
 
 2. Inclusive `right` pointer
 
-- 为什么这里while循环的条件是`left <= right`？
-  - 因为`right`指向的是`len(nums) - 1`，所以`left`和`right`所定义的是一个闭区间。
-  - 这种情况下，`left`和`right`指向的两个元素也都属于搜索范围内。
-  - 什么时候搜索范围为空？是当`left > right`，也就是`left`指向了`right`的右边。
-  - 什么时候搜索范围只有一个元素？是当`left == right`，也就是`left`和`right`指向了同一个元素。
-  - 所以，`while`循环的终止条件是，要么找到了目标元素，要么搜索范围为空。所以这里循环条件是`left <= right`。
-
 ```python
 def search(nums: list, target: int):
     left = 0
@@ -357,6 +350,17 @@ def search(nums: list, target: int):
   
     return -1
 ```
+
+- 为什么这里while循环的条件是`left <= right`？
+  - 因为`right`指向的是`len(nums) - 1`，所以`left`和`right`所定义的是一个闭区间。
+  - 这种情况下，`left`和`right`指向的两个元素也都属于搜索范围内。
+  - 什么时候搜索范围为空？是当`left > right`，也就是`left`指向了`right`的右边。
+  - 什么时候搜索范围只有一个元素？是当`left == right`，也就是`left`和`right`指向了同一个元素。
+  - 所以，`while`循环的终止条件是，要么找到了目标元素，要么搜索范围为空。所以这里循环条件是`left <= right`。
+- 为什么更新`left`和`right`的时候，`left`要等于`mid + 1`？（`right`同理）
+  - 因为`left`和`right`所定义的是一个闭区间。
+  - 如果`mid`元素不是目标元素，那么`mid`元素肯定不是我们要找的元素，所以我们可以把`mid`元素排除在搜索范围之外。
+
 
 #### Look for left-most target
 
