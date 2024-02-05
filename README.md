@@ -286,20 +286,65 @@ Example Questions:
 
 ### 3.4. Binary Search on Arrays
 
-Code structure:
+二分查找的思路很简单，但是细节处理很复杂。比如`while`里用`<`还是`<=`，更新左右指针时是等于`mid`还是`mid + 1`还是`mid - 1`。
+
+#### Binary Search Template
+
+**核心框架：**
+- `left`和`right`指针的初始位置有两种情况，一种是`right`指向`len(nums)`（non-inclusive），另一种是`right`指向`len(nums) - 1`（inclusive）
+- `while`循环的条件：`left < right`或`left <= right`
+- `mid`的计算：`mid = left + (right - left) // 2`，避免溢出
+- 更新指针的时候，`left`和`right`的更新有两种情况，一种是`left = mid + 1`，另一种是`right = mid - 1`
 
 ```python
 def search(nums: list, target: int):
     left = 0
-    right = len(nums)  # right = len(nums-1)
+    right = ...
   
-    while left < right:  # while left <= right, if inclusive
+    while ...:
         mid = left + (right - left) // 2  # use // operator and avoid overflow
+        
+        if nums[mid] == target:
+            ...
+        elif nums[mid] < target:
+            left = ... 
+        elif nums[mid] > target:
+            right = ...
+  
+```
+
+1. Non-inclusive `right` pointer
+```python
+def search(nums: list, target: int):
+    left = 0
+    right = len(nums)
+  
+    while left < right:
+        mid = left + (right - left) // 2  # use // operator and avoid overflow
+        
         if nums[mid] == target:
             ...
         elif nums[mid] < target:
             left = ...  # update left pointer
-        else:
+        elif nums[mid] > target:
+            right = ... # update right pointer
+  
+```
+
+2. Inclusive `right` pointer
+```python
+def search(nums: list, target: int):
+    left = 0
+    right = len(nums) - 1
+  
+    while left <+ right:
+        mid = left + (right - left) // 2  # use // operator and avoid overflow
+        
+        if nums[mid] == target:
+            ...
+        elif nums[mid] < target:
+            left = ...  # update left pointer
+        elif nums[mid] > target:
             right = ... # update right pointer
   
 ```
