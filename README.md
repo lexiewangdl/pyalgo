@@ -332,21 +332,30 @@ def search(nums: list, target: int):
 ```
 
 2. Inclusive `right` pointer
+
+- 为什么这里while循环的条件是`left <= right`？
+  - 因为`right`指向的是`len(nums) - 1`，所以`left`和`right`所定义的是一个闭区间。
+  - 这种情况下，`left`和`right`指向的两个元素也都属于搜索范围内。
+  - 什么时候搜索范围为空？是当`left > right`，也就是`left`指向了`right`的右边。
+  - 什么时候搜索范围只有一个元素？是当`left == right`，也就是`left`和`right`指向了同一个元素。
+  - 所以，`while`循环的终止条件是，要么找到了目标元素，要么搜索范围为空。所以这里循环条件是`left <= right`。
+
 ```python
 def search(nums: list, target: int):
     left = 0
     right = len(nums) - 1
   
-    while left <+ right:
+    while left <= right:
         mid = left + (right - left) // 2  # use // operator and avoid overflow
         
         if nums[mid] == target:
-            ...
+            return mid
         elif nums[mid] < target:
-            left = ...  # update left pointer
+            left = mid + 1
         elif nums[mid] > target:
-            right = ... # update right pointer
+            right = mid - 1
   
+    return -1
 ```
 
 #### Look for left-most target
