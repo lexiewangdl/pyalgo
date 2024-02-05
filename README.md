@@ -426,31 +426,16 @@ def search_right_bound(nums: list, target: int):
         return left - 1  # ** important **
 ```
 
-Why this method can find the right-most target?
+为什么`left = mid + 1`？因为我们要找最右侧的`target`，所以当`nums[mid] == target`的时候，我们要继续在右边搜索，所以要`left = mid + 1`
+（`mid`已经搜索过了，不需要再看）
 
-- Whenever we have found a target, we update `left = mid + 1`
-- This will cause the search to continue on the right side of `mid`
-- This means that once we have found a target, we will keep looking for more targets on the right side of `mid`
-- If there are no more targets on the right side of `mid`, `left` will be the index of the first element that is greater than `target`
-- Prior to returning, we return `left - 1` to get the index of the right-most target
+为什么最后返回`left - 1`？关键在于每当我们找到一个等于`target`的元素时，我们都要继续在右边搜索，`left = mid + 1`。
+这就意味着，当循环结束的时候，`left`指向的是第一个大于`target`的元素，所以`left - 1`就是最右侧的`target`。
+由于`left`和`right`在循环结束之后是相等的，所以返回`right - 1`也是一样的。
 
-Why return `left - 1` and not `right`?
+如何确定`target`是否找到了？ 在返回之前，check if the element at `left - 1` is equal to `target`: `return nums[left - 1] == target ? left - 1 : -1`
 
-- When exiting the while loop, `left` and `right` will be equal
-- However, since the way we update `left` is `left = mid + 1`,
-  when we exit the while loop, `nums[left]` is not necessarily equal to `target`
-
-What if `nums` doesn't contain `target`?
-
-- Prior to returning, check if the element at `left - 1` is equal to `target`:
-  - `return nums[left - 1] == target ? left - 1 : -1`
-
-Why check whether `left - 1` is out of bounds?
-
-- The range of `left` is `[0, len(nums)]`, because when we exit the while loop,
-  `left` and `right` will be equal
-- If `left == 0`, then `left - 1` will be out of bounds, this happens when the left pointer has never moved
-
+为什么要检查`left - 1`是否越界？因为`left`可能等于0，这时`left - 1`就越界了。
 
 ### 3.5. Heap
 
