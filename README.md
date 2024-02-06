@@ -233,16 +233,39 @@ for i in range(1, len(nums)):
 
 The sliding window technique is used to solve *subarray* and *substring* problems.
 
-Time complexity is usually O(N) because each element will only be added to window once and hence removed from window once (as `left` and `right` will never decrease).
+**时间复杂度**：O(N)因为每个元素只会被加入窗口一次，被移出窗口一次。指针只会向右移动，不会向左移动。
 
-Key Questions:
+**指针初始化**：设计为**开区间**能避免不必要的麻烦。`left, right = 0, 0`，初始化后窗口内没有元素。
 
-1. 什么时候扩大窗口？
-2. 什么时候缩小窗口？
-3. 什么时候更新结果？
+**关键问题**：
+1. 什么时候扩大窗口？（什么时候移动`right`指针？）
+2. 什么时候缩小窗口？(什么时候移动`left`指针？）缩小窗口时需要更新哪些数据？
+3. 什么时候更新结果？（在扩大窗口的时候还是缩小窗口的时候？）
 
-Template:
+#### Basic Template
 
+```python
+left, right = 0, 0
+
+while left < right and right < len(nums):
+    # 1. Expand window
+    window.add(nums[right])
+    right += 1
+    ...
+  
+    # 2. Shrink window
+    while window_needs_shrink:
+        ...
+        window.remove(nums[left])
+        left += 1
+  
+    # 3. Update result
+    ...
+  
+    right += 1
+```
+
+#### Detailed Template
 ```python
 def sliding_window(s: str, t: str):
     left = 0
