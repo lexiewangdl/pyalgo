@@ -40,6 +40,7 @@ data structures and what kind of problems they are useful for.
       2. [Palindrome problems on linked lists](#932-palindrome-problems-on-linked-lists) / 链表回文串
       3. [Palindrome problems on arrays](#933-palindrome-problems-on-arrays) / 数组回文串
       4. [Palindrome problems on integers](#934-palindrome-problems-on-integers) / 整数回文串
+10. Backtracking / 回溯
 
 ## 1. Two Pointers
 
@@ -715,3 +716,47 @@ Initialize `temp = x`, while `temp > 0`, find the last digit using `digit = temp
 Update `y` at each step, `y = y * 10 + digit`. Finally, check if `y == x`.
 
 Example: [9. Palindrome Number](math/palindrome_number.py)
+
+## 10. Backtracking / 回溯
+
+回溯问题相当于遍历决策树。每个节点都是一个合法答案，可以通过遍历所有的节点得到所有的合法答案。
+在每一个回溯树节点上，需要考虑：
+1. 路径：已经做出的选择
+2. 选择列表：当前可以做的选择
+3. 结束条件：到达决策树底层，无法再做选择的条件
+
+回溯算法是遍历树枝，DFS是遍历节点。
+
+### 10.1. Template
+
+```python
+result = []
+
+def backtrack(path, choices):
+    if end_condition:
+        result.append(path)
+        return
+
+    for choice in choices:
+        # make a choice
+        ...
+        # backtrack
+        backtrack(path, choices)
+        # undo the choice
+        ...
+```
+
+- 在`for`循环里，在`backtrack()`之前做出选择，在结束后撤销选择。
+- `end_condition`可以是到达决策树底层，也就是`choices`为空的时候。
+- `path`和`choices`是每个节点的属性。想要在正确的时间点操作，需要在前序位置和后序位置两个特殊位置操作。
+  ```python
+    def traverse(node):
+        for child in node.children:
+            # pre-order
+            ...
+            traverse(child)
+            # post-order
+            ...
+   ```
+  - 前序位置：刚进入某个节点的位置进行操作
+  - 后序位置：正要离开某个节点的位置进行操作
