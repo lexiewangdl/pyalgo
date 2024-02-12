@@ -791,6 +791,7 @@ nums = [1, 2, 3]
 ```
 - 在每个树枝上，进行一个选择。
 - 保持元素的相对顺序不变，避免重复的选择。比如在选择`2`以后，不能再选择`1`（数组中出现在`2`之前的元素）。
+- 用`start`来保证元素`nums[start]`之后只会出现`nums[start+1...]`之后的元素。
 
 例题：[78. Subsets](/backtrack/subsets.py) 元素不重复，不可以重复选取
 
@@ -798,5 +799,13 @@ nums = [1, 2, 3]
 同上，只是`end_condition`变为`len(path) == k`。
 
 例题：[77. Combinations](/backtrack/combinations.py) 元素不重复，不可以重复选取，每个合法答案里个数个数为`k`
+
+#### 10.2.3. 排列：元素不重，不可复选
+
+- 与组合问题不同，在`nums`中第`i`个元素被选中后，`nums`中位置在`i`之前的元素还可以被选中。
+- 用`used`数组来记录哪些元素已经被选中。每次做选择的时候，标记`used[i] = True`，撤销选择的时候，标记`used[i] = False`。
+- 如果题目要求给出个数为`k`的排列，只需要改变`end_condition`为`len(path) == k`。
+
+例题：[46. Permutations](/backtrack/permutations.py) 元素不重复，不可以重复选取。
 
 
