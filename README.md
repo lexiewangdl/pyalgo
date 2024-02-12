@@ -793,12 +793,12 @@ nums = [1, 2, 3]
 - 保持元素的相对顺序不变，避免重复的选择。比如在选择`2`以后，不能再选择`1`（数组中出现在`2`之前的元素）。
 - 用`start`来保证元素`nums[start]`之后只会出现`nums[start+1...]`之后的元素。
 
-例题：[78. Subsets](/backtrack/subsets.py) 元素不重复，不可以重复选取
+例题：[78. Subsets](/backtrack/subsets.py) 
 
 #### 10.2.2. 组合/子集：元素无重，不可复选，个数为`k`
 同上，只是`end_condition`变为`len(path) == k`。
 
-例题：[77. Combinations](/backtrack/combinations.py) 元素不重复，不可以重复选取，每个合法答案里个数个数为`k`
+例题：[77. Combinations](/backtrack/combinations.py) 
 
 #### 10.2.3. 排列：元素不重，不可复选
 
@@ -806,6 +806,25 @@ nums = [1, 2, 3]
 - 用`used`数组来记录哪些元素已经被选中。每次做选择的时候，标记`used[i] = True`，撤销选择的时候，标记`used[i] = False`。
 - 如果题目要求给出个数为`k`的排列，只需要改变`end_condition`为`len(path) == k`。
 
-例题：[46. Permutations](/backtrack/permutations.py) 元素不重复，不可以重复选取。
+例题：[46. Permutations](/backtrack/permutations.py) 
 
+#### 10.2.4. 组合/子集：元素可重复，不可复选
+```python
+nums = [1, 2, 2]
 
+            []
+        /   |   \X 
+      [1]  [2]  [2]
+      / \X    \   
+ [1,2] [1,2]  [2,2]  
+    /
+ [1,2,2]
+```
+- 如上所示，在第一个`2`被选中后，第二个`2`还可以被选中。但是这样会导致重复的结果。
+- 所以，如果有重复的元素在同一层的树枝上，就需要跳过重复的元素。比如从第0层到第1层的树枝上，第二个`2`就需要跳过。
+- 在开始回溯之前，先将`nums`排序，这样重复的元素就会相邻：`sort(nums)`。
+- 在`for` loop里做选择的时候，如果`i > start`并且`nums[i] == nums[i-1]`，就跳过这个元素。
+- 为什么要`i > start`？因为`start`之前的元素不能被选了，`start`相当于我们现在要创建的节点的parent node，只有在`start`之后的元素才能被选。
+- 如果设置`i > 0`，就会有bug，因为如果值相同的元素不在同一层（不是同层相邻的树枝），那么就不能跳过。比如`[2, 2]`里，第一个`2`和第二个`2`不在同一层，所以不能跳过。
+
+例题：[90. Subsets II](/backtrack/subsets_2.py)
