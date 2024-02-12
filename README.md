@@ -727,6 +727,11 @@ Example: [9. Palindrome Number](math/palindrome_number.py)
 
 回溯算法是遍历树枝，DFS是遍历节点。
 
+细节注意：
+- 将合法答案加入结果集的时候，要注意深拷贝`self.result.append(path.copy())`。
+- 做出选择：`path.append(choice)`
+- 撤销选择：`path.pop()`
+
 ### 10.1. Template
 
 ```python
@@ -772,8 +777,7 @@ def backtrack(path, choices):
 
 无论提醒如何变化，本质都是穷举所有可能的结果，可以用树状结构来表示。可以使用回溯算法来解决。
 
-#### 10.2.1. Combination / 组合
-组合/子集问题的回溯树：
+#### 10.2.1. 组合/子集：元素不重复，不可以重复选取
 ```python
 nums = [1, 2, 3]
 
@@ -790,8 +794,9 @@ nums = [1, 2, 3]
 
 例题：[78. Subsets](/backtrack/subsets.py) 元素不重复，不可以重复选取
 
+#### 10.2.2. 组合/子集：元素无重，不可复选，个数为`k`
+同上，只是`end_condition`变为`len(path) == k`。
 
-
-#### 10.2.2. Permutation / 排列
+例题：[77. Combinations](/backtrack/combinations.py) 元素不重复，不可以重复选取，每个合法答案里个数个数为`k`
 
 
