@@ -828,3 +828,15 @@ nums = [1, 2, 2]
 - 如果设置`i > 0`，就会有bug，因为如果值相同的元素不在同一层（不是同层相邻的树枝），那么就不能跳过。比如`[2, 2]`里，第一个`2`和第二个`2`不在同一层，所以不能跳过。
 
 例题：[90. Subsets II](/backtrack/subsets_2.py)
+
+#### 10.2.5. 组合/子集：元素可重复，不可复选，答案合为`target`
+
+- 因为元素可以重复，所以需要排序，方便之后的pruning。
+- 因为答案不能有duplicates，所以需要用`start`来保证不选择之前出现的元素。
+- 因为元素可以重复，所以在`for` loop里，要检查当`i > start`并且`nums[i] == nums[i-1]`时，`continue`，跳过重复的元素。
+- 合法答案需要和为`target`，所以需要一个`path_sum`参数，每次做选择和撤销选择的时候更新。
+- `end_condition`是`path_sum == target`。
+- 当`path_sum > target`的时候，可以直接`return`，因为之后的元素都会更大，不可能再有合法答案了。可以节省不必要的计算。
+
+例题：[40. Combination Sum II](/backtrack/combination_sum_2.py)
+
