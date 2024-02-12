@@ -840,3 +840,7 @@ nums = [1, 2, 2]
 
 例题：[40. Combination Sum II](/backtrack/combination_sum_2.py)
 
+#### 10.2.6. 排列：元素可重，不可复选
+
+#### 10.2.7. 
+
