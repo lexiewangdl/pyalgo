@@ -41,6 +41,8 @@ data structures and what kind of problems they are useful for.
       3. [Palindrome problems on arrays](#933-palindrome-problems-on-arrays) / 数组回文串
       4. [Palindrome problems on integers](#934-palindrome-problems-on-integers) / 整数回文串
 10. Backtracking / 回溯
+11. Dynamic programming / 动态规划
+12. Breadth-first search (BFS) / 广度优先搜索
 
 ## 1. Two Pointers
 
@@ -844,3 +846,92 @@ nums = [1, 2, 2]
 
 #### 10.2.7. 
 
+## 11. Dynamic Programming / 动态规划
+
+动态规划问题一般是求最值。比如minimum edit distance。
+
+动态规划的核心思路是穷举，为了求最值，要把所有可能都穷举出来，然后在其中找最值。
+
+动态规划三要素：
+1. 状态转移方程
+    1. 比如斐波那契数列，`f(n) = f(n-1) + f(n-2), n > 2`，`f(1) = 1, f(2) = 1`。
+   2. 如果我们发现每次状态转移只需要 DP table 中的一部分，那么可以尝试缩小 DP table 的大小，只记录必要的数据，从而降低空间复杂度。
+2. 最优子结构
+3. 重叠子问题
+   1. 重叠子问题：在递归树中，有很多节点是重复的，比如斐波那契数列，计算`f(4)`的时候，要计算`f(3)`和`f(2)`，计算`f(3)`的时候，要计算`f(2)`和`f(1)`，`f(2)`被重复计算了。
+
+如何定义状态转移方程：
+1. 明确 base case
+2. 明确状态
+3. 明确选择
+4. 明确 dp 数组的定义
+
+递归的问题，最好都画出递归树，对分析算法的复杂度，寻找算法低效的原因都有巨大帮助。
+
+递归算法的时间复杂度就是用子问题个数乘以解决一个子问题需要的时间。
+
+为了避免递归算法的重复计算，可以使用备忘录`memo`，算出每个子问题答案后，都保存在`memo`里，下次遇到相同的子问题，就直接在`memo`里查找。
+
+动态规划的两种实现方式：（[source](labuladong.online/algo/)）
+1. 自顶向下，递归求解
+   1. 比如斐波那契数列，计算`f(10)`时，逐渐分解规模，直到`f(1)`和`f(2)`，然后逐渐返回，直到`f(10)`。
+2. 自底向上，迭代求解
+    1. 比如斐波那契数列，从`f(1)`和`f(2)`开始，自底向上推导出`f(10)`。
+
+```python
+# 自顶向下递归的动态规划
+def dp(状态1, 状态2, ...):
+    for 选择 in 所有可能的选择:
+        # 此时的状态已经因为做了选择而改变
+        result = 求最值(result, dp(状态1, 状态2, ...))
+    return result
+
+# 自底向上迭代的动态规划
+# 初始化 base case
+dp[0][0][...] = base case
+# 进行状态转移
+for 状态1 in 状态1的所有取值：
+    for 状态2 in 状态2的所有取值：
+        for ...
+            dp[状态1][状态2][...] = 求最值(选择1，选择2...)
+```
+
+斐波那契数列：
+- 根据状态转移方程可以发现，不需要存储所有的状态，只需要存储`f(n-1)`和`f(n-2)`就可以了。
+- 这样可以把空间复杂度降到`O(1)`。
+
+## 12. Breadth First Search / 广度优先搜索
+BFS的本质就是让在一幅「图」中找到从起点 start 到终点 target 的最近距离。
+比如走迷宫，哪些格子可以走，哪些格子是墙。两个单词，把一个换成另一个，每次只能替换一个字母，最少需要换几次。
+
+```python
+class Node:
+    def __init__(self, val: int):
+        self.val = val
+        self.neighbors = []
+
+def BFS(start: Node, target: Node) -> int:
+    q = deque() # Use a queue to store nodesu
+    visited = set() # Mark nodes as visited to avoid duplicates
+    q.append(start) # Append starting point to queue
+    visited.add(start)
+
+    step = 0 # 记录扩散的步数
+
+    while q:
+        step += 1
+        size = len(q)
+        # 将当前队列中的所有节点向四周扩散
+        for i in range(size):
+            cur = q.popleft()
+            # 划重点：这里判断是否到达终点
+            if cur == target:
+                return step
+            # 将cur相邻节点加入队列
+            for x in cur.neighbors:
+                if x not in visited:
+                    q.append(x)
+                    visited.add(x)
+    # 如果走到这里，说明在图中没有找到目标节点
+    return -1
+```
