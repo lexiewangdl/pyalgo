@@ -614,7 +614,60 @@ Eventually, the two pointers will meet at the intersection node, or `None` if th
 
 ## 7. Graph Algorithms
 
-### 7.1. Topological Sort
+Graphs are made up of nodes and edges. Graphs can be directed or undirected, and can be cyclic or acyclic.
+
+图的逻辑结构跟多叉树节点的结构几乎一样。适用于树的DFS和BFS算法也适用于图。
+
+```python
+class Vertex:
+    def __init__(self):
+        self.id = 0
+        self.neighbors = None
+
+class TreeNode:
+    def __init__(self, val: int):
+        self.val = val
+        self.children = []
+```
+
+不过实际上，很少用到以上逻辑结构来表示图。通常用邻接表或邻接矩阵来表示图。
+
+![Adjacency List and Adjacency Matrix](https://notes.shichao.io/clrs/figure_22.1.png)
+
+在邻接表里，用一个array of lists来表示图，每个节点的邻居都是一个list。占用空间更少，但无法快速判断两个节点是否相连。
+
+在邻接矩阵里，如果节点`a`和`b`相连，就把`matrix[a][b]`设为1。可以快速判断两个节点是否相连，但是占用空间更多。
+
+**度（Degree）**：一个节点的度是指与它相连的边的数量。In-degree和out-degree分别是指指向节点的边的数量和从节点出发的边的数量。
+
+如果是weighted directed graph，邻接矩阵里的元素可以是边的权重。如果值为0，表示没有edge连接两个节点。邻接表里的list里的元素可以是一个tuple，包含邻居节点的id和边的权重。
+
+### 7.1. Graph Traversal / 图的遍历
+
+需要一个`visited`来记录已经访问过的节点，避免重复访问。尤其是因为图可能有环，所以需要`visited`来避免死循环。
+
+处理路径相关的问题，需要用到一个`onPath`来记录从起点到当前节点的路径。比如拓扑排序。对于`onPath`的操作很像
+回溯算法里做选择和撤销选择的动作。区别在于位置：回溯算法的「做选择」和「撤销选择」在 for 循环里面，而对 onPath 数组的操作在 for 循环外面。
+因为回溯算法是在树枝上进行操作，而对于图，应该用 DFS 算法，即把 onPath 的操作放到 for 循环外面，否则会漏掉记录起始点的遍历。
+
+```python
+# 记录被遍历过的节点
+visited = []
+# 记录从起点到当前节点的路径
+onPath = []
+
+def traverse(graph, s):
+    if visited[s]:
+        return
+    # 经过节点 s，标记为已遍历
+    visited[s] = True
+    # 做选择：标记节点 s 在路径上
+    onPath[s] = True
+    for neighbor in graph.neighbors(s):
+        traverse(graph, neighbor)
+    # 撤销选择：节点 s 离开路径
+    onPath[s] = False
+```
 
 ### 7.2
 
