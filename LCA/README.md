@@ -42,6 +42,8 @@ def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
 
 - 如果要寻找的节点可能不在二叉树中，那就不能在前序位置直接返回。
 - 而是需要对整个二叉树进行完全搜索，也就是说需要在后序位置返回。
+- 同时，需要两个global variables `found_p`和`found_q`来记录是否找到了`p`和`q`。
+- 在后序位置，判断现在的节点是不是`p`或`q`，如果是的话，就将`found_p`或`found_q`设置为`True`。然后像前序位置一样，如果遇到了目标值之一，就返回。
 
 例题二：[1644. Lowest Common Ancestor of a Binary Tree II](#1644-lowest-common-ancestor-of-a-binary-tree-ii-medium)，
 在二叉书中寻找两个节点的LCA，但是节点不一定存在于二叉树中。
