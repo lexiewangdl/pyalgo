@@ -1,8 +1,9 @@
 # Lowest Common Ancestor (LCA)
 
-## Scenarios
-- `q`和`p`的LCA不是`q`或`p`本身，而是一个节点`r`，满足`r`是`q`和`p`的祖先节点，且`r`的深度尽可能大。
-- `q`和`p`的LCA是`q`或`p`本身。
+## Summary
+- `q`和`p`的LCA可能是`q`或`p`本身，也可能是`q`或`p`的祖先节点。
+- 如果提供一个list of nodes，要找其中所有节点的LCA，需要将所有节点的values存储在一个`set`中，然后在DFS遍历二叉树时，不要判断`node.val == q.val or node.val == p.val`，而是判断当前节点的值是否在`set`中。（注意：`p`和`q`必须都存在于二叉树中，且二叉树节点的值没有重复）
+- 如果二叉树中不一定有`q`和`p`，那么需要在DFS遍历二叉树时，判断`node.val == q.val or node.val == p.val`，
 
 ## Code Template
 
@@ -35,11 +36,17 @@ def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
 
 ```
 
-## Example
+- 如果要寻找的节点可能不在二叉树中，那就不能在前序位置直接返回。
+- 而是需要对整个二叉树进行完全搜索，也就是说需要在后序位置返回。
+
+
+
+## Problems
 
 ### 1676. [Lowest Common Ancestor of a Binary Tree IV](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iv/) (Medium)
 - 与在二叉树中寻找两个节点不同，这道题要求是在二叉树中寻找**多个节点**的最近公共祖先节点。
 - Input `nodes` 是一个列表，里面包含了多个节点。
+- **所有节点都存在于二叉树中，且二叉树节点的值没有重复。**
 
 **Solution**
 - 创建一个`values = set()`，用来存储所有的需要寻找的节点值。因为题目中说了节点值不会重复，所以可以用`set`存储`node.val`。
