@@ -89,4 +89,12 @@ nodes = [6, 7, 2, 4]
 - 所以最终返回的是跟节点3。
 
 ## 1644. [Lowest Common Ancestor of a Binary Tree II](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-ii/) (Medium)
-
+- 用两个boolean变量`found_p`和`found_q`来记录是否找到了`p`和`q`。
+- 在每个节点上，需要进行如下操作：
+  - 首先判断`if node`，如果`node`为空，那么直接返回`None`。
+  - 然后在左右子树上寻找`p`和`q`，将返回值分别赋值给`left`和`right`。
+  - 判断现在的节点是不是LCA，`if left and right: return node`
+  - 在后序位置，判断现在的节点是否是`p`或`q`，如果是的话，就将`found_p`或`found_q`设置为`True`。
+  - 最后，返回`left if left else right`。
+- 主函数里，首先`res = self.find(root, p, q)`
+- 然后检查`p`和`q`是否都在二叉树里，如果都找到了，那么返回`res`，否则返回`None`。
