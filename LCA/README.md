@@ -10,6 +10,10 @@
 - 这是最基本的框架，适用于在二叉树中寻找**两个节点**的最近公共祖先节点。
 - 但是，节点必须存在于树中，而且不能有重复值，否则需要修改代码。
 
+例题一：[1676. Lowest Common Ancestor of a Binary Tree IV](#1676-lowest-common-ancestor-of-a-binary-tree-iv-medium)，
+在二叉树中寻找多个节点的LCA，所有节点都在二叉树中，且二叉树节点的值没有重复。
+
+
 ```python
 def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
     # 在二叉树中寻找 val1 和 val2 的最近公共祖先节点
@@ -38,6 +42,10 @@ def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
 
 - 如果要寻找的节点可能不在二叉树中，那就不能在前序位置直接返回。
 - 而是需要对整个二叉树进行完全搜索，也就是说需要在后序位置返回。
+
+例题二：[1644. Lowest Common Ancestor of a Binary Tree II](#1644-lowest-common-ancestor-of-a-binary-tree-ii-medium)，
+在二叉书中寻找两个节点的LCA，但是节点不一定存在于二叉树中。
+
 
 
 
@@ -80,4 +88,5 @@ nodes = [6, 7, 2, 4]
 - 回到根节点3，发现`left`（节点5）和`right`（节点1）都不为空，所以返回3。
 - 所以最终返回的是跟节点3。
 
+## 1644. [Lowest Common Ancestor of a Binary Tree II](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-ii/) (Medium)
 
