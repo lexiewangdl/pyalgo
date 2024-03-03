@@ -194,6 +194,56 @@ When to use DFS? When to use BFS?
   - Perfectly balanced (best case): $`T(n)=\begin{cases}T(n/2)+1 & \text{if }n\gt 1\\ 3 & \text{otherwise}\end{cases} \\ T(n) = \Theta(\log n) \\ `$
   - Degenerate case (worst case): $`T(n)=\begin{cases}T(n-1)+1 & \text{if }n\gt 1\\ 3 & \text{otherwise}\end{cases} \\ T(n) = \Theta(n)`$
 
+### 2.7. Lowest Common Ancestor (LCA)
+
+基本框架：
+```python
+def find(root: TreeNode, val1: int, val2: int) -> TreeNode:
+    # base case
+    if not root:
+        return None
+    # 前序位置，看看 root 是不是目标值
+    if root.val == val1 or root.val == val2:
+        return root
+    
+    # 去左右子树寻找
+    left = find(root.left, val1, val2)
+    right = find(root.right, val1, val2)
+    # 后序位置，已经知道左右子树是否存在目标值
+
+    return left if left else right
+```
+
+如何找到两个节点`q`和`p`的最近公共祖先？只需要在**后序位置**判断，是否已经找到了`q`和`p`。
+- 在`find()`的后序位置，如果`left`和`right`都不为空，那么`root`就是`q`和`p`的最近公共祖先。
+- 还有一种情况，`q`或`p`本身可能是LCA，所以直接遇到其中一个就可以返回。因为题目中说了`q`和`p`一定存在于树中。所以如果遇到了一个，没有遇到另一个，那么遇到的这个就是LCA。
+
+注意：这种情况，必须要求`q`和`p`一定存在于树中，且不能有重复节点。
+
+```python
+def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+   
+    # 在二叉树中寻找 val1 和 val2 的最近公共祖先节点
+    def find(root, val1, val2):
+        if not root:
+            return None
+        
+        # 前序位置
+        if root.val == val1 or root.val == val2:
+            # 如果遇到目标值，直接返回
+            return root
+        
+        left = find(root.left, val1, val2)
+        right = find(root.right, val1, val2)
+        # 后序位置，已经知道左右子树是否存在目标值
+        
+        if left and right:
+            # 当前节点是 LCA 节点
+            return root
+        return left if left else right
+    return find(root, p.val, q.val)
+```
+
 ## 3. Arrays
 
 ### 3.1. Prefix Sum Algorithm
