@@ -204,6 +204,16 @@ Solution:
 - If the stack is empty after the loop, return `True`.
 
 ### 32. [Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/) (Hard)
+Solution:
+- Use a stack to store the index of elements: `stack = [-1]`, initialize with `-1` to handle edge cases, especially when we want to pop and the stack is empty.
+- Use a `for` loop to iterate through the string.
+- For each element, if it is an opening parenthesis, push its index into the stack.
+- If it is a closing parenthesis ...
+  - Pop the top element from the stack.
+  - If the stack is empty, push the current index into the stack. This is because the current closing parenthesis is not valid, and we need to update the starting index of the next valid parentheses substring. This index `i` that we push right now, is the index of the last element of the invalid part.
+  - Otherwise, calculate the length of the current valid parentheses substring by subtracting the current index from the top element of the stack. `curr_len = i - stack[-1]`
+  - Update the maximum length of valid parentheses. `max_len = max(max_len, curr_len)`
+- Return `max_len`
 
 ## Queue Summary
 Queue is a FIFO data structure. It's like a line of people waiting to get into a concert. The first person in line is the first person to get into the concert. It is commonly used in BFS (e.g. level-order traversal of binary tree).
