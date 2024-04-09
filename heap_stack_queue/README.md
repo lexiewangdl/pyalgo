@@ -180,6 +180,22 @@ Finally, pop the top _k_ elements from the heap and return them: `result = [heap
 
 
 ## Stack Problems
+- [20. Valid Parentheses](#20-valid-parentheses-easy) 🍏
+- [32. Longest Valid Parentheses](#32-longest-valid-parentheses-hard) 🍎
+
+### 20. [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) (Easy)
+Solution:
+- Use a stack to store the opening parentheses: `stack = []`
+- Use a `for` loop to iterate through the string.
+- For each element, if it is an opening parenthesis, push it into the stack.
+- If it is a closing parenthesis ...
+  - If the stack is empty, return `False` (this means that either we have never encountered an opening parenthesis, or all previous opening parentheses have been closed/matched)
+  - Otherwise, compare the top element from the stack and check if it matches the current closing parenthesis. 
+    - If it doesn't match, return `False`.
+    - If it matches, pop the top element from the stack.
+- If the stack is empty after the loop, return `True`.
+
+### 32. [Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/) (Hard)
 
 ## Queue Summary
 Queue is a FIFO data structure. It's like a line of people waiting to get into a concert. The first person in line is the first person to get into the concert. It is commonly used in BFS (e.g. level-order traversal of binary tree).
