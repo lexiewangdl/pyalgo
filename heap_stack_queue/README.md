@@ -4,9 +4,11 @@
 1. [Heap Summary](#heap-summary)
 2. [Heap in Python](#heap-in-python)
 3. [Heap Problems](#heap-problems)
-4. [Queue Summary](#queue-summary)
-5. [Queue in Python](#queue-in-python)
-6. [Queue Problems](#queue-problems)
+4. [Stack in Python](#stack-in-python)
+5. [Stack Problems](#stack-problems)
+6. [Queue Summary](#queue-summary)
+7. [Queue in Python](#queue-in-python)
+8. [Queue Problems](#queue-problems)
 
 
 ## Heap Summary
@@ -178,6 +180,12 @@ Use a helper function `dfs()` to traverse the tree in order, and add the current
 When adding the current node's value to the heap, we need to store priority as the absolute difference between the current node's value and the target value `abs(node.val - target)`: `heapq.heappush(heap, (abs(node.val - target), node.val))`.
 Finally, pop the top _k_ elements from the heap and return them: `result = [heapq.heappop(self.heap)[1] for _ in range(k)]`.
 
+## Stack in Python
+- Initialize a stack: `stack = []`
+- Push an item into a stack: `stack.append(item)`
+- Pop an item from a stack: `stack.pop()`
+- Get the top element of a stack: `stack[-1]`
+- Check if a stack is empty: `if not stack:` or `if len(stack) == 0:`
 
 ## Stack Problems
 - [20. Valid Parentheses](#20-valid-parentheses-easy) 🍏
