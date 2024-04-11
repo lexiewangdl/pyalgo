@@ -662,6 +662,8 @@ Eventually, the two pointers will meet at the intersection node, or `None` if th
 
 ### 4.7. Reverse a linked list / 反转链表 
 
+
+
 ## 7. Graph Algorithms
 
 Graphs are made up of nodes and edges. Graphs can be directed or undirected, and can be cyclic or acyclic.
@@ -833,7 +835,9 @@ Example: [9. Palindrome Number](math/palindrome_number.py)
 回溯算法是遍历树枝，DFS是遍历节点。
 
 细节注意：
-- 将合法答案加入结果集的时候，要注意深拷贝`self.result.append(path.copy())`。
+- 将合法答案加入结果集的时候，要注意深拷贝：`new_list = path[:]` 
+  - 原来可以用`self.result.append(path.copy())`，但最近总是报错。
+
 - 做出选择：`path.append(choice)`
 - 撤销选择：`path.pop()`
 
@@ -867,7 +871,7 @@ def backtrack(path, choices):
             traverse(child)
             # post-order
             ...
-   ```
+  ```
   - 前序位置：刚进入某个节点的位置进行操作
   - 后序位置：正要离开某个节点的位置进行操作
 
@@ -947,7 +951,31 @@ nums = [1, 2, 2]
 
 #### 10.2.6. 排列：元素可重，不可复选
 
-#### 10.2.7. 
+#### 10.2.7. 组合/子集：元素无重，可复选
+
+标准的组合问题通过`start`来保证不重复使用元素。这一层从`start`开始，那下一层就是从`start+1`开始选择元素，来保证`nums[start]`不会被重复使用。
+
+这道题中，想要让每个元素可以被重复使用，只需要把`i+1`改成`i`：
+
+```python
+def backtrack(nums, start):
+	for i in range(len(nums)):
+		...
+		backtrack(nums, i)
+		...
+```
+
+这样在保证每个元素可以重复使用的同时，也保证了不会出现结果中有同一个组合不同排列的情况。假设`nums = [1, 2, 3]`：
+
+```
+          []
+      1/ 2|  \3
+     [1] [2] [3]
+    / | \  # Note: 这里不会有[2,1]出现，因为在[2]这个节点，start=1，接下来不会检查index 0
+[1,1][1,2][1,3]
+```
+
+例题：[39. Combination Sum](https://leetcode.com/problems/combination-sum/) 
 
 ## 11. Dynamic Programming / 动态规划
 
@@ -1038,3 +1066,7 @@ def BFS(start: Node, target: Node) -> int:
     # 如果走到这里，说明在图中没有找到目标节点
     return -1
 ```
+
+## Important Topics
+
+- [ ] 回溯问题中的剪枝（当寻找combination时，如何避免结果里含有同一个数组的不同排列）
