@@ -104,3 +104,13 @@ For example, if the window is `[5, 2, 6]`, then we have two subarrays of length 
 Then we count the `+1` which will take care of `[6]`. Note that `[5, 2]` doesn't need to be counted because it would have been
 counted already when `r` was pointing to `[2]`.
 
+### 121. [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) (Easy)
+**When to enlarge the window?**
+- Use `sell` variable to loop through the list `prices` starting from index `1`
+- Increment `sell` by 1 every time
+
+**When to shrink the window?**
+- If `buy` price is higher than `sell` price, it means the `sell` day is a better day to buy in
+- Thus, make `buy = sell` when `prices[sell] < prices[buy]`
+- If we only increment `buy` by 1 when this condition is met, there will be bugs. This is because if the lower price (ideal buy in day) is toward the end of the array,
+  `buy` might never get to that position before `sell` reaches the end of the array
