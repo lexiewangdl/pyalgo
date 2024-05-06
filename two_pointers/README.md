@@ -48,6 +48,7 @@ The time complexity of two pointers is usually **O(N)**, where N is the length o
 11. 🚩 [11. Container With Most Water](#11-container-with-most-water-medium) 🍊
 12. [88. Merge Sorted Array](#88-merge-sorted-array-easy) 🍏
 13. 🚩 [80. Remove Duplicates from Sorted Array II](#80-remove-duplicates-from-sorted-array-ii-medium) 🍊
+14. 🚩 [15. 3Sum](#-15-3sum-medium) 🍊
 
 ## Two Pointers on Arrays
 
@@ -262,3 +263,88 @@ Initialize `left = 0` and `right = 1`. Use a while loop `while right < len(nums)
 If `nums[left] == nums[right]`, increment `right` by 1. Otherwise, increment `left` by 1, and set `nums[left]` to be equal to `nums[right]`.
 Note that `left` must be incremented by 1 before setting `nums[left]` to be equal to `nums[right]`, because we want to keep the first two occurrences of a number, and we want to overwrite the third occurrence of the number.
 After the while loop, return `left + 1`.
+
+### 🚩 15. [3Sum](https://leetcode.com/problems/3sum/) (Medium)
+
+[Python solution](three_sum.py)
+
+这道题是 Two Sum 和 Two Sum II - Input Array is Sorted 的变形，需要结合两道题中的技巧。
+
+求三数之和为`0`或者`target`的根本在于，将input array `nums`中任意一个数拿出来当三数中的第一个数，然后在余下的数字中进行Two Sum操作。
+所以，解题大框架在于用一个`for` loop来选择`nums`中的第`i`个数作为三数中的第一个数，然后在`i+1`到`len(nums)-1`这个inclusive区间内做Two Sum。
+这里不需要考虑`i+1`位置以前的数，因为如果前面的数可以和其他数组成triplet，那就已经会被加入到结果中了。
+
+根据 Two Sum II - Input Array is Sorted 的解法，可以想到在开始循环之前将`nums`排序（`nums.sort()`），
+这样就可以用 two pointers 的方法，用对撞指针来高效地找到`i+1`到`len(nums)-1`区间内符合 two sum 的 pairs。
+
+解题框架为：
+```python
+def two_sum(nums, start, target):
+    # This function returns a list of tuples (pairs of numbers) that sum up to `target`
+    ...
+
+def three_sum(nums, target):
+    nums.sort()
+    
+    results = []
+    
+    for i in range(0, len(nums)):
+        ...
+        
+        num1 = nums[i]
+        two_sum_target = target - num1
+        
+        # Find two numbers that sum up to `two_sum_target`
+        pairs = two_sum(nums=nums, start=i+1, target=two_sum_target)
+        
+        for pair in pairs:
+            results.append([num1, pair[0], pair[1]])
+
+    return
+```
+
+这道题还要求避免重复结果。如果一个triplet中三个数和另一个triplet的三个数重复，那只需要加入其中一个triplet即可。
+想要避免重复结果，需要考虑两种情况。
+1. **Triplet中的第一个数与之前结果中第一个数重复。** 这也就是`nums[i]`与`nums[i-1]`相等的情况。可以在`for` loop里最开始的位置用一个`if` clause 来判断：`if i > 0 and nums[i] == nums[i-1]: continue`
+2. **Triplet中的后两个数与之前结果中重复。** 比如`nums = [-2, 0, 0, 2, 2]`的情况下，当第一个数为`-2`，如果只是用`two_sum()` function来寻找
+  所有符合条件的pairs，那么会得到两个pairs：`[0, 2], [0, 2]`。但是显然我们需要避免这样的重复结果。这里需要对`two_sum()` function做一些额外设计。
+
+首先，为了`two_sum()`可以找到所有符合条件的pairs，不能在找到第一对pair时就`return`。
+其次，为了避免duplicate pairs，在移动左右指针时需要进行额外操作。使用`while`循环来移动`left`和`right`指针，
+使它们不断移动，直到它们所指向的数字不等于它们原来各自指向的数字。
+
+```python
+    def two_sum(self, left, target):
+        # Use a list to store all cases where the two numbers sum up to target
+        pairs = []
+
+        # Note: `right` does not need to be passed in as argument
+        # Because it will always start from the end of the array `nums`
+        right = len(self.nums) - 1
+
+        while left < right:
+            pair_sum = self.nums[left] + self.nums[right]
+            left_num = self.nums[left]
+            right_num = self.nums[right]
+
+            if pair_sum < target:
+                # Keep moving `left` pointer until it's pointing to a different number
+                # than current left_num to avoid duplicate pairs
+                while left < right and self.nums[left] == left_num:
+                    left += 1
+
+            elif pair_sum > target:
+                while left < right and self.nums[right] == right_num:
+                    right -= 1
+
+            else:
+                pairs.append((left_num, right_num))
+
+                while left < right and self.nums[left] == left_num:
+                    left += 1
+                while left < right and self.nums[right] == right_num:
+                    right -= 1
+
+        return pairs
+```
+
