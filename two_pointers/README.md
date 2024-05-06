@@ -16,6 +16,7 @@ The time complexity of two pointers is usually **O(N)**, where N is the length o
 
 #### (2) 对撞指针 Pointers that move in the opposite direction
 1. 有序数组中两数之和：Two sum in sorted array
+   - 两个指针对向移动。如果两数之和等于`target`，返回指针的index。如果小于，向右移动左指针。如果大于，向左移动右指针。
 2. 检测回文串：Find palindrome 
 
 #### (3) 分离指针 Pointers on different arrays
