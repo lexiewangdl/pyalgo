@@ -49,6 +49,7 @@ The time complexity of two pointers is usually **O(N)**, where N is the length o
 12. [88. Merge Sorted Array](#88-merge-sorted-array-easy) 🍏
 13. 🚩 [80. Remove Duplicates from Sorted Array II](#80-remove-duplicates-from-sorted-array-ii-medium) 🍊
 14. 🚩 [15. 3Sum](#-15-3sum-medium) 🍊
+15. [18. 4Sum](#18-4sum-medium) 🍊
 
 ## Two Pointers on Arrays
 
@@ -312,6 +313,7 @@ def three_sum(nums, target):
 首先，为了`two_sum()`可以找到所有符合条件的pairs，不能在找到第一对pair时就`return`。
 其次，为了避免duplicate pairs，在移动左右指针时需要进行额外操作。使用`while`循环来移动`left`和`right`指针，
 使它们不断移动，直到它们所指向的数字不等于它们原来各自指向的数字。
+注意这里需要用`while left < right`的额外条件来保证不会遇到index out of range的错误。
 
 ```python
     def two_sum(self, left, target):
@@ -347,4 +349,9 @@ def three_sum(nums, target):
 
         return pairs
 ```
+
+### 18. [4Sum](https://leetcode.com/problems/4sum/description/) (Medium)
+
+Same as previous question. Use a `for` loop to loop through the `nums` array and perform `3Sum` on the 
+remaining elements (to the right of the current number).
 
