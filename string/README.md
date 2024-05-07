@@ -2,6 +2,7 @@
 
 ## Table of Contents 
 - 🚩 [2232. Minimize Result by Adding Parentheses to Expression](#2232-minimize-result-by-adding-parentheses-to-expression--medium-) 🍊
+- 
 
 ## String Manipulation Tricks
 - Find the index of a character in a string: `expression.find('c')`
@@ -53,3 +54,12 @@ we need to **add the last digit to the result string after the loop is finished.
 the digit to the result string when the next digit is different from the current digit. If the last digit is the same
 as the second last digit, the last digit will not be added to the result string. Therefore, we need to add it manually
 after the loop is finished.
+
+### 49. [Group Anagrams](https://leetcode.com/problems/group-anagrams/) (Medium)
+1. Use `encode()` helper function to encode a string to something easily comparable with the `==` operator. In this case, use a string.
+2. The `encode()` function should result in the same output string for all anagrams, but not for non-anagrams.
+3. Using a string of length 26, where each index `i` represents the count of the `i`-th character doesn't work. This is because when the count of any character exceeds 9, there will be problems.
+4. Thus, use a `list` object of size 26 to store the count of each character. Then convert the list to string directly using `str(list_name)`
+5. Use a `dict` object where the keys are the codes (output of `encode()`) and the values are `list` objects that store the anagrams corresponding to this code
+
+
