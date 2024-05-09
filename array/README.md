@@ -14,6 +14,7 @@
   - [34. Find First and Last Position of Element in Sorted Array](#34-find-first-and-last-position-of-element-in-sorted-array-medium) 🍊
   - 🚩 [540. Single Element in a Sorted Array](#540--single-element-in-a-sorted-array-medium) 🍊
   - [1268. Search Suggestions System](#1268-search-suggestions-system-medium) 🍊
+  - 🚩 [153. Find Minimum in Rotated Sorted Array](#153-find-minimum-in-rotated-sorted-array-medium) 🍊
 - **[Other Problems](#4-other-problems) 其他问题**
   - [380. Insert Delete GetRandom O(1)](#380-insert-delete-getrandom-o--1--medium) 🍊
   - [268. Mising Number](#268-missing-number-easy) 🍏
@@ -168,6 +169,28 @@ Use the formula `2 * sum(set(array)) - sum(array)` to get the value of the singl
     - Use a for loop to get the next 3 words that start with `prefix` and append them to the result list.
   - Append the result list to the final result list.
 - Return the final result list.
+
+
+### 153. [Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/description/) (Medium)
+题目：Suppose an array of length `n` sorted in ascending order is rotated between `1` and `n` times. For example, the array `nums = [0,1,2,4,5,6,7]` might become:
+- `[4,5,6,7,0,1,2]` if it was rotated 4 times.
+- `[0,1,2,4,5,6,7]` if it was rotated 7 times.
+Notice that rotating an array `[a[0], a[1], a[2], ..., a[n-1]]` 1 time results in the array `[a[n-1], a[0], a[1], a[2], ..., a[n-2]]`.
+
+Given the sorted rotated array nums of unique elements, return the _minimum element_ of this array.
+Time complexity requirement: O(log n) time.
+
+解法：
+1. 题目要求时间复杂度O(log n)，自然而然地想到使用**二分搜索**。
+2. 首先初始化`left = 0`, `right = len(nums) - 1`，这里使用了左闭右闭的区间。
+3. 然后需要思考：在二分查找的每一步，如何判断下一步应该如何缩小搜索范围？
+   - 如果一个subarray是sorted的，那么最小值（`target`）一定在这个subarray的第一个元素。
+   - 所以，通过判断`nums[mid]`和`nums[right]`的大小关系，可以得知`target`是在`mid`左侧还是右侧的subarray。
+   - 如果`nums[mid] > nums[right]`，说明最小值一定在`mid`的右边，且不可能是`mid`，所以`left = mid + 1`。
+   - 如果`nums[mid] <= nums[right]`，说明最小值一定在`mid`的左边，且有可能是`mid`，所以`right = mid`。
+4. 如何判断我们已经找到了`target`呢？如果`left`和`right`相等，说明我们已经找到了`target`，此时返回`nums[left]`即可。
+5. `while`循环判断条件是`while left <= right`，为什么呢？因为`left`和`right`是左闭右闭的区间，如果`left < right`，说明区间内还有元素，如果`left = right`，说明区间内只有一个元素，此时`left`和`right`都指向这个元素，所以循环结束。
+
 
 ## 4. Other Problems
 
