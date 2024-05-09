@@ -1,22 +1,24 @@
 # Array Problems
 
 ## Table of Contents
-- [Prefix Sum Questions](#1-prefix-sum-questions) 前缀和数组
+- **[Prefix Sum Questions](#1-prefix-sum-questions) 前缀和数组**
   - 🚩 [528. Random Pick with Weight](#528-random-pick-with-weight-medium) 🍊
-- Difference Array Questions 差分数组
-- [Sliding Window Questions](#3-sliding-window-questions) 滑动窗口
+  - [238. Product of Array Except Self](#238-product-of-array-except-self-medium) 🍊
+- **Difference Array Questions 差分数组**
+- **[Sliding Window Questions](#3-sliding-window-questions) 滑动窗口**
   - 76 - 🚩 Minimum Window Substring 🍎
   - 567 - Permutation in String 🍊
   - 438 - Find All Anagrams in a String 🍊
-- [380. Insert Delete GetRandom O(1)](#380-insert-delete-getrandom-o--1--medium) 🍊
-- [268. Mising Number](#268-missing-number-easy) 🍏
-- [1306. Jump Game III]() 🍊
-- [36. Valid Sudoku](#36-valid-sudoku-medium) 🍊
-- [Binary Search Questions](#4-binary-search-problems) 二分搜索
+- **[Binary Search Questions](#4-binary-search-problems) 二分搜索**
   - [704. Binary Search](#704-binary-search-easy) 🍏
   - [34. Find First and Last Position of Element in Sorted Array](#34-find-first-and-last-position-of-element-in-sorted-array-medium) 🍊
   - 🚩 [540. Single Element in a Sorted Array](#540--single-element-in-a-sorted-array-medium) 🍊
   - [1268. Search Suggestions System](#1268-search-suggestions-system-medium) 🍊
+- **[Other Problems](#4-other-problems) 其他问题**
+  - [380. Insert Delete GetRandom O(1)](#380-insert-delete-getrandom-o--1--medium) 🍊
+  - [268. Mising Number](#268-missing-number-easy) 🍏
+  - [1306. Jump Game III]() 🍊
+  - [36. Valid Sudoku](#36-valid-sudoku-medium) 🍊
 
 
 ## 1. Prefix Sum Questions
@@ -42,6 +44,21 @@ Python自带的生成随机整数的方法`random.randint(a, b)`是在range [a, 
 - 此值为数组中小于`target`的元素的个数
 
 比如输入为`nums = [0, 3, 17, 18, 25]`，要找的数字为10，最后退出while loop的时候左右指针都会指向17，也就是index为2。如果数字10需要insert到数组中，它就会出现在index 2的位置。同时，数组中小于10的数字一共有两个。
+
+
+
+### 238. [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/description/) (Medium)
+题目：Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`.
+The product of any prefix or suffix of `nums` is guaranteed to fit in a 32-bit integer.
+
+Requirements: O(n) time complexity, O(1) space complexity, and no division.
+
+解法：
+1. 答案要求`answer[i]`为除了`nums[i]`之外的所有元素的乘积。可以将`answer`数组分为两部分，`left`和`right`，`left[i]`为`nums[i]`左边所有元素的乘积，`right[i]`为`nums[i]`右边所有元素的乘积。最后`answer[i] = left[i] * right[i]`。
+2. `left`数组可以通过从左到右遍历`nums`数组得到，`left[0] = 1`，`left[i] = left[i-1] * nums[i-1]`。
+3. `right`数组可以通过从右到左遍历`nums`数组得到，`right[n-1] = 1`，`right[i] = right[i+1] * nums[i+1]`。
+4. 最后遍历`nums`数组，`answer[i] = left[i] * right[i]`。
+5. 为了达到O(1)的空间复杂度，可以不需要单独存储`left`和`right`数组，而是直接在`answer`数组上进行操作。先从左到右遍历，计算每个位置左侧所有元素的乘积，直接存入`answer`数组。再从右向左遍历，使用一个`right_product`（初始为`1`）变量存储位置`i`右侧所有元素的乘积，计算结果(`answer[i] = answer[i] * right_product`)，并及时更新变量值(`right_product = right_product * nums[i]`)。
 
 
 ## 3. Sliding Window Questions
