@@ -55,8 +55,8 @@ print(heapq.heappop(heap)) # (1, 3)
 - [272. Closest Binary Search Tree Value II](#272-closest-binary-search-tree-value-ii-hard) 🍎
 
 ### 347. Top K Frequent Elements (Medium)
-1. Use `Counter()` to get the frequency of each element in the list.
-2. Store each number and its corresponding frequency in a `heap`. Note: since this heap is a min heap, and what we want is the top k frequent elements, we need to store the negative frequency of each element in the heap, `heappq.heappush(heap, (-freq, num))`. In this way, we have a max heap.
+1. Use `Counter()` to get the frequency of each element in the list, or use a dictionary to store the frequency of each element.
+2. Store each number and its corresponding frequency in a `heap`. Note: since this heap is a min heap, and what we want is the top k frequent elements, we need to store the negative frequency of each element in the heap, `heappq.heappush(heap, (-freq, element))`. In this way, we have a max heap.
 3. Pop the top k elements from the heap, `heapq.heappop(heap)[1]`.
 
 
