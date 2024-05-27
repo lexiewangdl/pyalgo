@@ -66,3 +66,25 @@ To define the recursive function, we need to know the following:
    2. To simplify this process, we can use a variable `start` to keep track of the smallest number that we can use in the current track. 
    3. This is because the questions requires that the same combination should not be added multiple times. Since our for loop goes in ascending order, when see the combination `[4, 1, 2]`, we know for sure that `[1, 2, 4]` must already been added to the result. 
    4. Thus, we can use `start` to keep track of the smallest number that we can use in the current track. `start` would be 1 if the track is empty, and it would be the last number in the track plus 1 `track[-1] + 1` if the track is not empty.
+
+
+### 79. [Word Search](https://leetcode.com/problems/word-search/) (Medium)
+- 元素有重，不可复选
+
+- Use backtracking to find if a word exists in a 2D board.
+- Use a matrix `used` or modify `board` to mark the cells that have been visited.
+  - e.g. `board[i][j] = '#'`, undo the change after the recursive call.
+- The recursive function should have the following arguments:
+  1. The current position `(i, j)` that we are at.
+  2. The current index `idx` of the character in the word that we are looking for.
+- Base cases:
+  1. `idx`: If `idx` is equal to the length of the word, we have found the target word in the `board`.
+  2. Check if we have found the target using `self.found` flag. If we have found the target, we can return immediately.
+  3. Check if the current position `(i, j)` is out of bounds.
+  4. Check if the current character in the `board` is not equal to the character in the word at index `idx`.
+  5. Check if the current position `(i, j)` has already been visited.
+  6. If all the above conditions are met, we can mark the current position as visited and recursively call the function for the neighboring cells.
+
+我们要在`board`上找到`word`，所以就是只需要找到一个长度为`len(word)`的路径，这个路径上的字符依次组成`word`即可。
+也就是说，这个路径上每个`char`都是`word`中的一个字符，且相邻的字符在`word`中也是相邻的。
+
