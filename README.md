@@ -43,6 +43,7 @@ data structures and what kind of problems they are useful for.
 10. Backtracking / 回溯
 11. Dynamic programming / 动态规划
 12. Breadth-first search (BFS) / 广度优先搜索
+13. Islands / 岛屿问题
 
 ## 1. Two Pointers
 
@@ -1066,6 +1067,9 @@ def BFS(start: Node, target: Node) -> int:
     # 如果走到这里，说明在图中没有找到目标节点
     return -1
 ```
+
+## 13. Islands / 岛屿问题
+
 
 ## Important Topics
 
