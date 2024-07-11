@@ -48,6 +48,7 @@ This directory contains solutions to graph problems.
 - [277. Find the Celebrity](#277-find-the-celebrity-medium) 🍊
 - [Union Find](#union-find)
 - 🚩 [207. Course Schedule](#207-course-schedule-medium) 🍊
+- 🚩 [210. Course Schedule II](#210-course-schedule-ii-medium) 🍊
 
 ### [277. Find the Celebrity](https://leetcode.com/problems/find-the-celebrity/) (Medium)
 
@@ -182,4 +183,35 @@ def can_finish(num_courses, prerequisites):
         
     return answer
 ```
+
+### 210. [Course Schedule II](https://leetcode.com/problems/course-schedule-ii/) (Medium)
+This question asks for an order to complete courses. This is essentially a **topological sort** problem.
+If there is a cycle in the graph, then it's not possible to come up with an order.
+Thus, we must first perform **cycle detection**, using the same methods as in [207. Course Schedule](#207-course-schedule-medium).
+
+- Helper function `build_graph(num_courses, prerequisites)` is used to build the graph using a dictionary (adjacency list)
+  to represent the dependency relationships between courses. Each item in the dictionary is: `prereq: [courses]`.
+- Global variables to maintain: 
+  - `visited` is a boolean array that notes down whether a course (node) has been visited/checked.
+  - `on_path` is a boolean array that keeps track of which nodes we have visited along current path. This is used to detect cycles.
+  - `has_cycle` is a boolean variable that is set to `True` if a cycle is detected.
+  - `postorder_result` is a list that stores the topoliogical order (which is final output of this problem) in reverse order.
+- Helper functions `traverse(graph, node)` is used to perform DFS on the graph. This is a recursive function.
+  - Base cases: 
+    - First check whether there is a cycle along current path using `if on_path[node]:`, if so, set `has_cycle` to `True`.
+    - Then, check whether the node has been visited before using `if visited[node]:`, if so, return.
+  - Pre-order operations:
+    - Set current node as `on_path` and `visited`.
+  - Traversal:
+    - Use a `for` loop to traverse all the children of the current node.
+  - Post-order operations:
+    - Set current node as not `on_path`. Just like in recursion, need to undo the operations done in pre-order.
+    - Append the current node to `postorder_result`.
+- Main function
+  - Initialize the global variables.
+  - Build the graph.
+  - Traverse the graph using DFS. Make sure to use every single node as start node (with a `for` loop), because not all nodes are connected.
+  - If there is a cycle, return an empty list.
+  - Otherwise, return the `postorder_result` in reverse order, which is `ans = postorder_result[::-1]`.
+
 
