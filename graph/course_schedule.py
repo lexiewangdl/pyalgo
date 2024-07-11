@@ -13,8 +13,8 @@ class Solution:
             graph[i] = []  # initialize empty lists
 
         for edge in prerequisites:  # O(N)
-            start_node = edge[1]  # curr course
-            end_node = edge[0]  # prereq
+            start_node = edge[1]  # first, prereq
+            end_node = edge[0]  # second, curr course
 
             # add edge to graph
             graph[start_node].append(end_node)

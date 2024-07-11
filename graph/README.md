@@ -33,6 +33,17 @@ This directory contains solutions to graph problems.
   track of nodes that are currently on the path. If we encounter a node that is already on the path, then there is a cycle.
 - Mark `onPath` as `True` when we visit a node and mark it as `False` when we finish visiting the node (exiting).
 
+## Topoligical Sort
+- Topological sort is a linear ordering of vertices such that for every directed edge `u -> v`, vertex `u` comes before `v`.
+- Topological sort is only possible for **directed acyclic graphs (DAGs)**. Not possible for graphs with cycles.
+
+![Topological Sort](https://algs4.cs.princeton.edu/42digraph/images/topological-sort.png)
+- To perform topological sort, first do **cycle detection** to check if there is a cycle in the graph.
+- How to output the order of the topological sort?
+  - Use a stack to store the order of the nodes.
+  - Use **DFS** to traverse the graph. When we finish visiting a node (i.e. post-order position), we push it to the stack.
+  - After we finish traversing the graph, we pop the nodes from the stack to get the order of the topological sort.
+
 ## Table of Questions
 - [277. Find the Celebrity](#277-find-the-celebrity-medium) 🍊
 - [Union Find](#union-find)
