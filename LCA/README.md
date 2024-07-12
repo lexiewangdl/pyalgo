@@ -23,7 +23,7 @@ def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
         
         # 前序位置
         if root.val == val1 or root.val == val2:
-            # 如果遇到目标值，直接返回
+            # 如果遇到child node目标值，直接返回
             return root
         
         left = find(root.left, val1, val2)
@@ -34,6 +34,7 @@ def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
             # 当前节点是 LCA 节点
             return root
         
+        # 处理p或q本身就是LCA的情况
         return left if left else right
     
     return find(root, p.val, q.val)
