@@ -38,7 +38,6 @@ def lowestCommonAncestor(root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
         return left if left else right
     
     return find(root, p.val, q.val)
-
 ```
 
 - 如果要寻找的节点可能不在二叉树中，那就不能在前序位置直接返回。
