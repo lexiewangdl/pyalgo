@@ -2,8 +2,11 @@
 
 ## Table of Contents
 1. Arrays
-2. ..
-3. ..
+2. [Stack, Queue, Heap](#2-stack-queue-heap)
+   1. [Stack](#stack)
+   2. [Queue](#queue)
+   3. Heap
+3. Two pointers
 4. ..
 5. ..
 6. ..
@@ -17,6 +20,33 @@
 11. ..
 12. ..
 
+## 2. Stack, Queue, Heap
+Python uses doubly-linked list to implement deque (for stack and queue), push and pop operations are O(1).
+[More details](./heap_stack_queue/README.md).
+
+#### Stack
+- Initialize: `stack = []` or `stack = collections.deque()`
+- Push: `stack.append(item)`
+- Pop: `stack.pop()`
+
+Problems:
+- [Valid parentheses](./heap_stack_queue/valid_parentheses.py): Use a stack to store left parentheses. When encounter a right parenthesis, pop the top-most left parenthesis `left = stack.pop()` from the stack, this is the left parenthesis that needs to be closed first. Then check whether this is the correct parenthesis.
+
+#### Queue
+- Initialize: `queue = []` or `queue = collections.deque()`
+- Enqueue: `queue.append(item)`
+- Dequeue: `queue.pop(0)` or `queue.popleft()` (if using deque)
+
+#### Heap
+
+## 3. Two Pointers
+
+#### 
+
+#### 
+
+#### 分离指针
+- Check for **Anagrams**: 1. sort the strings, O(n log n); 2. compare characters at each position using two pointers on each string, O(n); Total time complexity is O(n log n).
 
 ## 10. Graphs
 
