@@ -1,9 +1,12 @@
 # Object-Oriented Design (OOD)
 
 ## Table of Contents
+- [Thought Process](#thought-process)
+- [Key Concepts and Keywords](#key-concepts-and-keywords)
+- [Case Studies](#case-studies)
+  - [Dog Daycare](#1-dog-daycare)
 
-
-### 1. Thought Process
+### Thought Process
 1. Identify key requirements and constraints
 2. Break down the problem into key objects or entities involved. For each object, consider its attributes (properties) and behaviors (methods).
 3. Define relationships.
@@ -18,7 +21,7 @@
    2. Consider edge cases.
 6. Review and optimize.
 
-### 2. Key Concepts and Keywords
+### Key Concepts and Keywords
 1. **Encapsulation**: 
    - To bundle data (attributes) and methods (functions) that operate on the data into a **class**.
    - Restricts direct access to some components, preventing unintended interference and misuse.
@@ -160,4 +163,59 @@ class Daycare:
         else:
             print(f"No playground available for dog of size {dog_size}.")
 ```
+
+#### 2. Library System
+- **Requirements**: design a library system that has features like rent a book, return a book, search for book (by name and by author).
+- Key objects: `Book`, `Library`, `User`
+- `Book` class: attributes include `name`, `author`, `available` (whether this book can still be rent)
+```python
+class Book:
+    def __init__(self, name, author):
+        self.__name = name
+        self.__author = author
+        self.available = True
+
+    def get_name(self):
+        return self.__name
+
+    def get_author(self):
+        return self.__author
+
+    def rent_book(self):
+        if not self.available:
+            print("Book not available for renting.")
+            return False
+        self.available = False
+        return True
+
+    def return_book(self):
+        self.available = True
+```
+- `User` class: `id` (id of user in system), `books` (books this person rented), `rent_book(book)` and `return_book(book)` to process rentals.
+```python
+class User: 
+    def __init__(self, id):
+        self.__id = id
+        self.books = []
+
+    def rent_book(self, book):
+        if not book.rent_book:
+            print('Rental not successful.')
+            return False
+        else:
+            self.books.append(book)
+            return True
+
+    def return_book(self, book):
+        if book in self.books:
+            book.rent_book()
+            self.books.remove(book)
+            return True
+        return False
+```
+
+
+- `Library` class: attributes include `books_by_name`, `books_by_author`
+
+
 
