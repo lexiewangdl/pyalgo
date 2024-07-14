@@ -18,7 +18,8 @@
     - [Cycle Detection](#cycle-detection)
     - [Topological Sort](#topological-sort)
 11. ..
-12. ..
+12. [Dynamic Programming](#12-dynamic-programming)
+    - [Buying and Selling Stocks](#buying-and-selling-stocks)
 
 ## 2. Stack, Queue, Heap
 Python uses doubly-linked list to implement deque (for stack and queue), push and pop operations are O(1).
@@ -68,3 +69,10 @@ Problems:
 #### Topological Sort
 - Same as above, except that at **post-order position**, append current node to a global variable `post_order_result`.
 - Return the postorder_result in reverse order, which is `ans = postorder_result[::-1]`.
+
+
+## 12. Dynamic Programming
+
+#### Buying and Selling Stocks
+
+

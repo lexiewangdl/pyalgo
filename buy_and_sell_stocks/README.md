@@ -32,8 +32,11 @@ dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
 dp[i][k][1] = max(dp[i-1][k-1][0] - prices[i], dp[i-1][k][1])
 ```
 
-## Buy and Sell Once
-[121. Best Time to Buy and Sell Stock ](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+## One or infinite transactions
+- [121. Best Time to Buy and Sell Stock ](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
+- [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/)
+
+When `k == 1` or `k == inf`, there is no need to keep track of `k`. The DP formula is simple, just remove `k`.
 
 **How to initialize the base case values of DP table?**
 - `dp[0][0] = max(dp[-1][0], dp[-1][1] + prices[i])`, which would be `0`, since the latter is negative infinity.
@@ -51,5 +54,14 @@ dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
 dp[i][1] = max(dp[i-2][0] - prices[i], dp[i-1][1]) # cooldown
 ```
 
+## Transaction Fee
+
+[714. Best Time to Buy and Sell Stock with Transaction Fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/description/)
+
+Modify the DP formula to include transaction fee:
+```python
+dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i] - fee)
+dp[i][1] = max(dp[i-1][0] - prices[i], dp[i-1][1])
+```
 
 
