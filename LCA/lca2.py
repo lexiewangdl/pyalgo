@@ -33,7 +33,6 @@ class Solution:
 
         return left if left else right
 
-
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         self.found_p = False
         self.found_q = False
