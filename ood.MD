@@ -23,6 +23,7 @@
    - To bundle data (attributes) and methods (functions) that operate on the data into a **class**.
    - Restricts direct access to some components, preventing unintended interference and misuse.
    - Use private for attributes.
+   - Initialize key attributes with `__init__`.
    - Create public getters and setters to access and modify private attributes.
 ```python
 class Vehicle:
@@ -71,7 +72,7 @@ class Labradoodle(Dog):
 ```python
 class Vehicle:
     def start_engine(self):
-        print("Vehicle engine started.")
+        print("Vehicle engine started.") 
 
 class Car(Vehicle):
     def start_engine(self):
@@ -79,3 +80,84 @@ class Car(Vehicle):
 ```
 
 ### Case Studies
+
+#### 1. Dog Daycare
+- Requirements: 
+  - dogs are of different sizes, only ones of similar sizes should play together. Only dogs with valid ID and vaccination records can be admitted.
+- Key objects: `Dog`, `Playground`, `Daycare`
+  - `Daycare` has multiple `Playground`s.
+  - When a `Dog` is checked in, the vaccination status and ID must be checked.
+- `Dog` class:
+  - Attributes: `name` (string), `size` (float or int), `vaccinated`, `id_valid` (boolean)
+  - Methods: (1) `__init__` to initialize attributes, (2) `is_allowed()` to check if the dog is allowed to play.
+
+```python
+class Dog:
+    def __init__(self, name: str, size: str, vaccinated: bool, id_valid: bool):
+        self.__name = name
+        self.__size = size
+        self.__vaccinated = vaccinated
+        self.__id_valid = id_valid
+
+    def is_allowed(self):
+        return self.__vaccinated and self.__id_valid
+
+    def get_size(self):
+        return self.__size
+```
+
+- `Playground` class:
+  - Attributes: `name` or `id`, `size_group` (either for small dogs, medium dogs, or large dogs), `dogs` list to store dogs in playground.
+  - Methods: (1) `__init__` to initialize attributes, (2) `add_dog()` to add a dog to the playground. (3) `remove_dog()` to remove a dog from the playground. (4) `get_dogs()` to get all dogs in the playground.
+
+```python
+class Playground:
+    def __init__(self, name, size_group):
+        self.__name = name
+        self.__size_group = size_group
+        self.__dogs = [] # store dogs
+
+    def add_dog(self, dog):
+        self.__dogs.append(dog)
+
+    def remove_dog(self, dog):
+        self.__dogs.remove(dog)
+
+    def get_dogs(self):
+        for dog in self.__dogs:
+            print(dog.name)
+```
+
+- `Daycare` class:
+  - Attributes: `playgrounds` to store all playgrounds.
+  - Methods: (1) `__init__` to initialize attributes, (2) `check_in()` to check in a dog, (3) `check_out()` to check out a dog, (4) `assign_playground` to assign a playground to a dog.
+
+```python
+class Daycare:
+    def __init__(self, playgrounds):
+        self.__playgrounds = {
+            'small': Playground('small playground', 'small'),
+            'large': Playground('large playground', 'large')
+        }
+
+    def check_in(self, dog):
+        if dog.is_allowed():
+            print('Check in successful.')
+            self.assign_playgrounds(dog)
+        else:
+            print('Check in failed.')
+
+    def check_out(self, dog):
+        return
+
+    def assign_playgrounds(self, dog):
+        # Assign playground based on size
+        dog_size = dog.get_size()
+        if dog_size == 'small':
+            self.__playgrounds['small'].add_dog(dog)
+        elif dog_size == 'large':
+            self.__playgrounds['large'].add_dog(dog)
+        else:
+            print(f"No playground available for dog of size {dog_size}.")
+```
+
