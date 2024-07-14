@@ -208,14 +208,53 @@ class User:
 
     def return_book(self, book):
         if book in self.books:
-            book.rent_book()
+            book.renturn_book()
             self.books.remove(book)
             return True
+        print(f'User {self.__id} did not rent {book.get_name()}.')
         return False
 ```
 
 
 - `Library` class: attributes include `books_by_name`, `books_by_author`
+```python
+class Library:
+    def __init__(self):
+        self.books_by_name = dict()
+        self.books_by_author = dict()
+        return 
+    
+    def add_book(self, book):
+        self.books_by_name[book.get_name()] = book
+        self.books_by_author[book.get_author()] = book
+        return 
+    
+    def remove_book(self, book):
+        if book.get_name() in self.books_by_name:
+            self.books_by_name[book.get_name()].remove(book)
+        if book.get_author() in self.books_by_author:
+            self.books_by_author[book.get_author()].remove(book)
+        return 
 
+    def search_by_name(self, book_name):
+        return self.books_by_name.get(book_name, [])
+
+    def search_by_author(self, author_name):
+        return self.books_by_author.get(author_name, [])
+
+    def rent_book(self, user, book):
+        if user.rent_book(book):
+            print('Rental successful')
+        else:
+            print(f"Book {book.get_name()} not available.")
+        return 
+
+    def return_book(self, user, book):
+        if user.return_book():
+            print('Return successful.')
+        else:
+            print('Return failed.')
+        return
+```
 
 
