@@ -75,4 +75,24 @@ Problems:
 
 #### Buying and Selling Stocks
 
+Base case:
+- `dp[-1][..][0] = 0`, before trading session, net profit is 0.
+- `dp[-1][..][1] = -inf`, before trading session, impossible to hold stock.
+- `dp[..][0][0] = 0`, no transaction, net profit is 0.
+- `dp[..][0][1] = -inf`, no transaction, impossible to hold stock.
+
+DP formula:
+```python
+dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
+dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+```
+Adjust the formula according to situations like cooldown period and transaction fees.
+
+Calculation:
+- Use nested `for` loops, the outer loop is `for i in range(num_days):`
+- The inner loop is `for k in range(1, max_k + 1):`
+- Return `dp[n-1][k][0]`, net profit made on last day completing `k` transactions, sold all stocks purchased.
+
+For more information, reference [this page](./buy_and_sell_stocks/README.md).
+
 

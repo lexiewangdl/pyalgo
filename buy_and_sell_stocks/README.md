@@ -2,22 +2,25 @@
 
 ## Table of Contents
 - [Overview](#overview)
-- [Buy and Sell Once](#buy-and-sell-once)
+- [One or Infinite Transactions](#one-or-infinite-transactions)
+- [Cooldown Period](#cooldown-period)
+- [Transaction Fee](#transaction-fee)
+- [Transaction Limit](#transaction-limit)
 
 ## Overview
 
 The DP table needs to have the following dimensions:
 - Day (`i`)
-- Number of transactions left (`k`)
+- Number of transactions (`k`)
 - Current state (`0` for not holding, `1` for holding)
 
 The goal is to find `dp[n-1][k][0]` where `n-1` is the index of last day.
 
 The base cases are:
-- `dp[-1][..][0] = 0` (no buying on the first day)
-- `dp[-1][..][1] = -math.inf` (buying on the first day, profit is the cost)
-- `dp[..][0][0] = 0` (no transactions left, thus no profit)
-- `dp[..][0][1] = -math.inf` (no transactions left, thus no profit)
+- `dp[-1][..][0] = 0`, before trading session, net profit is 0.
+- `dp[-1][..][1] = -math.inf`, before trading session, impossible to hold stock.
+- `dp[..][0][0] = 0`, no transaction, net profit is 0.
+- `dp[..][0][1] = -math.inf`, no transaction, impossible to hold stock.
 
 DP formula:
 ```python
@@ -32,7 +35,7 @@ dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
 dp[i][k][1] = max(dp[i-1][k-1][0] - prices[i], dp[i-1][k][1])
 ```
 
-## One or infinite transactions
+## One or Infinite Transactions
 - [121. Best Time to Buy and Sell Stock ](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)
 - [122. Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/)
 
@@ -63,5 +66,15 @@ Modify the DP formula to include transaction fee:
 dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i] - fee)
 dp[i][1] = max(dp[i-1][0] - prices[i], dp[i-1][1])
 ```
+
+## Transaction Limit
+[123. Best Time to Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/description/)
+
+- Use the [general DP formula](#overview) above.
+- Use nested `for` loops:
+  - The outer loop is `for i in range(num_days):`
+  - The inner loop is `for k in range(1, max_k):`, we don't process instances where `k < 1`, i.e. when no transaction left, value is always 0 as when `dp` table is initialized.
+- Return `dp[num_days-1][max_k][0]`, net profit on last day, max number of transactions.
+
 
 
