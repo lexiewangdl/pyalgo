@@ -5,6 +5,7 @@
 - [Key Concepts and Keywords](#key-concepts-and-keywords)
 - [Case Studies](#case-studies)
   - [Dog Daycare](#1-dog-daycare)
+  - [Library and Books](#2-library-system)
 
 ### Thought Process
 1. Identify key requirements and constraints
