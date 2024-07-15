@@ -6,8 +6,8 @@
    1. [Stack](#stack)
    2. [Queue](#queue)
    3. Heap
-3. Two pointers
-4. ..
+3. [Two pointers](#3-two-pointers)
+4. Linked List
 5. ..
 6. ..
 7. ..
@@ -20,6 +20,34 @@
 11. ..
 12. [Dynamic Programming](#12-dynamic-programming)
     - [Buying and Selling Stocks](#buying-and-selling-stocks)
+
+## 1. Arrays
+
+#### Prefix Sum
+```python
+len(preSum) = len(nums) + 1
+
+preSum[0] = 0
+
+preSum[i] = preSun[i-1] + nums[i]
+
+# example
+      arr = [1, 2, 3,  4,  5]
+preSum = [0, 1, 3, 6, 10, 15]
+```
+The sum of elements within the range `[1, 3]` is equal to `preSum[4] - preSum[1] = 9`.
+
+#### Diff Sum
+`diff[i]` is the difference between `nums[i]` and `nums[i-1]`.
+```python
+diff = [0] * len(nums) # same size as input array
+
+diff[0] = nums[0]
+for i in range(1, len(nums)):
+    diff[i] = nums[i] - nums[i - 1]
+```
+
+If we need to add 5 to all elements in range `[i, j]`, then add 5 to `diff[i]` and subtract 5 from `diff[j+1]`.
 
 ## 2. Stack, Queue, Heap
 Python uses doubly-linked list to implement deque (for stack and queue), push and pop operations are O(1).
@@ -42,12 +70,14 @@ Problems:
 
 ## 3. Two Pointers
 
-#### 
-
-#### 
-
-#### 分离指针
+#### Separated Pointers
 - Check for **Anagrams**: 1. sort the strings, O(n log n); 2. compare characters at each position using two pointers on each string, O(n); Total time complexity is O(n log n).
+
+## 4. Linked List
+- Reverse Linked List
+  - Use `prev`, `curr`, and `next` pointers. Initialize `prev` to `None` (tail of reversed linked list), `curr` to `head`, and `next` to `curr.next`. Return `prev`.
+  - [Reverse Linked List](./linked_lists/reverse_linked_lists.py)
+  - [Reverse Linked List II](./linked_lists/reverse_linked_list_2.py) - Reverse part of the linked list
 
 ## 10. Graphs
 
