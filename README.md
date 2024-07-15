@@ -26,7 +26,7 @@ data structures and what kind of problems they are useful for.
    6. Stack
    7. Queue
    8. [Matrix](#38-matrix) / 二维数组、矩阵
-4. Linked lists
+4. [Linked lists](#4-linked-lists)
 5. Recursion
 6. Math
 7. [Graph algorithms](#7-graph-algorithms) / 图
@@ -40,10 +40,10 @@ data structures and what kind of problems they are useful for.
       2. [Palindrome problems on linked lists](#932-palindrome-problems-on-linked-lists) / 链表回文串
       3. [Palindrome problems on arrays](#933-palindrome-problems-on-arrays) / 数组回文串
       4. [Palindrome problems on integers](#934-palindrome-problems-on-integers) / 整数回文串
-10. Backtracking / 回溯
-11. Dynamic programming / 动态规划
-12. Breadth-first search (BFS) / 广度优先搜索
-13. Islands / 岛屿问题
+10. [Backtracking](#10-backtracking--回溯) / 回溯
+11. [Dynamic programming](#11-dynamic-programming--动态规划) / 动态规划
+12. [Breadth-first search (BFS)](#12-breadth-first-search--广度优先搜索) / 广度优先搜索
+13. [Islands](#13-islands--岛屿问题) / 岛屿问题
 
 ## 1. Two Pointers
 
